@@ -19,7 +19,7 @@ def Math(inputOutput1):
 
     root.configure(bg=bgColor)
     root.title("Math"+" v"+str(toolVersion))
-    root.iconbitmap('S:\GitHub\PixelProcesor\AA_icon.ico')
+    root.iconbitmap('S:\GitHub\PixelProcesor\img\AA_icon.ico')
     root.resizable(False,False)
 
     #####
@@ -60,7 +60,7 @@ def Math(inputOutput1):
 
     inputInputFile = Entry(frame51,width=40,font=("roboto",fontSizeSmall),bg=bgColor,fg=fgColor)
     inputInputFile.grid(row=2,column=0,sticky=S,pady=2,padx=16)
-    inputInputFile.insert(0,"FIASDAD")
+    inputInputFile.insert(0,"Import File")
 
 
 

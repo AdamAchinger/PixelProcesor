@@ -19,7 +19,7 @@ def SolidColor(inputOutput1):
 
     root.configure(bg=bgColor)
     root.title("Create Solid Color "+" v"+str(toolVersion))
-    root.iconbitmap('S:\GitHub\PixelProcesor\AA_icon.ico')
+    root.iconbitmap('S:\GitHub\PixelProcesor\img\AA_icon.ico')
     root.resizable(False,False)
 
     #####

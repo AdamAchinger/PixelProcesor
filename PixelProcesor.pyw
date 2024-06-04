@@ -1,7 +1,7 @@
 import os
-import SolidColor
-import Gradient
-import Math
+from lib import SolidColor
+from lib import Gradient
+from lib import Math
 from tkinter import * 
 from tkinter import messagebox 
 
@@ -20,7 +20,7 @@ fontSizeSmall = 13
 
 root.configure(bg=bgColor)
 root.title("Pixel Procesor"+" v"+str(toolVersion))
-root.iconbitmap('S:\GitHub\PixelProcesor\AA_icon.ico')
+root.iconbitmap('S:\GitHub\PixelProcesor\img\AA_icon.ico')
 root.resizable(False,False)
 
 #####
