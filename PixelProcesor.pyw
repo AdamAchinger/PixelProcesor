@@ -6,7 +6,7 @@ from tkinter import *
 from tkinter import messagebox 
 
 ### Version
-toolVersion = 3.0
+toolVersion = 3.1
 ###
 
 
