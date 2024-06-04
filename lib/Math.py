@@ -19,7 +19,7 @@ def Math(inputOutput1):
     root.configure(bg=bgColor)
     root.title("Math"+" v"+str(toolVersion))
     root.iconbitmap('S:\GitHub\PixelProcesor\img\AA_icon.ico')
-    #root.resizable(False,False)
+    root.resizable(False,False)
 
     #####
     # application dimensions
@@ -39,6 +39,8 @@ def Math(inputOutput1):
 
     def Generate():
         from PIL import Image
+        from tkinter import messagebox 
+
 
         Multiply3 = inputMultiply.get()
         Power3 = inputPower.get()
@@ -48,6 +50,20 @@ def Math(inputOutput1):
         Max3 = inputMax.get()
         InputFile = inputInputFile.get()    
         Output = inputOutput.get()    
+
+
+        #### Warning Message ####
+        empty = InputFile.replace(" ","")
+        empty2 = Output.replace(" ","")
+        
+        if(InputFile==inputOutput1 or empty==""):
+            messagebox.showwarning(title="Empty Directory",message="Input File Does Not Exist")
+
+        if(Output==inputOutput1 or empty2==""):
+            messagebox.showwarning(title="Empty Directory",message="Output File Does Not Exist")
+
+
+
         
         img = Image.open(InputFile)
         Width, Height = img.size
@@ -114,7 +130,7 @@ def Math(inputOutput1):
     label_1 = Label(frame1,text="Math",font=("roboto",32),bg=bgColor,fg=fgColor)
     label_1.grid(row=0,column=0,pady=3,padx=60,sticky=S)
 
-    label_2 = Label(frame1,text="RED,GREEN,BLUE",font=("roboto",12),bg=bgColor,fg=fgColor)
+    label_2 = Label(frame1,text="R,G,B",font=("roboto",12),bg=bgColor,fg=fgColor)
     label_2.grid(row=1,column=0,pady=1,padx=5,sticky=S)
 
 
@@ -193,7 +209,7 @@ def Math(inputOutput1):
     frame52 = Frame(root,width=100,bg=bgColor,highlightbackground=hlColor,highlightthickness=1)
     frame52.grid(row=6,column=0,pady=6,padx=12,sticky=S)
 
-    labelOutput = Label(frame52,text="OUTPUT FILE RGBA",font=("roboto",fontSizeSmall),bg=bgColor,fg=fgColor)
+    labelOutput = Label(frame52,text="OUTPUT FILE RGB",font=("roboto",fontSizeSmall),bg=bgColor,fg=fgColor)
     labelOutput.grid(row=1,column=0,sticky=S,pady=6,padx=16)
 
     inputOutput = Entry(frame52,width=40,font=("roboto",fontSizeSmall),bg=bgColor,fg=fgColor)
