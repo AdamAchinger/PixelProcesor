@@ -1,12 +1,13 @@
 import os
 from tkinter import * 
 from tkinter import messagebox 
+from tkinter import filedialog
 
 ### Version
-toolVersion = 1.1
+toolVersion = 2.1
 ###
 
-def Gradient(inputOutput1):
+def Gradient():
     Grad = Toplevel()
 
     root = Grad
@@ -24,8 +25,8 @@ def Gradient(inputOutput1):
 
     #####
     # application dimensions
-    appWidth = 420
-    appHeight = 470
+    appWidth = 410
+    appHeight = 440
     # get windows screan width and height
     screenWidth = root.winfo_screenwidth()
     screenHeight = root.winfo_screenheight()
@@ -44,7 +45,7 @@ def Gradient(inputOutput1):
         Color2 = inputColor2.get()
         Size = inputSize.get()
         Orient = inputOrient.get()
-        OutputDir = inputOutput.get()
+        OutputDir = Path
         Filename = inputFilename.get()
         Filetype = inputFiletype.get()
         SizeNew = Size.lower()
@@ -94,10 +95,10 @@ def Gradient(inputOutput1):
 
     #### Create Gradient #### 
     frame1 = Frame(root,width=100,bg=bgColor)
-    frame1.grid(row=0,column=0,pady=6,padx=16)
+    frame1.grid(row=0,column=0,pady=6,padx=33)
 
     label_1 = Label(frame1,text="Create Gradient",font=("roboto",32),bg=bgColor,fg=fgColor)
-    label_1.grid(row=0,column=0,pady=6,padx=16)
+    label_1.grid(row=0,column=0,sticky=S,pady=6,padx=16)
 
     #### Orientation #### 
     frame2 = Frame(root,width=100,bg=bgColor,highlightbackground=hlColor,highlightthickness=1)
@@ -129,7 +130,7 @@ def Gradient(inputOutput1):
 
     labelFilename = Label(frame7,text="FILENAME",font=("roboto",fontSizeSmall),bg=bgColor,fg=fgColor).grid(row=1,column=0,pady=6,padx=16)
     inputFilename = Entry(frame7,width=17,font=("roboto",fontSizeSmall),bg=bgColor,fg=fgColor)
-    inputFilename.grid(row=2,column=0,sticky=E,pady=2,padx=16)
+    inputFilename.grid(row=2,column=0,sticky=W,pady=2,padx=16)
     inputFilename.insert(0,"T_Gradient")
 
     #### FILETYPE #### 
@@ -138,7 +139,7 @@ def Gradient(inputOutput1):
 
     labelFiletype = Label(frame4,text="FILETYPE",font=("roboto",fontSizeSmall),bg=bgColor,fg=fgColor).grid(row=1,column=0,pady=6,padx=16)
     inputFiletype = Entry(frame4,width=17,font=("roboto",fontSizeSmall),bg=bgColor,fg=fgColor)
-    inputFiletype.grid(row=2,column=0,sticky=W,pady=2,padx=16)
+    inputFiletype.grid(row=2,column=0,sticky=E,pady=2,padx=16)
     inputFiletype.insert(0,".PNG")
 
 
@@ -161,22 +162,36 @@ def Gradient(inputOutput1):
     inputColor2.insert(0,"1,1,1")
 
     #### OUTPUT DIRECTORY #### 
-    frame5 = Frame(root,width=100,bg=bgColor,highlightbackground=hlColor,highlightthickness=1)
-    frame5.grid(row=4,column=0,pady=6,padx=12,sticky=S)
 
-    labelOutput = Label(frame5,text="OUTPUT DIRECTORY",font=("roboto",fontSizeSmall),bg=bgColor,fg=fgColor).grid(row=1,column=0,pady=6,padx=16)
-    inputOutput = Entry(frame5,width=39,font=("roboto",fontSizeSmall),bg=bgColor,fg=fgColor)
-    inputOutput.grid(row=2,column=0,sticky=W,pady=2,padx=16)
-    inputOutput.insert(0,inputOutput1)
+    frame5 = Frame(root,width=400,bg=bgColor,highlightbackground=hlColor,highlightthickness=0)
+    frame5.grid(row=5,column=0,pady=6,padx=6,sticky=W)
 
+    mainDirectory = Label(frame5,text="Directory:",font=("roboto",12),bg=bgColor,fg=fgColor)
+    mainDirectory.grid(row=2,column=0,pady=2,padx=6,sticky=W)
+
+    mainDirectoryStatus = Label(frame5,text="Unset",font=("roboto",13),bg=bgColor,fg="red")
+    mainDirectoryStatus.grid(row=2,column=0,pady=2,padx=80,sticky=W)
+
+    mainDirectoryPath = Label(frame5,text="------------",font=("roboto",12),bg=bgColor,fg=fgColor)
+    mainDirectoryPath.grid(row=3,column=0,pady=2,padx=6,sticky=W)
+
+
+    def Directory():
+        global Path
+        Path = filedialog.askdirectory(title="Main Directory")
+        mainDirectoryStatus.config(text="Ready",fg="green")
+        mainDirectoryPath.config(text=Path)
+
+
+    framePanel = Frame(root,width=400,bg=bgColor,highlightbackground=hlColor,highlightthickness=1)
+    framePanel.grid(row=4,column=0,pady=6,padx=2,sticky=S)
+
+    button = Button(framePanel,text="Set Output Directory",command=Directory,font=("roboto",fontSizeSmall),bg=bgColor,fg=fgColor)
+    button.grid(row=0,column=0,sticky=W,pady=2,padx=2)
 
     #### Generate #### 
-    frame6 = Frame(root,width=100,bg=bgColor)
-    frame6.grid(row=5,column=0,pady=10,padx=60,sticky=S)
-
-    hexButton = Button(frame6,text="Create Gradient",font=("roboto",18),bg=bgColor,fg=fgColor,pady=2,padx=25,command=Generate).grid(row=0,column=0,sticky=S,pady=2,padx=2)
-
-
+    GenerateButton = Button(framePanel,text="Export Gradient",font=("roboto",fontSizeSmall),bg=bgColor,fg=fgColor,command=Generate)
+    GenerateButton.grid(row=0,column=1,sticky=W,pady=2,padx=2)
 
 
     root.mainloop()
