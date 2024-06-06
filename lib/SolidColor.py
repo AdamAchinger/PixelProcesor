@@ -1,12 +1,13 @@
 import os
 from tkinter import * 
 from tkinter import messagebox 
+from tkinter import filedialog
 
 ### Version
-toolVersion = 1.1
+toolVersion = 2.2
 ###
 
-def SolidColor(inputOutput1):
+def SolidColor():
     CSC = Toplevel()
 
     root = CSC
@@ -24,8 +25,8 @@ def SolidColor(inputOutput1):
 
     #####
     # application dimensions
-    appWidth = 420
-    appHeight = 390
+    appWidth = 415
+    appHeight = 355
     # get windows screan width and height
     screenWidth = root.winfo_screenwidth()
     screenHeight = root.winfo_screenheight()
@@ -44,7 +45,7 @@ def SolidColor(inputOutput1):
 
         Color = inputHex.get()
         Size = inputSize.get()
-        OutputDir = inputOutput.get()
+        OutputDir = Path
         Filename = inputFilename.get()
         Filetype = inputFiletype.get()
         
@@ -62,8 +63,6 @@ def SolidColor(inputOutput1):
         
     #    messagebox.showinfo(title="Output File",message=imgOutput)
 
-        ## log 
-        print(str(f'{inputHex.get()} {inputSize.get()} {inputOutput.get()} {inputFilename.get()} {inputFiletype.get()}'))
         print(str(f'{Color} {Size} {OutputDir} {Filename} {Filetype} {Width} {Height}'))
 
 
@@ -78,8 +77,6 @@ def SolidColor(inputOutput1):
 
 
     #### HEX #### 
-
-
     frame2 = Frame(root,width=100,bg=bgColor,highlightbackground=hlColor,highlightthickness=1)
     frame2.grid(row=1,column=0,pady=6,padx=12,sticky=W)
     inputHex = StringVar()
@@ -120,20 +117,37 @@ def SolidColor(inputOutput1):
     inputFiletype.insert(0,".PNG")
 
     #### OUTPUT DIRECTORY #### 
-    frame5 = Frame(root,width=100,bg=bgColor,highlightbackground=hlColor,highlightthickness=1)
-    frame5.grid(row=3,column=0,pady=6,padx=12,sticky=W)
 
-    labelOutput = Label(frame5,text="OUTPUT DIRECTORY",font=("roboto",fontSizeSmall),bg=bgColor,fg=fgColor).grid(row=1,column=0,pady=6,padx=16)
-    inputOutput = Entry(frame5,width=40,font=("roboto",fontSizeSmall),bg=bgColor,fg=fgColor)
-    inputOutput.grid(row=2,column=0,sticky=S,pady=2,padx=16)
-    inputOutput.insert(0,inputOutput1)
+    frame5 = Frame(root,width=400,bg=bgColor,highlightbackground=hlColor,highlightthickness=0)
+    frame5.grid(row=4,column=0,pady=6,padx=6,sticky=W)
+
+    mainDirectory = Label(frame5,text="Directory:",font=("roboto",12),bg=bgColor,fg=fgColor)
+    mainDirectory.grid(row=2,column=0,pady=2,padx=6,sticky=W)
+
+    mainDirectoryStatus = Label(frame5,text="Unset",font=("roboto",13),bg=bgColor,fg="red")
+    mainDirectoryStatus.grid(row=2,column=0,pady=2,padx=80,sticky=W)
+
+    mainDirectoryPath = Label(frame5,text="------------",font=("roboto",12),bg=bgColor,fg=fgColor)
+    mainDirectoryPath.grid(row=3,column=0,pady=2,padx=6,sticky=W)
+
+
+    def Directory():
+        global Path
+        Path = filedialog.askdirectory(title="Main Directory")
+        mainDirectoryStatus.config(text="Ready",fg="green")
+        mainDirectoryPath.config(text=Path)
+
+
+
+    framePanel = Frame(root,width=400,bg=bgColor,highlightbackground=hlColor,highlightthickness=1)
+    framePanel.grid(row=3,column=0,pady=6,padx=2,sticky=S)
+
+    button = Button(framePanel,text="Set Output Directory",command=Directory,font=("roboto",fontSizeSmall),bg=bgColor,fg=fgColor)
+    button.grid(row=0,column=0,sticky=W,pady=2,padx=2)
 
     #### Generate #### 
-    frame6 = Frame(root,width=100,bg=bgColor)
-    frame6.grid(row=4,column=0,pady=10,padx=60,sticky=S)
-
-    hexButton = Button(frame6,text="Create Solid Color",font=("roboto",18),bg=bgColor,fg=fgColor,pady=2,padx=25,command=Generate).grid(row=0,column=0,sticky=S,pady=2,padx=2)
-
+    GenerateButton = Button(framePanel,text="Export Solid Color",font=("roboto",fontSizeSmall),bg=bgColor,fg=fgColor,command=Generate)
+    GenerateButton.grid(row=0,column=1,sticky=W,pady=2,padx=2)
 
 
 
