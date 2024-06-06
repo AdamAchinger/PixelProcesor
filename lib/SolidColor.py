@@ -134,8 +134,9 @@ def SolidColor():
     def Directory():
         global Path
         Path = filedialog.askdirectory(title="Main Directory")
-        mainDirectoryStatus.config(text="Ready",fg="green")
-        mainDirectoryPath.config(text=Path)
+        if (Path!=""):
+            mainDirectoryStatus.config(text="Ready",fg="green")
+            mainDirectoryPath.config(text=Path)
 
 
 

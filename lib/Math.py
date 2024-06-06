@@ -1,12 +1,12 @@
 import os
 from tkinter import * 
 from tkinter import messagebox 
-
+from tkinter import filedialog 
 ### Version
-toolVersion = 2.3
+toolVersion = 2.4
 ###
 
-def Math(inputOutput1):
+def Math():
     Math = Toplevel()
 
     root = Math
@@ -24,7 +24,7 @@ def Math(inputOutput1):
     #####
     # application dimensions
     appWidth = 420
-    appHeight = 490
+    appHeight = 470
     # get windows screan width and height
     screenWidth = root.winfo_screenwidth()
     screenHeight = root.winfo_screenheight()
@@ -39,8 +39,6 @@ def Math(inputOutput1):
 
     def Generate():
         from PIL import Image
-        from tkinter import messagebox 
-
 
         Multiply3 = inputMultiply.get()
         Power3 = inputPower.get()
@@ -48,21 +46,8 @@ def Math(inputOutput1):
         Subtract3 = inputSubtract.get()
         Min3 = inputMin.get()
         Max3 = inputMax.get()
-        InputFile = inputInputFile.get()    
-        Output = inputOutput.get()    
-
-
-        #### Warning Message ####
-        empty = InputFile.replace(" ","")
-        empty2 = Output.replace(" ","")
-        
-        if(InputFile==inputOutput1 or empty==""):
-            messagebox.showwarning(title="Empty Directory",message="Input File Does Not Exist")
-
-        if(Output==inputOutput1 or empty2==""):
-            messagebox.showwarning(title="Empty Directory",message="Output File Does Not Exist")
-
-
+        InputFile = InputFilePath   
+        Output = OutputFilePath
 
         
         img = Image.open(InputFile)
@@ -130,10 +115,6 @@ def Math(inputOutput1):
     label_1 = Label(frame1,text="Math",font=("roboto",32),bg=bgColor,fg=fgColor)
     label_1.grid(row=0,column=0,pady=3,padx=60,sticky=S)
 
-    label_2 = Label(frame1,text="R,G,B",font=("roboto",12),bg=bgColor,fg=fgColor)
-    label_2.grid(row=1,column=0,pady=1,padx=5,sticky=S)
-
-
 
     #### Multiply #### 
     frame21 = Frame(root,width=25,bg=bgColor,highlightbackground=hlColor,highlightthickness=1)
@@ -193,36 +174,59 @@ def Math(inputOutput1):
 
 
 
-
-    #### INPUT PATH #### 
-    frame51 = Frame(root,width=100,bg=bgColor,highlightbackground=hlColor,highlightthickness=1)
-    frame51.grid(row=5,column=0,pady=6,padx=12,sticky=S)
-
-    labelInputFile = Label(frame51,text="INPUT FILE",font=("roboto",fontSizeSmall),bg=bgColor,fg=fgColor)
-    labelInputFile.grid(row=1,column=0,sticky=S,pady=6,padx=16)
-
-    inputInputFile = Entry(frame51,width=40,font=("roboto",fontSizeSmall),bg=bgColor,fg=fgColor)
-    inputInputFile.grid(row=2,column=0,sticky=S,pady=2,padx=16)
-    inputInputFile.insert(0,inputOutput1)
-
     #### OUTPUT PATH #### 
-    frame52 = Frame(root,width=100,bg=bgColor,highlightbackground=hlColor,highlightthickness=1)
-    frame52.grid(row=6,column=0,pady=6,padx=12,sticky=S)
+    frame5 = Frame(root,width=400,bg=bgColor,highlightbackground=hlColor,highlightthickness=0)
+    frame5.grid(row=6,column=0,pady=6,padx=6,sticky=W)
 
-    labelOutput = Label(frame52,text="OUTPUT FILE RGB",font=("roboto",fontSizeSmall),bg=bgColor,fg=fgColor)
-    labelOutput.grid(row=1,column=0,sticky=S,pady=6,padx=16)
+    InputFile = Label(frame5,text="Input File:",font=("roboto",12),bg=bgColor,fg=fgColor)
+    InputFile.grid(row=2,column=0,pady=2,padx=6,sticky=W)
 
-    inputOutput = Entry(frame52,width=40,font=("roboto",fontSizeSmall),bg=bgColor,fg=fgColor)
-    inputOutput.grid(row=2,column=0,sticky=S,pady=2,padx=16)
-    inputOutput.insert(0,inputOutput1)
+    InputStatus = Label(frame5,text="Unset",font=("roboto",13),bg=bgColor,fg="red")
+    InputStatus.grid(row=2,column=0,pady=2,padx=100,sticky=W)
+
+    InputFileEntry = Label(frame5,text="------------",font=("roboto",12),bg=bgColor,fg=fgColor)
+    InputFileEntry.grid(row=3,column=0,pady=2,padx=6,sticky=W)
+    
+    OutputFile= Label(frame5,text="Output File:",font=("roboto",12),bg=bgColor,fg=fgColor)
+    OutputFile.grid(row=4,column=0,pady=2,padx=6,sticky=W)
+
+    OutputStatus = Label(frame5,text="Unset",font=("roboto",13),bg=bgColor,fg="red")
+    OutputStatus.grid(row=4,column=0,pady=2,padx=100,sticky=W)
+    
+    OutputFileEntry = Label(frame5,text="------------",font=("roboto",12),bg=bgColor,fg=fgColor)
+    OutputFileEntry.grid(row=5,column=0,pady=2,padx=6,sticky=W)
+
+
+    def InputPath():
+        global InputFilePath
+        InputFilePath = filedialog.askopenfilename(title="Input File")
+        if (InputFilePath!=""):
+            InputStatus.config(text="Ready",fg="green")
+            InputFileEntry.config(text=InputFilePath)
+        
+    def OutputPath():
+        global OutputFilePath
+        OutputFilePath = filedialog.asksaveasfilename(title="Output File")
+        if (OutputFilePath!=""):
+            OutputStatus.config(text="Ready",fg="green")
+            OutputFileEntry.config(text=OutputFilePath)
+
+
+    framePanel = Frame(root,width=400,bg=bgColor,highlightbackground=hlColor,highlightthickness=1)
+    framePanel.grid(row=5,column=0,pady=6,padx=2,sticky=S)
+
+    button = Button(framePanel,text="Set Input File ",command=InputPath,font=("roboto",fontSizeSmall),bg=bgColor,fg=fgColor)
+    button.grid(row=0,column=0,sticky=W,pady=2,padx=2)
+
+    button1 = Button(framePanel,text="Set Output File",command=OutputPath,font=("roboto",fontSizeSmall),bg=bgColor,fg=fgColor)
+    button1.grid(row=0,column=1,sticky=W,pady=2,padx=2)
+
 
     #### Generate #### 
-    frame61 = Frame(root,width=100,bg=bgColor)
-    frame61.grid(row=7,column=0,pady=10,padx=60,sticky=S)
-
-    saveButton = Button(frame61,text="Save",font=("roboto",18),bg=bgColor,fg=fgColor,pady=2,padx=25,command=Generate)
-    saveButton.grid(row=0,column=0,sticky=S,pady=2,padx=2)
+    GenerateButton = Button(framePanel,text="Export",font=("roboto",fontSizeSmall),bg=bgColor,fg=fgColor,command=Generate)
+    GenerateButton.grid(row=0,column=2,sticky=W,pady=2,padx=2)
 
 
+    
 
     root.mainloop()
