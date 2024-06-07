@@ -24,7 +24,7 @@ def Math():
     #####
     # application dimensions
     appWidth = 420
-    appHeight = 470
+    appHeight = 425
     # get windows screan width and height
     screenWidth = root.winfo_screenwidth()
     screenHeight = root.winfo_screenheight()
