@@ -251,7 +251,7 @@ class Gradient:
 
         self.inputColor2 = ctk.CTkEntry(frame02, width=128, font=sFont)
         self.inputColor2.pack(pady=6, padx=16)
-        self.inputColor2.insert(0, "255,255,255")
+        self.inputColor2.insert(0, "1,1,1")
 
         #### FILENAME ####
         labelFilename = ctk.CTkLabel(frame03, text="FILENAME", font=mFont)
@@ -276,18 +276,18 @@ class Gradient:
         orient = ["HORIZ","HORIZ FLIP","VERTI","VERTI FLIP"]
         
         self.var1 = ctk.IntVar()
-        inputFlip = ctk.CTkOptionMenu(frame05, variable=self.var1, values=orient, width=128, font=sFont)
-        inputFlip.set(orient[0])
-        inputFlip.pack(pady=6, padx=16)
+        self.inputFlip = ctk.CTkOptionMenu(frame05, variable=self.var1, values=orient, width=128, font=sFont)
+        self.inputFlip.set(orient[0])
+        self.inputFlip.pack(pady=6, padx=16)
 
         #### FILETYPE ####
         labelFiletype = ctk.CTkLabel(frame06, text="FILETYPE", font=mFont)
         labelFiletype.pack(pady=6, padx=16)
 
         self.var2 = ctk.IntVar()
-        inputFiletype = ctk.CTkOptionMenu(frame06, variable=self.var2, values=exten, width=128, font=sFont)
-        inputFiletype.set(exten[0])
-        inputFiletype.pack(pady=6, padx=16)
+        self.inputFiletype = ctk.CTkOptionMenu(frame06, variable=self.var2, values=exten, width=128, font=sFont)
+        self.inputFiletype.set(exten[0])
+        self.inputFiletype.pack(pady=6, padx=16)
 
 
 
@@ -310,29 +310,25 @@ class Gradient:
         GenerateButton.pack(pady=2, padx=2, side=LEFT)
 
     def set_directory(self):
-        self.Path = filedialog.askdirectory(title="Main Directory")
+        self.Path = filedialog.askdirectory(title="Directory")
         if self.Path:
-            self.mainDirectoryStatus.config(text="Ready", text_color="green")
-            self.mainDirectoryPath.config(text=self.Path)
-        pass
+            self.mainDirectoryStatus.configure(text="Ready", text_color="green")
+            self.mainDirectoryPath.configure(text=self.Path)
+        
 
     def generate(self):
-        Flip = self.var.get()
         Color1 = self.inputColor1.get()
         Color2 = self.inputColor2.get()
         Size = self.inputSize.get()
-        Orient = self.inputOrient.get()
         OutputDir = self.Path
         Filename = self.inputFilename.get()
         Filetype = self.inputFiletype.get()
+        Orient = self.inputFlip.get()
         SizeNew = Size.lower()
         Width = int(SizeNew.split("x")[0])
         Height = int(SizeNew.split("x")[1])
         
         FiletypeNew = Filetype.lower().replace(".", "")
-
-        nOrient1 = Orient.upper()
-        nOrient2 = str(nOrient1[0])
 
         img = Image.new(mode="RGB", size=(Width, Height))
 
@@ -344,11 +340,11 @@ class Gradient:
 
         for w in range(Width):
             for h in range(Height):
-                if nOrient2 == "V":
+                if Orient == "HORIZ" or Orient == "HORIZ FLIP":
                     v = int((h / Height) * 255) 
                 else:
                     v = int((w / Width) * 255)
-                if Flip:
+                if Orient == "HORIZ FLIP" or Orient == "VERTI FLIP":
                     v = abs(v - 255)
 
                 R = int(v * R2 + abs(v - 255) * R1)
@@ -357,12 +353,12 @@ class Gradient:
 
                 img.putpixel((w, h), (R, G, B))
 
-        name = f"{Filename}_{nOrient2}_{Width}x{Height}.{FiletypeNew}"
+        name = f"{Filename}_{Width}x{Height}.{FiletypeNew}"
         imgOutput = os.path.join(OutputDir, name)
 
         img.save(imgOutput)
         print(f"Image saved to {imgOutput}")
-        pass
+        
 
         
 # Initialize classes within the appropriate tabs
