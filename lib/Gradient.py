@@ -1,41 +1,6 @@
-import os
-from tkinter import * 
-from tkinter import messagebox 
-from tkinter import filedialog
-
-### Version
-toolVersion = 2.1
-###
 
 def Gradient():
-    Grad = Toplevel()
 
-    root = Grad
-
-    bgColor = "#353535"
-    fgColor = "#C0C0C0"
-    hlColor = "#777777"
-    fontSizeSmall = 13
-
-
-    root.configure(bg=bgColor)
-    root.title("Create Gradient"+" v"+str(toolVersion))
-    root.iconbitmap('S:\GitHub\PixelProcesor\img\AA_icon.ico')
-    root.resizable(False,False)
-
-    #####
-    # application dimensions
-    appWidth = 410
-    appHeight = 440
-    # get windows screan width and height
-    screenWidth = root.winfo_screenwidth()
-    screenHeight = root.winfo_screenheight()
-    # center position 
-    appXpos = int((screenWidth/2)-(appWidth/2))
-    appYpos = int((screenHeight/2)-(appHeight/2))
-    # create app window 
-    root.geometry(f'{appWidth}x{appHeight}+{appXpos}+{appYpos}')
-    #####
 
     def Generate():
         from PIL import Image

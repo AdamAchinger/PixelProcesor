@@ -1,44 +1,6 @@
-import os
-from tkinter import * 
-from tkinter import messagebox 
-from tkinter import filedialog
+def SolidColor(tab1):
 
-### Version
-toolVersion = 2.2
-###
-
-def SolidColor():
-    CSC = Toplevel()
-
-    root = CSC
-
-    bgColor = "#353535"
-    fgColor = "#C0C0C0"
-    hlColor = "#777777"
-    fontSizeSmall = 13
-
-
-    root.configure(bg=bgColor)
-    root.title("Create Solid Color "+" v"+str(toolVersion))
-    root.iconbitmap('S:\GitHub\PixelProcesor\img\AA_icon.ico')
-    root.resizable(False,False)
-
-    #####
-    # application dimensions
-    appWidth = 415
-    appHeight = 355
-    # get windows screan width and height
-    screenWidth = root.winfo_screenwidth()
-    screenHeight = root.winfo_screenheight()
-    # center position 
-    appXpos = int((screenWidth/2)-(appWidth/2))
-    appYpos = int((screenHeight/2)-(appHeight/2))
-    # create app window 
-    root.geometry(f'{appWidth}x{appHeight}+{appXpos}+{appYpos}')
-    #####
-
-
-
+    root = tab1
     def Generate():
 
         from PIL import Image
