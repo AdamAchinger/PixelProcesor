@@ -258,7 +258,7 @@ class Gradient:
         labelFilename.pack(pady=6, padx=16)
 
         self.inputFilename = ctk.CTkEntry(frame03, width=128, font=sFont)
-        self.inputFilename.pack(pady=2, padx=16)
+        self.inputFilename.pack(pady=6, padx=16)
         self.inputFilename.insert(0, "T_Gradient")
 
         #### SIZE ####
