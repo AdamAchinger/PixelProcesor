@@ -106,12 +106,12 @@ class SolidColor:
 
         #### HEX ####
         self.inputHex = StringVar()
-        labelHex = ctk.CTkLabel(frame01, text="COLOR (HEX)", font=mFont)
+        labelHex = ctk.CTkLabel(frame01, text="COLOR (RGBA)", font=mFont)
         labelHex.pack(pady=6, padx=16)
 
         self.inputHexEntry = ctk.CTkEntry(frame01, width=128, textvariable=self.inputHex, font=sFont)
         self.inputHexEntry.pack(pady=6, padx=16)
-        self.inputHexEntry.insert(0, "#F67070")
+        self.inputHexEntry.insert(0, "1, 0.5, 1, 1")
 
         #### SIZE ####
         labelSize = ctk.CTkLabel(frame02, text="SIZE", font=mFont)
@@ -172,10 +172,23 @@ class SolidColor:
             print("No output directory selected!")
             return
         Filetype = Filetype.lower()
-        width, height = map(int, Size.split('x'))
-        image = Image.new("RGB", (width, height), Color)
+        Width, Height = map(int, Size.split('x'))
+        Color.replace(" ","")
+        img = Image.new(mode="RGBA", size=(Width, Height))
+        R1, G1, B1, A1 = map(float, Color.split(","))
+
+        for w in range(Width):
+            for h in range(Height):
+                R = int(R1 * 255 )
+                G = int(G1 * 255 )
+                B = int(B1 * 255 )
+                A = int(A1 * 255)
+                img.putpixel((w, h), (R, G, B))
+        img.putalpha(A)
+                
         full_path = os.path.join(OutputDir, Filename + "."+Filetype)
-        image.save(full_path)
+
+        img.save(full_path)
         print(f"Image saved to {full_path}")
 
 
