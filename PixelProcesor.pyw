@@ -3,48 +3,37 @@ from tkinter import *
 from tkinter import filedialog
 from PIL import Image
 import customtkinter as ctk
+import json
 
-### Version
-toolVersion = 7.5
-###
+with open("config.json","r") as config: 
+    config = json.loads(config.read())
 
+toolVersion = config["toolVersion"]
+cellH = config["cellH"]
+cellW = config["cellW"]
+cellW2 = config["cellW2"]
+appWidth = config["appWidth"] 
+appHeight = config["appHeight"]
+bgColor = config["bgColor"]
+fgColor = config["fgColor"]
+sFont1 = tuple(config["sFont1"])
+sFont = tuple(config["sFont"])
+mFont = tuple(config["mFont"])
+bFont = tuple(config["bFont"])
+exten = config["Extensions"]
+extract = config["ExtractColors"]
+
+#### Initialize Window ####
 root = Tk()
-
-
-
-bgColor = "#353535"
-fgColor = "#C0C0C0"
-hlColor = "#777777"
-
-sFont1 = ("roboto", 14)
-sFont = ("roboto", 16)
-mFont = ("roboto", 20)
-bFont = ("roboto", 22)
-
-cellH = 85
-cellW = 180
-cellW2 =360
-
-exten = ["PNG", "JPEG", "PPM", "GIF", "TIFF","BMP"]
-extract = ["Red","Green","Blue","Alpha"]
-
-appWidth = 400
-appHeight = 400
-
 root.configure(bg=bgColor)
 root.title("Pixel Procesor" + " v" + str(toolVersion))
 root.iconbitmap('S:\GitHub\PixelProcesor\img\AA_icon.ico')
 root.resizable(FALSE, TRUE)
-
-# get windows screan width and height
 screenWidth = root.winfo_screenwidth()
 screenHeight = root.winfo_screenheight()
-# center position 
 appXpos = int((screenWidth / 2) - (appWidth / 2))
 appYpos = int((screenHeight / 2) - (appHeight / 2))
-# create app window 
 root.geometry(f'{appWidth}x{appHeight}+{appXpos}+{appYpos}')
-#####
 
 # Create the tab view (this is the equivalent of a tabbed frame)
 tab_view = ctk.CTkTabview(root)
@@ -56,7 +45,8 @@ tab2 = tab_view.add("Gradient")
 tab3 = tab_view.add("Math")
 tab4 = tab_view.add("Combine")
 tab5 = tab_view.add("Separate")
-#tab6 = tab_view.add("Color Pick")
+tab6 = tab_view.add("Resize")
+
 
 my_font = ctk.CTkFont(size=14)  # Font object
 for button in tab_view._segmented_button._buttons_dict.values():
@@ -67,7 +57,7 @@ class SolidColor:
     def __init__(self, master):
         self.Path = ""
 
-        frameMaster = ctk.CTkFrame(master,fg_color="#696969")
+        frameMaster = ctk.CTkFrame(master,fg_color=fgColor)
         frameMaster.pack(fill=Y,expand=TRUE)
 
         frameTop = ctk.CTkFrame(frameMaster,height=50)
@@ -195,13 +185,13 @@ class SolidColor:
         full_path = os.path.join(OutputDir, Filename + "."+Filetype)
 
         img.save(full_path)
-        print(f"Image saved to {full_path}")
+
 
 class Gradient:
     def __init__(self, master):
         self.Path = ""
         
-        frameMaster = ctk.CTkFrame(master,fg_color="#696969")
+        frameMaster = ctk.CTkFrame(master,fg_color=fgColor)
         frameMaster.pack(fill=Y,expand=TRUE)
 
         frameTop = ctk.CTkFrame(frameMaster,height=50)
@@ -376,7 +366,7 @@ class Gradient:
 class Math:
     def __init__(self, master):
 
-        frameMaster = ctk.CTkFrame(master,fg_color="#696969")
+        frameMaster = ctk.CTkFrame(master,fg_color=fgColor)
         frameMaster.pack(fill=Y,expand=TRUE)
 
         frameTop = ctk.CTkFrame(frameMaster,height=50)
@@ -598,7 +588,7 @@ class Math:
 class Combine:
     def __init__(self, master):
 
-        frameMaster = ctk.CTkFrame(master,fg_color="#696969")
+        frameMaster = ctk.CTkFrame(master,fg_color=fgColor)
         frameMaster.pack(fill=Y,expand=TRUE)
 
         frameTop = ctk.CTkFrame(frameMaster,height=50)
@@ -907,7 +897,7 @@ class Combine:
 class Separate:
     def __init__(self, master):
 
-        frameMaster = ctk.CTkFrame(master,fg_color="#696969")
+        frameMaster = ctk.CTkFrame(master,fg_color=fgColor)
         frameMaster.pack(fill=Y,expand=TRUE)
 
         frameTop = ctk.CTkFrame(frameMaster,height=50)
@@ -1220,4 +1210,5 @@ gradient_tab = Gradient(tab2)
 math_tab = Math(tab3)
 combine_tab = Combine(tab4)
 separate_tab = Separate(tab5)
+
 root.mainloop()
