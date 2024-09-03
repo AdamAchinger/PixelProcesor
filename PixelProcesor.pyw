@@ -5,7 +5,7 @@ from PIL import Image
 import customtkinter as ctk
 
 ### Version
-toolVersion = 7.1
+toolVersion = 7.5
 ###
 
 root = Tk()
@@ -14,6 +14,7 @@ bgColor = "#353535"
 fgColor = "#C0C0C0"
 hlColor = "#777777"
 
+sFont1 = ("roboto", 14)
 sFont = ("roboto", 16)
 mFont = ("roboto", 20)
 bFont = ("roboto", 22)
@@ -23,6 +24,7 @@ cellW = 180
 cellW2 =360
 
 exten = ["PNG", "JPEG", "PPM", "GIF", "TIFF","BMP"]
+extract = ["Red","Green","Blue","Alpha"]
 
 appWidth = 400
 appHeight = 400
@@ -650,9 +652,6 @@ class Combine:
         mainDirectoryOut = ctk.CTkLabel(frame09, text="Output:",width=32, font=sFont)
         mainDirectoryOut.pack(pady=2, padx=6, side=LEFT)
 
-        #self.mainDirectoryStatus = ctk.CTkLabel(frame08, text="Unset", font=sFont, text_color="red")
-        #self.mainDirectoryStatus.pack(pady=2, padx=6, side=LEFT)
-
         self.mainDirectoryPathOut = ctk.CTkLabel(frame09,  text="Unset", text_color="red", font=sFont)
         self.mainDirectoryPathOut.pack(pady=2, padx=6,side=LEFT)
 
@@ -669,12 +668,18 @@ class Combine:
         frame012.pack(padx=2, pady=1,fill=X,expand=TRUE)
 
         labelRed = ctk.CTkLabel(frame011, text="Red Channel", font=mFont)
-        labelRed.pack(pady=6, padx=16, side=LEFT)
+        labelRed.pack(pady=6, padx=12, side=LEFT)
 
             #### INPUT FILE ####
         buttonInRed = ctk.CTkButton(frame011, text="Set Red",command=self.set_red_channel, width=100, font=sFont)
         buttonInRed.pack(pady=2, padx=2, side=RIGHT)
-        
+
+            #### EXTRACT ####
+        self.var21 = ctk.IntVar()
+        self.inputExtractRed = ctk.CTkOptionMenu(frame011, variable=self.var21, values=extract, width=85, font=sFont)
+        self.inputExtractRed.set(extract[0])
+        self.inputExtractRed.pack(pady=2, padx=1,side=RIGHT)
+
         mainDirectoryInRed = ctk.CTkLabel(frame012, text="Input:", font=sFont)
         mainDirectoryInRed.pack(pady=2, padx=6, side=LEFT)
 
@@ -689,11 +694,17 @@ class Combine:
         frame022.pack(padx=2, pady=1,fill=X,expand=TRUE)
 
         labelGreen = ctk.CTkLabel(frame021, text="Green Channel", font=mFont)
-        labelGreen.pack(pady=6, padx=16, side=LEFT)
+        labelGreen.pack(pady=6, padx=12, side=LEFT)
 
             #### INPUT FILE ####
         buttonInGreen = ctk.CTkButton(frame021, text="Set Green",command=self.set_green_channel, width=100, font=sFont)
         buttonInGreen.pack(pady=2, padx=2, side=RIGHT)
+
+            #### EXTRACT ####
+        self.var22 = ctk.IntVar()
+        self.inputExtractGreen = ctk.CTkOptionMenu(frame021, variable=self.var22, values=extract, width=85, font=sFont)
+        self.inputExtractGreen.set(extract[0])
+        self.inputExtractGreen.pack(pady=2, padx=1,side=RIGHT)
         
         mainDirectoryInGreen = ctk.CTkLabel(frame022, text="Input:", font=sFont)
         mainDirectoryInGreen.pack(pady=2, padx=6, side=LEFT)
@@ -710,11 +721,19 @@ class Combine:
         frame032.pack(padx=2, pady=1,fill=X,expand=TRUE)
 
         labelBlue = ctk.CTkLabel(frame031, text="Blue Channel", font=mFont)
-        labelBlue.pack(pady=6, padx=16, side=LEFT)
+        labelBlue.pack(pady=6, padx=12, side=LEFT)
+
+
 
             #### INPUT FILE ####
         buttonInBlue = ctk.CTkButton(frame031, text="Set Blue",command=self.set_blue_channel, width=100, font=sFont)
         buttonInBlue.pack(pady=2, padx=2, side=RIGHT)
+
+            #### EXTRACT ####
+        self.var23 = ctk.IntVar()
+        self.inputExtractBlue= ctk.CTkOptionMenu(frame031, variable=self.var23, values=extract, width=85, font=sFont)
+        self.inputExtractBlue.set(extract[0])
+        self.inputExtractBlue.pack(pady=2, padx=1,side=RIGHT)
         
         mainDirectoryInBlue = ctk.CTkLabel(frame032, text="Input:", font=sFont)
         mainDirectoryInBlue.pack(pady=2, padx=6, side=LEFT)
@@ -734,7 +753,14 @@ class Combine:
 
             #### INPUT FILE ####
         buttonInAlpha = ctk.CTkButton(frame041, text="Set Alpha",command=self.set_alpha_channel, width=100, font=sFont)
-        buttonInAlpha.pack(pady=2, padx=2, side=RIGHT)
+        buttonInAlpha.pack(pady=2, padx=2, side=RIGHT)   
+
+            #### EXTRACT ####
+        self.var24 = ctk.IntVar()
+        self.inputExtractAlpha= ctk.CTkOptionMenu(frame041, variable=self.var24, values=extract, width=85, font=sFont)
+        self.inputExtractAlpha.set(extract[0])
+        self.inputExtractAlpha.pack(pady=2, padx=1,side=RIGHT)
+
         
         mainDirectoryInAlpha = ctk.CTkLabel(frame042, text="Input:", font=sFont)
         mainDirectoryInAlpha.pack(pady=2, padx=6, side=LEFT)
@@ -751,19 +777,19 @@ class Combine:
             self.mainDirectoryPathInRed.configure(text=self.InputFilePathRed1,text_color="white")
 
     def set_green_channel(self):
-        self.InputFilePathGreen = filedialog.askopenfilename(title="Input Red Channel")
+        self.InputFilePathGreen = filedialog.askopenfilename(title="Input Green Channel")
         if (self.InputFilePathGreen != ""):
             self.InputFilePathGreen1 = self.InputFilePathGreen.split("/")[-1]
             self.mainDirectoryPathInGreen.configure(text=self.InputFilePathGreen1,text_color="white")
 
     def set_blue_channel(self):
-        self.InputFilePathBlue = filedialog.askopenfilename(title="Input Red Channel")
+        self.InputFilePathBlue = filedialog.askopenfilename(title="Input Blue Channel")
         if (self.InputFilePathBlue != ""):
             self.InputFilePathBlue1 = self.InputFilePathBlue.split("/")[-1]
             self.mainDirectoryPathInBlue.configure(text=self.InputFilePathBlue1,text_color="white")
 
     def set_alpha_channel(self):
-        self.InputFilePathAlpha = filedialog.askopenfilename(title="Input Red Channel")
+        self.InputFilePathAlpha = filedialog.askopenfilename(title="Input Alpha Channel")
         if (self.InputFilePathAlpha != ""):
             self.InputFilePathAlpha1 = self.InputFilePathAlpha.split("/")[-1]
             self.mainDirectoryPathInAlpha.configure(text=self.InputFilePathAlpha1,text_color="white")
@@ -773,78 +799,109 @@ class Combine:
         if (self.OutputFilePath != ""):
             #self.OutputStatus.configure(text="Ready", text_color="green")
             self.OutputFilePath1 = self.OutputFilePath.split("/")[-1]
-            self.mainDirectoryPathOut.configure(text=self.OutputFilePath1,text_color="white")
+            self.mainDirectoryPathOut.configure(text=self.OutputFilePath1,text_color="white",font=sFont1)
+
+    InputFilePathRed = ""
+    InputFilePathGreen = ""
+    InputFilePathBlue = ""
+    InputFilePathAlpha = ""
+
 
     def generate(self):
-        pass
 
-    '''
-    def generate(self):
-        Multiply3 = self.inputMultiply.get()
-        Power3 = self.inputPower.get()
-        Add3 = self.inputAdd.get()
-        Subtract3 = self.inputSubtract.get()
-        Min3 = self.inputMin.get()
-        Max3 = self.inputMax.get()
-        InputFile = self.InputFilePath
+        imgInputRed = self.InputFilePathRed  
+        extInputRed  = self.inputExtractRed.get()
+
+        imgInputGreen = self.InputFilePathGreen
+        extInputGreen  = self.inputExtractGreen.get() 
+
+        imgInputBlue = self.InputFilePathBlue
+        extInputBlue = self.inputExtractBlue.get()
+
+        imgInputAlpha = self.InputFilePathAlpha
+        extInputAlpha = self.inputExtractAlpha.get()
+        
         Output = self.OutputFilePath
 
-        img = Image.open(InputFile)
-        Width, Height = img.size
+        if ( Output != "" ):
 
-        for w in range(Width):
-            for h in range(Height):
-                ### Multiply ###
-                if (Multiply3 != "1,1,1"):
-                    R1, G1, B1 = img.getpixel((w, h))
-                    R = int(R1 * float(Multiply3.split(",")[0]))
-                    G = int(G1 * float(Multiply3.split(",")[1]))
-                    B = int(B1 * float(Multiply3.split(",")[2]))
-                    img.putpixel((w, h), (R, G, B))
-                ### Power ###
-                if (Power3 != "1,1,1"):
-                    R1, G1, B1 = img.getpixel((w, h))
-                    R = int(pow(R1, float(Power3.split(",")[0])))
-                    G = int(pow(G1, float(Power3.split(",")[1])))
-                    B = int(pow(B1, float(Power3.split(",")[2])))
-                    img.putpixel((w, h), (R, G, B))
+            if(imgInputRed == ""):
+                imgRed = Image.new(mode="RGBA", size=(16, 16))
+            else:
+                imgRed = Image.open(imgInputRed)
+                imgRed.convert("RGBA")
+                
+            if(imgInputGreen == ""):
+                imgGreen = Image.new(mode="RGBA", size=(16, 16))
+            else:
+                imgGreen = Image.open(imgInputGreen)
+                imgGreen.convert("RGBA")
 
-                ### Add ###
-                if (Add3 != "0,0,0"):
-                    R1, G1, B1 = img.getpixel((w, h))
-                    R = int(R1 + (float(Add3.split(",")[0]) * 255))
-                    G = int(G1 + (float(Add3.split(",")[1]) * 255))
-                    B = int(B1 + (float(Add3.split(",")[2]) * 255))
+            if(imgInputBlue == ""):
+                imgBlue = Image.new(mode="RGBA", size=(16, 16))
+            else:
+                imgBlue = Image.open(imgInputBlue)
+                imgBlue.convert("RGBA")
 
-                    img.putpixel((w, h), (R, G, B))
+            if(imgInputAlpha == ""):
+                imgAlpha = Image.new(mode="RGBA", size=(16, 16),color=(255,255,255))
+            else:
+                imgAlpha = Image.open(imgInputAlpha)
+                imgAlpha.convert("RGBA")
+            
 
-                ### Subtract ###
-                if (Subtract3 != "0,0,0"):
-                    R1, G1, B1 = img.getpixel((w, h))
-                    R = int(R1 - (float(Subtract3.split(",")[0]) * 255))
-                    G = int(G1 - (float(Subtract3.split(",")[1]) * 255))
-                    B = int(B1 - (float(Subtract3.split(",")[2]) * 255))
-                    img.putpixel((w, h), (R, G, B))
+            maxsize = max(imgRed.size,imgGreen.size,imgBlue.size,imgAlpha.size)
+            Width, Height = maxsize
 
-                ### Clamp ###
-                rMin = float(Min3.split(",")[0]) * 255
-                gMin = float(Min3.split(",")[1]) * 255
-                bMin = float(Min3.split(",")[2]) * 255
+            imgNew= Image.new(mode="RGBA", size=(Width, Height))
 
-                rMax = float(Max3.split(",")[0]) * 255
-                gMax = float(Max3.split(",")[1]) * 255
-                bMax = float(Max3.split(",")[2]) * 255
+            print(f"w={Width} , h={Height}")
+            print(extInputRed)
 
-                R1, G1, B1 = img.getpixel((w, h))
+            imgRed = imgRed.resize((Width,Height),resample=Image.LANCZOS)
+            imgGreen = imgGreen.resize((Width,Height),resample=Image.LANCZOS)
+            imgBlue = imgBlue.resize((Width,Height),resample=Image.LANCZOS)
+            imgAlpha = imgAlpha.resize((Width,Height),resample=Image.LANCZOS)
+            
+            print(imgRed.size)
+            print(imgGreen.size)
+            print(imgBlue.size)
+            print(imgAlpha.size)
 
-                R = int(min(max(R1, rMin), rMax))
-                G = int(min(max(G1, gMin), gMax))
-                B = int(min(max(B1, bMin), bMax))
+            def pixel_color(imgRed,w,h,extInputRed):
 
-                img.putpixel((w, h), (R, G, B))
+                Pixel = imgRed.getpixel((w, h))
+                if isinstance(Pixel, int):
+                    pR = pG = pB = pA = Pixel
+                else:
+                    pR, pG, pB, *pRest = Pixel
+                    if(pRest):
+                        pA = pRest[0] 
+                    else:
+                        pA = 255
 
-        img.save(Output)
-        '''
+                Channels = {
+                    "Red": pR,
+                    "Green": pG,
+                    "Blue": pB,
+                    "Alpha": pA
+                }
+
+                return Channels.get(extInputRed)
+            
+            R, G, B, A = 0,0,0,255
+            for w in range(Width):
+                for h in range(Height):
+
+                    R = pixel_color(imgRed,w,h,extInputRed)
+                    G = pixel_color(imgGreen,w,h,extInputGreen)
+                    B = pixel_color(imgBlue,w,h,extInputBlue)               
+                    A = pixel_color(imgAlpha,w,h,extInputAlpha)
+
+                    #print(f"R={type(R)} G={type(G)} B={type(B)} A={type(A)}")
+                    imgNew.putpixel((w, h), (R, G, B, A))
+
+            imgNew.save(Output)
 
         
 # Initialize classes within the appropriate tabs
