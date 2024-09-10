@@ -45,7 +45,12 @@ tab2 = tab_view.add("Gradient")
 tab3 = tab_view.add("Math")
 tab4 = tab_view.add("Combine")
 tab5 = tab_view.add("Separate")
-#tab6 = tab_view.add("Resize")
+
+"""
+tab6 = tab_view.add("Mask")
+tab7 = tab_view.add("Msc")
+"""
+
 
 
 my_font = ctk.CTkFont(size=14)  # Font object
@@ -593,7 +598,6 @@ class Math:
         # Save image with RGBA
         img.save(Output)
 
-
 class Combine:
     def __init__(self, master):
 
@@ -954,15 +958,15 @@ class Separate:
 
 
 
-        #### OUTPUT DIRECTORY ####
-        buttonOut = ctk.CTkButton(frame09, text="Set Output",command=self.set_output_dir, width=100, font=sFont)
-        buttonOut.pack(pady=2, padx=2, side=RIGHT)
+        #### Input DIRECTORY ####
+        buttonIn = ctk.CTkButton(frame09, text="Set Input",command=self.set_input_dir, width=100, font=sFont)
+        buttonIn.pack(pady=2, padx=2, side=RIGHT)
 
-        mainDirectoryOut = ctk.CTkLabel(frame09, text="Input:",width=32, font=sFont)
-        mainDirectoryOut.pack(pady=2, padx=6, side=LEFT)
+        mainDirectoryIn = ctk.CTkLabel(frame09, text="Input:",width=32, font=sFont)
+        mainDirectoryIn.pack(pady=2, padx=6, side=LEFT)
 
-        self.mainDirectoryPathOut = ctk.CTkLabel(frame09,  text="Unset", text_color="red", font=sFont)
-        self.mainDirectoryPathOut.pack(pady=2, padx=6,side=LEFT)
+        self.mainDirectoryPathIn = ctk.CTkLabel(frame09,  text="Unset", text_color="red", font=sFont)
+        self.mainDirectoryPathIn.pack(pady=2, padx=6,side=LEFT)
 
         GenerateButton = ctk.CTkButton(frameBottom, text="Separate", width=appWidth, command=self.generate, height=40, font=bFont)
         GenerateButton.pack(pady=2, padx=2, side=LEFT)
@@ -979,21 +983,15 @@ class Separate:
         labelRed = ctk.CTkLabel(frame011, text="Red Channel", font=mFont)
         labelRed.pack(pady=6, padx=12, side=LEFT)
 
-            #### INPUT FILE ####
-        buttonInRed = ctk.CTkButton(frame011, text="Set Red",command=self.set_red_channel, width=100, font=sFont)
-        buttonInRed.pack(pady=2, padx=2, side=RIGHT)
+            #### OUTPUT FILE ####
+        buttonOutRed = ctk.CTkButton(frame011, text="Set Red",command=self.set_red_channel, width=100, font=sFont)
+        buttonOutRed.pack(pady=2, padx=2, side=RIGHT)
 
-            #### EXTRACT ####
-        self.var21 = ctk.IntVar()
-        self.inputExtractRed = ctk.CTkOptionMenu(frame011, variable=self.var21, values=extract, width=85, font=sFont)
-        self.inputExtractRed.set(extract[0])
-        self.inputExtractRed.pack(pady=2, padx=1,side=RIGHT)
+        mainDirectoryOutRed = ctk.CTkLabel(frame012, text="Output:", font=sFont)
+        mainDirectoryOutRed.pack(pady=2, padx=6, side=LEFT)
 
-        mainDirectoryInRed = ctk.CTkLabel(frame012, text="Output:", font=sFont)
-        mainDirectoryInRed.pack(pady=2, padx=6, side=LEFT)
-
-        self.mainDirectoryPathInRed = ctk.CTkLabel(frame012, text="Unset", text_color="red", font=sFont)
-        self.mainDirectoryPathInRed.pack(pady=2, padx=6,side=LEFT)   
+        self.mainDirectoryPathOutRed = ctk.CTkLabel(frame012, text="Unset", text_color="red", font=sFont)
+        self.mainDirectoryPathOutRed.pack(pady=2, padx=6,side=LEFT)   
 
         #### Green #### 
         frame021 = ctk.CTkFrame(frame02, width=400, height=40)
@@ -1005,21 +1003,16 @@ class Separate:
         labelGreen = ctk.CTkLabel(frame021, text="Green Channel", font=mFont)
         labelGreen.pack(pady=6, padx=12, side=LEFT)
 
-            #### INPUT FILE ####
-        buttonInGreen = ctk.CTkButton(frame021, text="Set Green",command=self.set_green_channel, width=100, font=sFont)
-        buttonInGreen.pack(pady=2, padx=2, side=RIGHT)
+            #### OUTPUT FILE ####
+        buttonOutGreen = ctk.CTkButton(frame021, text="Set Green",command=self.set_green_channel, width=100, font=sFont)
+        buttonOutGreen.pack(pady=2, padx=2, side=RIGHT)
 
-            #### EXTRACT ####
-        self.var22 = ctk.IntVar()
-        self.inputExtractGreen = ctk.CTkOptionMenu(frame021, variable=self.var22, values=extract, width=85, font=sFont)
-        self.inputExtractGreen.set(extract[0])
-        self.inputExtractGreen.pack(pady=2, padx=1,side=RIGHT)
         
-        mainDirectoryInGreen = ctk.CTkLabel(frame022, text="Output:", font=sFont)
-        mainDirectoryInGreen.pack(pady=2, padx=6, side=LEFT)
+        mainDirectoryOutGreen = ctk.CTkLabel(frame022, text="Output:", font=sFont)
+        mainDirectoryOutGreen.pack(pady=2, padx=6, side=LEFT)
 
-        self.mainDirectoryPathInGreen = ctk.CTkLabel(frame022, text="Unset", text_color="red", font=sFont)
-        self.mainDirectoryPathInGreen.pack(pady=2, padx=6,side=LEFT)   
+        self.mainDirectoryPathOutGreen = ctk.CTkLabel(frame022, text="Unset", text_color="red", font=sFont)
+        self.mainDirectoryPathOutGreen.pack(pady=2, padx=6,side=LEFT)   
         
 
         #### Blue #### 
@@ -1033,22 +1026,16 @@ class Separate:
         labelBlue.pack(pady=6, padx=12, side=LEFT)
 
 
+            #### OUTPUT FILE ####
+        buttonOutBlue = ctk.CTkButton(frame031, text="Set Blue",command=self.set_blue_channel, width=100, font=sFont)
+        buttonOutBlue.pack(pady=2, padx=2, side=RIGHT)
 
-            #### INPUT FILE ####
-        buttonInBlue = ctk.CTkButton(frame031, text="Set Blue",command=self.set_blue_channel, width=100, font=sFont)
-        buttonInBlue.pack(pady=2, padx=2, side=RIGHT)
-
-            #### EXTRACT ####
-        self.var23 = ctk.IntVar()
-        self.inputExtractBlue= ctk.CTkOptionMenu(frame031, variable=self.var23, values=extract, width=85, font=sFont)
-        self.inputExtractBlue.set(extract[0])
-        self.inputExtractBlue.pack(pady=2, padx=1,side=RIGHT)
         
-        mainDirectoryInBlue = ctk.CTkLabel(frame032, text="Output:", font=sFont)
-        mainDirectoryInBlue.pack(pady=2, padx=6, side=LEFT)
+        mainDirectoryOutBlue = ctk.CTkLabel(frame032, text="Output:", font=sFont)
+        mainDirectoryOutBlue.pack(pady=2, padx=6, side=LEFT)
         
-        self.mainDirectoryPathInBlue = ctk.CTkLabel(frame032, text="Unset", text_color="red", font=sFont)
-        self.mainDirectoryPathInBlue.pack(pady=2, padx=6,side=LEFT)   
+        self.mainDirectoryPathOutBlue = ctk.CTkLabel(frame032, text="Unset", text_color="red", font=sFont)
+        self.mainDirectoryPathOutBlue.pack(pady=2, padx=6,side=LEFT)   
 
         #### Alpha #### 
         frame041 = ctk.CTkFrame(frame04, width=400, height=40)
@@ -1060,157 +1047,114 @@ class Separate:
         labelAlpha = ctk.CTkLabel(frame041, text="Alpha Channel", font=mFont)
         labelAlpha.pack(pady=6, padx=16, side=LEFT)
 
-            #### INPUT FILE ####
-        buttonInAlpha = ctk.CTkButton(frame041, text="Set Alpha",command=self.set_alpha_channel, width=100, font=sFont)
-        buttonInAlpha.pack(pady=2, padx=2, side=RIGHT)   
-
-            #### EXTRACT ####
-        self.var24 = ctk.IntVar()
-        self.inputExtractAlpha= ctk.CTkOptionMenu(frame041, variable=self.var24, values=extract, width=85, font=sFont)
-        self.inputExtractAlpha.set(extract[0])
-        self.inputExtractAlpha.pack(pady=2, padx=1,side=RIGHT)
-
+            #### OUTPUT FILE ####
+        buttonOutAlpha = ctk.CTkButton(frame041, text="Set Alpha",command=self.set_alpha_channel, width=100, font=sFont)
+        buttonOutAlpha.pack(pady=2, padx=2, side=RIGHT)   
         
-        mainDirectoryInAlpha = ctk.CTkLabel(frame042, text="Output:", font=sFont)
-        mainDirectoryInAlpha.pack(pady=2, padx=6, side=LEFT)
+        mainDirectoryOutAlpha = ctk.CTkLabel(frame042, text="Output:", font=sFont)
+        mainDirectoryOutAlpha.pack(pady=2, padx=6, side=LEFT)
 
-        self.mainDirectoryPathInAlpha = ctk.CTkLabel(frame042, text="Unset", text_color="red", font=sFont)
-        self.mainDirectoryPathInAlpha.pack(pady=2, padx=6,side=LEFT)   
+        self.mainDirectoryPathOutAlpha = ctk.CTkLabel(frame042, text="Unset", text_color="red", font=sFont)
+        self.mainDirectoryPathOutAlpha.pack(pady=2, padx=6,side=LEFT)   
 
 
 
     def set_red_channel(self):
-        self.InputFilePathRed = filedialog.askopenfilename(title="Input Red Channel")
-        if (self.InputFilePathRed != ""):
-            self.InputFilePathRed1 = self.InputFilePathRed.split("/")[-1]
-            self.mainDirectoryPathInRed.configure(text=self.InputFilePathRed1,text_color="white")
+        self.OutputFilePathRed = filedialog.asksaveasfilename(title="Output Red Channel")
+        if (self.OutputFilePathRed != ""):
+            self.OutputFilePathRed1 = self.OutputFilePathRed.split("/")[-1]
+            self.mainDirectoryPathOutRed.configure(text=self.OutputFilePathRed1,text_color="white")
 
     def set_green_channel(self):
-        self.InputFilePathGreen = filedialog.askopenfilename(title="Input Green Channel")
-        if (self.InputFilePathGreen != ""):
-            self.InputFilePathGreen1 = self.InputFilePathGreen.split("/")[-1]
-            self.mainDirectoryPathInGreen.configure(text=self.InputFilePathGreen1,text_color="white")
+        self.OutputFilePathGreen = filedialog.asksaveasfilename(title="Output Green Channel")
+        if (self.OutputFilePathGreen != ""):
+            self.OutputFilePathGreen1 = self.OutputFilePathGreen.split("/")[-1]
+            self.mainDirectoryPathOutGreen.configure(text=self.OutputFilePathGreen1,text_color="white")
 
     def set_blue_channel(self):
-        self.InputFilePathBlue = filedialog.askopenfilename(title="Input Blue Channel")
-        if (self.InputFilePathBlue != ""):
-            self.InputFilePathBlue1 = self.InputFilePathBlue.split("/")[-1]
-            self.mainDirectoryPathInBlue.configure(text=self.InputFilePathBlue1,text_color="white")
+        self.OutputFilePathBlue = filedialog.asksaveasfilename(title="Output Blue Channel")
+        if (self.OutputFilePathBlue != ""):
+            self.OutputFilePathBlue1 = self.OutputFilePathBlue.split("/")[-1]
+            self.mainDirectoryPathOutBlue.configure(text=self.OutputFilePathBlue1,text_color="white")
 
     def set_alpha_channel(self):
-        self.InputFilePathAlpha = filedialog.askopenfilename(title="Input Alpha Channel")
-        if (self.InputFilePathAlpha != ""):
-            self.InputFilePathAlpha1 = self.InputFilePathAlpha.split("/")[-1]
-            self.mainDirectoryPathInAlpha.configure(text=self.InputFilePathAlpha1,text_color="white")
+        self.OutputFilePathAlpha = filedialog.asksaveasfilename(title="Output Alpha Channel")
+        if (self.OutputFilePathAlpha != ""):
+            self.OutputFilePathAlpha1 = self.OutputFilePathAlpha.split("/")[-1]
+            self.mainDirectoryPathOutAlpha.configure(text=self.OutputFilePathAlpha1,text_color="white")
 
-    def set_output_dir(self):
-        self.OutputFilePath = filedialog.asksaveasfilename(title="Output File")
-        if (self.OutputFilePath != ""):
+    def set_input_dir(self):
+        self.InputFilePath = filedialog.askopenfilename(title="Output File")
+        if (self.InputFilePath != ""):
             #self.OutputStatus.configure(text="Ready", text_color="green")
-            self.OutputFilePath1 = self.OutputFilePath.split("/")[-1]
-            self.mainDirectoryPathOut.configure(text=self.OutputFilePath1,text_color="white",font=sFont1)
+            self.InputFilePath1 = self.InputFilePath.split("/")[-1]
+            self.mainDirectoryPathIn.configure(text=self.InputFilePath1,text_color="white",font=sFont1)
 
-    InputFilePathRed = ""
-    InputFilePathGreen = ""
-    InputFilePathBlue = ""
-    InputFilePathAlpha = ""
+    OutputFilePathRed = ""
+    OutputFilePathGreen = ""
+    OutputFilePathBlue = ""
+    OutputFilePathAlpha = ""
 
 
     def generate(self):
 
-        imgInputRed = self.InputFilePathRed  
-        extInputRed  = self.inputExtractRed.get()
+        imgOutputRed = self.OutputFilePathRed  
+        imgOutputGreen = self.OutputFilePathGreen
+        imgOutputBlue = self.OutputFilePathBlue
+        imgOutputAlpha = self.OutputFilePathAlpha
 
-        imgInputGreen = self.InputFilePathGreen
-        extInputGreen  = self.inputExtractGreen.get() 
-
-        imgInputBlue = self.InputFilePathBlue
-        extInputBlue = self.inputExtractBlue.get()
-
-        imgInputAlpha = self.InputFilePathAlpha
-        extInputAlpha = self.inputExtractAlpha.get()
         
-        Output = self.OutputFilePath
+        Input = self.InputFilePath
 
-        if ( Output != "" ):
-
-            if(imgInputRed == ""):
-                imgRed = Image.new(mode="RGBA", size=(16, 16))
-            else:
-                imgRed = Image.open(imgInputRed)
-                imgRed.convert("RGBA")
-                
-            if(imgInputGreen == ""):
-                imgGreen = Image.new(mode="RGBA", size=(16, 16))
-            else:
-                imgGreen = Image.open(imgInputGreen)
-                imgGreen.convert("RGBA")
-
-            if(imgInputBlue == ""):
-                imgBlue = Image.new(mode="RGBA", size=(16, 16))
-            else:
-                imgBlue = Image.open(imgInputBlue)
-                imgBlue.convert("RGBA")
-
-            if(imgInputAlpha == ""):
-                imgAlpha = Image.new(mode="RGBA", size=(16, 16),color=(255,255,255))
-            else:
-                imgAlpha = Image.open(imgInputAlpha)
-                imgAlpha.convert("RGBA")
-            
-
-            maxsize = max(imgRed.size,imgGreen.size,imgBlue.size,imgAlpha.size)
+        if ( Input != "" ):
+            imgInput = Image.open(Input)
+            maxsize = imgInput.size
             Width, Height = maxsize
 
-            imgNew= Image.new(mode="RGBA", size=(Width, Height))
+            if(imgOutputRed != ""):
+                imgRed = Image.new(mode="L", size=(Width, Height))
+                
+            if(imgOutputGreen != ""):
+                imgGreen = Image.new(mode="L", size=(Width, Height))
 
-            print(f"w={Width} , h={Height}")
-            print(extInputRed)
+            if(imgOutputBlue != ""):
+                imgBlue = Image.new(mode="L", size=(Width, Height))
 
-            imgRed = imgRed.resize((Width,Height),resample=Image.LANCZOS)
-            imgGreen = imgGreen.resize((Width,Height),resample=Image.LANCZOS)
-            imgBlue = imgBlue.resize((Width,Height),resample=Image.LANCZOS)
-            imgAlpha = imgAlpha.resize((Width,Height),resample=Image.LANCZOS)
-            
-            print(imgRed.size)
-            print(imgGreen.size)
-            print(imgBlue.size)
-            print(imgAlpha.size)
+            if(imgOutputAlpha != ""):
+                imgAlpha = Image.new(mode="L",size=(Width, Height))
 
-            def pixel_color(imgRed,w,h,extInputRed):
-
-                Pixel = imgRed.getpixel((w, h))
-                if isinstance(Pixel, int):
-                    pR = pG = pB = pA = Pixel
-                else:
-                    pR, pG, pB, *pRest = Pixel
-                    if(pRest):
-                        pA = pRest[0] 
-                    else:
-                        pA = 255
-
-                Channels = {
-                    "Red": pR,
-                    "Green": pG,
-                    "Blue": pB,
-                    "Alpha": pA
-                }
-
-                return Channels.get(extInputRed)
-            
             R, G, B, A = 0,0,0,255
+            
             for w in range(Width):
                 for h in range(Height):
 
-                    R = pixel_color(imgRed,w,h,extInputRed)
-                    G = pixel_color(imgGreen,w,h,extInputGreen)
-                    B = pixel_color(imgBlue,w,h,extInputBlue)               
-                    A = pixel_color(imgAlpha,w,h,extInputAlpha)
+                    Pixel = imgInput.getpixel((w,h))
+                    R,G,B,A = Pixel
 
-                    #print(f"R={type(R)} G={type(G)} B={type(B)} A={type(A)}")
-                    imgNew.putpixel((w, h), (R, G, B, A))
+                    if(imgOutputRed != ""):
+                        imgRed.putpixel((w, h), (R))
 
-            imgNew.save(Output)
+                    if(imgOutputGreen != ""):
+                        imgGreen.putpixel((w, h), (G))
+
+                    if(imgOutputBlue != ""):
+                        imgBlue.putpixel((w, h), (B))
+
+                    if(imgOutputAlpha != ""):
+                        imgAlpha.putpixel((w, h), (A))
+
+
+            if(imgOutputRed != ""):
+                imgRed.save(imgOutputRed)
+
+            if(imgOutputGreen != ""):
+                imgGreen.save(imgOutputGreen)
+
+            if(imgOutputBlue != ""):
+                imgBlue.save(imgOutputBlue)  
+
+            if(imgOutputAlpha != ""):
+                imgAlpha.save(imgOutputAlpha)             
 
         
 # Initialize classes within the appropriate tabs
