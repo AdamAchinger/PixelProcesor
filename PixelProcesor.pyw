@@ -45,7 +45,7 @@ tab2 = tab_view.add("Gradient")
 tab3 = tab_view.add("Math")
 tab4 = tab_view.add("Combine")
 tab5 = tab_view.add("Separate")
-tab6 = tab_view.add("Resize")
+#tab6 = tab_view.add("Resize")
 
 
 my_font = ctk.CTkFont(size=14)  # Font object
@@ -949,13 +949,13 @@ class Separate:
         buttonOut = ctk.CTkButton(frame09, text="Set Output",command=self.set_output_dir, width=100, font=sFont)
         buttonOut.pack(pady=2, padx=2, side=RIGHT)
 
-        mainDirectoryOut = ctk.CTkLabel(frame09, text="Output:",width=32, font=sFont)
+        mainDirectoryOut = ctk.CTkLabel(frame09, text="Input:",width=32, font=sFont)
         mainDirectoryOut.pack(pady=2, padx=6, side=LEFT)
 
         self.mainDirectoryPathOut = ctk.CTkLabel(frame09,  text="Unset", text_color="red", font=sFont)
         self.mainDirectoryPathOut.pack(pady=2, padx=6,side=LEFT)
 
-        GenerateButton = ctk.CTkButton(frameBottom, text="Combine", width=appWidth, command=self.generate, height=40, font=bFont)
+        GenerateButton = ctk.CTkButton(frameBottom, text="Separate", width=appWidth, command=self.generate, height=40, font=bFont)
         GenerateButton.pack(pady=2, padx=2, side=LEFT)
 
 
@@ -980,7 +980,7 @@ class Separate:
         self.inputExtractRed.set(extract[0])
         self.inputExtractRed.pack(pady=2, padx=1,side=RIGHT)
 
-        mainDirectoryInRed = ctk.CTkLabel(frame012, text="Input:", font=sFont)
+        mainDirectoryInRed = ctk.CTkLabel(frame012, text="Output:", font=sFont)
         mainDirectoryInRed.pack(pady=2, padx=6, side=LEFT)
 
         self.mainDirectoryPathInRed = ctk.CTkLabel(frame012, text="Unset", text_color="red", font=sFont)
@@ -1006,7 +1006,7 @@ class Separate:
         self.inputExtractGreen.set(extract[0])
         self.inputExtractGreen.pack(pady=2, padx=1,side=RIGHT)
         
-        mainDirectoryInGreen = ctk.CTkLabel(frame022, text="Input:", font=sFont)
+        mainDirectoryInGreen = ctk.CTkLabel(frame022, text="Output:", font=sFont)
         mainDirectoryInGreen.pack(pady=2, padx=6, side=LEFT)
 
         self.mainDirectoryPathInGreen = ctk.CTkLabel(frame022, text="Unset", text_color="red", font=sFont)
@@ -1035,7 +1035,7 @@ class Separate:
         self.inputExtractBlue.set(extract[0])
         self.inputExtractBlue.pack(pady=2, padx=1,side=RIGHT)
         
-        mainDirectoryInBlue = ctk.CTkLabel(frame032, text="Input:", font=sFont)
+        mainDirectoryInBlue = ctk.CTkLabel(frame032, text="Output:", font=sFont)
         mainDirectoryInBlue.pack(pady=2, padx=6, side=LEFT)
         
         self.mainDirectoryPathInBlue = ctk.CTkLabel(frame032, text="Unset", text_color="red", font=sFont)
@@ -1062,7 +1062,7 @@ class Separate:
         self.inputExtractAlpha.pack(pady=2, padx=1,side=RIGHT)
 
         
-        mainDirectoryInAlpha = ctk.CTkLabel(frame042, text="Input:", font=sFont)
+        mainDirectoryInAlpha = ctk.CTkLabel(frame042, text="Output:", font=sFont)
         mainDirectoryInAlpha.pack(pady=2, padx=6, side=LEFT)
 
         self.mainDirectoryPathInAlpha = ctk.CTkLabel(frame042, text="Unset", text_color="red", font=sFont)
