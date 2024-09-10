@@ -186,7 +186,6 @@ class SolidColor:
 
         img.save(full_path)
 
-
 class Gradient:
     def __init__(self, master):
         self.Path = ""
@@ -459,7 +458,7 @@ class Math:
         labelMultiply.pack(pady=6, padx=16)
         self.inputMultiply = ctk.CTkEntry(frame01, width=128, font=sFont)
         self.inputMultiply.pack(pady=6, padx=16)
-        self.inputMultiply.insert(0, "1,1,1")
+        self.inputMultiply.insert(0, "1,1,1,1")
 
 
         #### Power #### 
@@ -467,14 +466,14 @@ class Math:
         labelPower.pack(pady=6, padx=16)
         self.inputPower = ctk.CTkEntry(frame02, width=128, font=sFont)
         self.inputPower.pack(pady=6, padx=16)
-        self.inputPower.insert(0, "1,1,1")
+        self.inputPower.insert(0, "1,1,1,1")
 
         #### Add #### 
         labelAdd = ctk.CTkLabel(frame03, text="ADD", font=mFont)
         labelAdd.pack(pady=6, padx=16)
         self.inputAdd = ctk.CTkEntry(frame03, width=128, font=sFont)
         self.inputAdd.pack(pady=6, padx=16)
-        self.inputAdd.insert(0, "0,0,0")
+        self.inputAdd.insert(0, "0,0,0,0")
 
 
 
@@ -483,7 +482,7 @@ class Math:
         labelSubtract.pack(pady=6, padx=16)
         self.inputSubtract = ctk.CTkEntry(frame04, width=128, font=sFont)
         self.inputSubtract.pack(pady=6, padx=16)
-        self.inputSubtract.insert(0, "0,0,0")
+        self.inputSubtract.insert(0, "0,0,0,0")
 
 
 
@@ -492,7 +491,7 @@ class Math:
         labelMax.pack(pady=6, padx=16)
         self.inputMax = ctk.CTkEntry(frame05, width=128, font=sFont)
         self.inputMax.pack(pady=6, padx=16)
-        self.inputMax.insert(0, "1,1,1")
+        self.inputMax.insert(0, "1,1,1,1")
 
 
         #### Min #### 
@@ -500,7 +499,7 @@ class Math:
         labelMin.pack(pady=6, padx=16)
         self.inputMin = ctk.CTkEntry(frame06, width=128, font=sFont)
         self.inputMin.pack(pady=6, padx=16)
-        self.inputMin.insert(0, "0,0,0")       
+        self.inputMin.insert(0, "0,0,0,0")       
 
 
     def set_input_dir(self):
@@ -520,70 +519,80 @@ class Math:
 
 
     def generate(self):
-        Multiply3 = self.inputMultiply.get()
-        Power3 = self.inputPower.get()
-        Add3 = self.inputAdd.get()
-        Subtract3 = self.inputSubtract.get()
-        Min3 = self.inputMin.get()
-        Max3 = self.inputMax.get()
+        Multiply4 = self.inputMultiply.get()
+        Power4 = self.inputPower.get()
+        Add4 = self.inputAdd.get()
+        Subtract4 = self.inputSubtract.get()
+        Min4 = self.inputMin.get()
+        Max4 = self.inputMax.get()
         InputFile = self.InputFilePath
         Output = self.OutputFilePath
 
-        img = Image.open(InputFile)
+        # Open image in RGBA mode
+        img = Image.open(InputFile).convert("RGBA")
         Width, Height = img.size
 
         for w in range(Width):
             for h in range(Height):
                 ### Multiply ###
-                if (Multiply3 != "1,1,1"):
-                    R1, G1, B1 = img.getpixel((w, h))
-                    R = int(R1 * float(Multiply3.split(",")[0]))
-                    G = int(G1 * float(Multiply3.split(",")[1]))
-                    B = int(B1 * float(Multiply3.split(",")[2]))
-                    img.putpixel((w, h), (R, G, B))
+                if (Multiply4 != "1,1,1,1"):
+                    R1, G1, B1, A1 = img.getpixel((w, h))
+                    R = int(R1 * float(Multiply4.split(",")[0]))
+                    G = int(G1 * float(Multiply4.split(",")[1]))
+                    B = int(B1 * float(Multiply4.split(",")[2]))
+                    A = int(A1 * float(Multiply4.split(",")[3]))  # Alpha channel
+                    img.putpixel((w, h), (R, G, B, A))
+
                 ### Power ###
-                if (Power3 != "1,1,1"):
-                    R1, G1, B1 = img.getpixel((w, h))
-                    R = int(pow(R1, float(Power3.split(",")[0])))
-                    G = int(pow(G1, float(Power3.split(",")[1])))
-                    B = int(pow(B1, float(Power3.split(",")[2])))
-                    img.putpixel((w, h), (R, G, B))
+                if (Power4 != "1,1,1,1"):
+                    R1, G1, B1, A1 = img.getpixel((w, h))
+                    R = int(pow(R1, float(Power4.split(",")[0])))
+                    G = int(pow(G1, float(Power4.split(",")[1])))
+                    B = int(pow(B1, float(Power4.split(",")[2])))
+                    A = int(pow(A1, float(Power4.split(",")[3])))  # Alpha channel
+                    img.putpixel((w, h), (R, G, B, A))
 
                 ### Add ###
-                if (Add3 != "0,0,0"):
-                    R1, G1, B1 = img.getpixel((w, h))
-                    R = int(R1 + (float(Add3.split(",")[0]) * 255))
-                    G = int(G1 + (float(Add3.split(",")[1]) * 255))
-                    B = int(B1 + (float(Add3.split(",")[2]) * 255))
-
-                    img.putpixel((w, h), (R, G, B))
+                if (Add4 != "0,0,0,0"):
+                    R1, G1, B1, A1 = img.getpixel((w, h))
+                    R = int(R1 + (float(Add4.split(",")[0]) * 255))
+                    G = int(G1 + (float(Add4.split(",")[1]) * 255))
+                    B = int(B1 + (float(Add4.split(",")[2]) * 255))
+                    A = int(A1 + (float(Add4.split(",")[3]) * 255))  # Alpha channel
+                    img.putpixel((w, h), (R, G, B, A))
 
                 ### Subtract ###
-                if (Subtract3 != "0,0,0"):
-                    R1, G1, B1 = img.getpixel((w, h))
-                    R = int(R1 - (float(Subtract3.split(",")[0]) * 255))
-                    G = int(G1 - (float(Subtract3.split(",")[1]) * 255))
-                    B = int(B1 - (float(Subtract3.split(",")[2]) * 255))
-                    img.putpixel((w, h), (R, G, B))
+                if (Subtract4 != "0,0,0,0"):
+                    R1, G1, B1, A1 = img.getpixel((w, h))
+                    R = int(R1 - (float(Subtract4.split(",")[0]) * 255))
+                    G = int(G1 - (float(Subtract4.split(",")[1]) * 255))
+                    B = int(B1 - (float(Subtract4.split(",")[2]) * 255))
+                    A = int(A1 - (float(Subtract4.split(",")[3]) * 255))  # Alpha channel
+                    img.putpixel((w, h), (R, G, B, A))
 
                 ### Clamp ###
-                rMin = float(Min3.split(",")[0]) * 255
-                gMin = float(Min3.split(",")[1]) * 255
-                bMin = float(Min3.split(",")[2]) * 255
+                rMin = float(Min4.split(",")[0]) * 255
+                gMin = float(Min4.split(",")[1]) * 255
+                bMin = float(Min4.split(",")[2]) * 255
+                aMin = float(Min4.split(",")[3]) * 255  # Alpha channel min
 
-                rMax = float(Max3.split(",")[0]) * 255
-                gMax = float(Max3.split(",")[1]) * 255
-                bMax = float(Max3.split(",")[2]) * 255
+                rMax = float(Max4.split(",")[0]) * 255
+                gMax = float(Max4.split(",")[1]) * 255
+                bMax = float(Max4.split(",")[2]) * 255
+                aMax = float(Max4.split(",")[3]) * 255  # Alpha channel max
 
-                R1, G1, B1 = img.getpixel((w, h))
+                R1, G1, B1, A1 = img.getpixel((w, h))
 
                 R = int(min(max(R1, rMin), rMax))
                 G = int(min(max(G1, gMin), gMax))
                 B = int(min(max(B1, bMin), bMax))
+                A = int(min(max(A1, aMin), aMax))  # Alpha channel
 
-                img.putpixel((w, h), (R, G, B))
+                img.putpixel((w, h), (R, G, B, A))
 
+        # Save image with RGBA
         img.save(Output)
+
 
 class Combine:
     def __init__(self, master):
