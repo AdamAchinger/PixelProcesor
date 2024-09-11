@@ -3,30 +3,28 @@ from tkinter import *
 from tkinter import filedialog
 from PIL import Image
 import customtkinter as ctk
-import json
+import constants as c 
 
-with open("config.json","r") as config: 
-    config = json.loads(config.read())
 
-toolVersion = config["toolVersion"]
-cellH = config["cellH"]
-cellW = config["cellW"]
-cellW2 = config["cellW2"]
-appWidth = config["appWidth"] 
-appHeight = config["appHeight"]
-bgColor = config["bgColor"]
-fgColor = config["fgColor"]
-sFont1 = tuple(config["sFont1"])
-sFont = tuple(config["sFont"])
-mFont = tuple(config["mFont"])
-bFont = tuple(config["bFont"])
-exten = config["Extensions"]
-extract = config["ExtractColors"]
+toolVersion = c.toolVersion
+cellH = c.cellH
+cellW = c.cellW
+cellW2 = c.cellW2
+appWidth = c.appWidth
+appHeight = c.appHeight
+bgColor = c.bgColor
+fgColor = c.fgColor
+sFont1 = c.sFont1
+sFont = c.sFont
+mFont = c.mFont
+bFont = c.bFont
+exten = c.Extensions
+extract = c.ExtractColors
 
 #### Initialize Window ####
 root = Tk()
 root.configure(bg=bgColor)
-root.title("Pixel Procesor" + " v" + str(toolVersion))
+root.title("Pixel Procesor" + str(toolVersion))
 root.iconbitmap('S:\GitHub\PixelProcesor\img\AA_icon.ico')
 root.resizable(FALSE, TRUE)
 screenWidth = root.winfo_screenwidth()
