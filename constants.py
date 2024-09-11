@@ -1,10 +1,10 @@
-toolVersion = " beta - 9.5"
+toolVersion = "(BETA-9.5)"
 
 cellH = 85
 cellW = 180
 cellW2 = 360
 
-appWidth = 400
+appWidth = 420
 appHeight = 400
 
 bgColor = "#353535"

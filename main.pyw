@@ -6,32 +6,17 @@ import customtkinter as ctk
 import constants as c 
 
 
-toolVersion = c.toolVersion
-cellH = c.cellH
-cellW = c.cellW
-cellW2 = c.cellW2
-appWidth = c.appWidth
-appHeight = c.appHeight
-bgColor = c.bgColor
-fgColor = c.fgColor
-sFont1 = c.sFont1
-sFont = c.sFont
-mFont = c.mFont
-bFont = c.bFont
-exten = c.Extensions
-extract = c.ExtractColors
-
 #### Initialize Window ####
-root = Tk()
-root.configure(bg=bgColor)
-root.title("Pixel Procesor" + str(toolVersion))
-root.iconbitmap('S:\GitHub\PixelProcesor\img\AA_icon.ico')
+root = ctk.CTk()
+root.configure(bg=c.bgColor)
+root.title("Pixel Procesor " + str(c.toolVersion))
+root.iconbitmap("img\AA_icon.ico")
 root.resizable(FALSE, TRUE)
 screenWidth = root.winfo_screenwidth()
 screenHeight = root.winfo_screenheight()
-appXpos = int((screenWidth / 2) - (appWidth / 2))
-appYpos = int((screenHeight / 2) - (appHeight / 2))
-root.geometry(f'{appWidth}x{appHeight}+{appXpos}+{appYpos}')
+appXpos = int((screenWidth / 2) - (c.appWidth / 2))
+appYpos = int((screenHeight / 2) - (c.appHeight / 2))
+root.geometry(f'{c.appWidth}x{c.appHeight}+{appXpos}+{appYpos}')
 
 # Create the tab view (this is the equivalent of a tabbed frame)
 tab_view = ctk.CTkTabview(root)
@@ -46,8 +31,6 @@ tab5 = tab_view.add("Separate")
 tab6 = tab_view.add("Mask")
 tab7 = tab_view.add("Misc")
 
-
-
 my_font = ctk.CTkFont(size=15)  # Font object
 for button in tab_view._segmented_button._buttons_dict.values():
     button.configure(height=32, font=my_font)  # Change font using font object
@@ -57,7 +40,7 @@ class Solid:
     def __init__(self, master):
         self.Path = ""
 
-        frameMaster = ctk.CTkFrame(master,fg_color=fgColor)
+        frameMaster = ctk.CTkFrame(master,fg_color=c.fgColor)
         frameMaster.pack(fill=Y,expand=TRUE)
 
         frameTop = ctk.CTkFrame(frameMaster,height=50)
@@ -76,19 +59,19 @@ class Solid:
         frame2 = ctk.CTkFrame(frameScroll)
         frame2.pack()
 
-        frame01 = ctk.CTkFrame(frame1, width=cellW, height=cellH)
+        frame01 = ctk.CTkFrame(frame1, width=c.cellW, height=c.cellH)
         frame01.pack(padx=2, pady=2, side=LEFT)
         frame01.propagate(False)
 
-        frame02 = ctk.CTkFrame(frame1, width=cellW, height=cellH)
+        frame02 = ctk.CTkFrame(frame1, width=c.cellW, height=c.cellH)
         frame02.pack(padx=2, pady=2, side=LEFT)
         frame02.propagate(False)
 
-        frame03 = ctk.CTkFrame(frame2, width=cellW, height=cellH)
+        frame03 = ctk.CTkFrame(frame2, width=c.cellW, height=c.cellH)
         frame03.pack(padx=2, pady=2, side=LEFT)
         frame03.propagate(False)
 
-        frame04 = ctk.CTkFrame(frame2, width=cellW, height=cellH)
+        frame04 = ctk.CTkFrame(frame2, width=c.cellW, height=c.cellH)
         frame04.pack(padx=2, pady=2, side=LEFT)
         frame04.propagate(False)
 
@@ -98,56 +81,56 @@ class Solid:
         
 
         #### OUTPUT DIRECTORY ####
-        button = ctk.CTkButton(frame06, text="Set Output", width=100, command=self.set_directory, font=sFont)
+        button = ctk.CTkButton(frame06, text="Set Output", width=100, command=self.set_directory, font=c.sFont)
         button.pack(pady=2, padx=2,side=RIGHT)
         
-        mainDirectory = ctk.CTkLabel(frame06, text="Output:", font=sFont)
+        mainDirectory = ctk.CTkLabel(frame06, text="Output:", font=c.sFont)
         mainDirectory.pack(pady=2, padx=6, side=LEFT)
 
-        #self.mainDirectoryStatus = ctk.CTkLabel(frame06, text="Unset", text_color="red", font=sFont)
+        #self.mainDirectoryStatus = ctk.CTkLabel(frame06, text="Unset", text_color="red", font=c.sFont)
         #self.mainDirectoryStatus.pack(pady=2, padx=6, side=LEFT)
 
-        self.mainDirectoryPath = ctk.CTkLabel(frame06, text="Unset", text_color="red", font=sFont)
+        self.mainDirectoryPath = ctk.CTkLabel(frame06, text="Unset", text_color="red", font=c.sFont)
         self.mainDirectoryPath.pack(pady=2, padx=6, side=LEFT)
 
 
-        generateButton = ctk.CTkButton(frameBottom, text="Export Solid Color", width=appWidth, height=40, command=self.generate, font=bFont)
-        generateButton.pack(pady=2, padx=2,side=LEFT)
+        generateButton = ctk.CTkButton(frameBottom, text="Export Solid", width=c.appWidth, height=40, command=self.generate, font=c.bFont)
+        generateButton.pack(pady=2, padx=2, side=LEFT)
 
 
         #### HEX ####
         self.inputHex = StringVar()
-        labelHex = ctk.CTkLabel(frame01, text="COLOR (RGBA)", font=mFont)
+        labelHex = ctk.CTkLabel(frame01, text="COLOR (RGBA)", font=c.mFont)
         labelHex.pack(pady=6, padx=16)
 
-        self.inputHexEntry = ctk.CTkEntry(frame01, width=128, textvariable=self.inputHex, font=sFont)
+        self.inputHexEntry = ctk.CTkEntry(frame01, width=128, textvariable=self.inputHex, font=c.sFont)
         self.inputHexEntry.pack(pady=6, padx=16)
         self.inputHexEntry.insert(0, "1, 0.5, 1, 1")
 
         #### SIZE ####
-        labelSize = ctk.CTkLabel(frame02, text="SIZE", font=mFont)
+        labelSize = ctk.CTkLabel(frame02, text="SIZE", font=c.mFont)
         labelSize.pack(pady=6, padx=16)
 
-        self.inputSize = ctk.CTkEntry(frame02, width=128, font=sFont)
+        self.inputSize = ctk.CTkEntry(frame02, width=128, font=c.sFont)
         self.inputSize.pack(pady=6, padx=16)
         self.inputSize.insert(0, "512x512")
 
         #### FILENAME ####
-        labelFilename = ctk.CTkLabel(frame03, text="FILENAME", font=mFont)
+        labelFilename = ctk.CTkLabel(frame03, text="FILENAME", font=c.mFont)
         labelFilename.pack(pady=6, padx=16)
 
-        self.inputFilename = ctk.CTkEntry(frame03, width=128, font=sFont)
+        self.inputFilename = ctk.CTkEntry(frame03, width=128, font=c.sFont)
         self.inputFilename.pack(pady=6, padx=16)
         self.inputFilename.insert(0, "T_SolidColor")
 
         #### FILETYPE ####
-        labelFiletype = ctk.CTkLabel(frame04, text="FILETYPE", font=mFont)
+        labelFiletype = ctk.CTkLabel(frame04, text="FILETYPE", font=c.mFont)
         labelFiletype.pack(pady=6, padx=16)
 
 
         self.var2 = ctk.IntVar()
-        self.inputFiletype = ctk.CTkOptionMenu(frame04, variable=self.var2, values=exten, width=128, font=sFont)
-        self.inputFiletype.set(exten[0])
+        self.inputFiletype = ctk.CTkOptionMenu(frame04, variable=self.var2, values=c.Extensions, width=128, font=c.sFont)
+        self.inputFiletype.set(c.Extensions[0])
         self.inputFiletype.pack(pady=6, padx=16)
 
 
@@ -190,7 +173,7 @@ class Gradient:
     def __init__(self, master):
         self.Path = ""
         
-        frameMaster = ctk.CTkFrame(master,fg_color=fgColor)
+        frameMaster = ctk.CTkFrame(master,fg_color=c.fgColor)
         frameMaster.pack(fill=Y,expand=TRUE)
 
         frameTop = ctk.CTkFrame(frameMaster,height=50)
@@ -212,27 +195,27 @@ class Gradient:
         frame3 = ctk.CTkFrame(frameScroll)
         frame3.pack()
 
-        frame01 = ctk.CTkFrame(frame1, width=cellW, height=cellH)
+        frame01 = ctk.CTkFrame(frame1, width=c.cellW, height=c.cellH)
         frame01.pack(padx=2, pady=2, side=LEFT)
         frame01.propagate(False)
 
-        frame02 = ctk.CTkFrame(frame1, width=cellW, height=cellH)
+        frame02 = ctk.CTkFrame(frame1, width=c.cellW, height=c.cellH)
         frame02.pack(padx=2, pady=2, side=LEFT)
         frame02.propagate(False)
 
-        frame03 = ctk.CTkFrame(frame2, width=cellW, height=cellH)
+        frame03 = ctk.CTkFrame(frame2, width=c.cellW, height=c.cellH)
         frame03.pack(padx=2, pady=2, side=LEFT)
         frame03.propagate(False)
 
-        frame04 = ctk.CTkFrame(frame2, width=cellW, height=cellH)
+        frame04 = ctk.CTkFrame(frame2, width=c.cellW, height=c.cellH)
         frame04.pack(padx=2, pady=2, side=LEFT)
         frame04.propagate(False)
 
-        frame05 = ctk.CTkFrame(frame3, width=cellW, height=cellH)
+        frame05 = ctk.CTkFrame(frame3, width=c.cellW, height=c.cellH)
         frame05.pack(padx=2, pady=2, side=LEFT)
         frame05.propagate(False)
 
-        frame06 = ctk.CTkFrame(frame3, width=cellW, height=cellH)
+        frame06 = ctk.CTkFrame(frame3, width=c.cellW, height=c.cellH)
         frame06.pack(padx=2, pady=2, side=LEFT)
         frame06.propagate(False)
 
@@ -242,74 +225,74 @@ class Gradient:
 
 
         #### OUTPUT DIRECTORY ####
-        button = ctk.CTkButton(frame07, text="Set Output", width=100, command=self.set_output_dir, font=sFont)
+        button = ctk.CTkButton(frame07, text="Set Output", width=100, command=self.set_output_dir, font=c.sFont)
         button.pack(pady=2, padx=2, side=RIGHT)
 
-        mainDirectory = ctk.CTkLabel(frame07, text="Output:", font=sFont)
+        mainDirectory = ctk.CTkLabel(frame07, text="Output:", font=c.sFont)
         mainDirectory.pack(pady=2, padx=6, side=LEFT)
 
-        #self.mainDirectoryStatus = ctk.CTkLabel(frame08, text="Unset", font=sFont, text_color="red")
+        #self.mainDirectoryStatus = ctk.CTkLabel(frame08, text="Unset", font=c.sFont, text_color="red")
         #self.mainDirectoryStatus.pack(pady=2, padx=6, side=LEFT)
 
-        self.mainDirectoryPath = ctk.CTkLabel(frame07, text="Unset", text_color="red", font=sFont)
+        self.mainDirectoryPath = ctk.CTkLabel(frame07, text="Unset", text_color="red", font=c.sFont)
         self.mainDirectoryPath.pack(pady=2, padx=6,side=LEFT)
 
 
-        GenerateButton = ctk.CTkButton(frameBottom, text="Export Gradient", width=appWidth, height=40, command=self.generate, font=bFont)
+        GenerateButton = ctk.CTkButton(frameBottom, text="Export Gradient", width=c.appWidth, height=40, command=self.generate, font=c.bFont)
         GenerateButton.pack(pady=2, padx=2, side=LEFT)
 
 
 
         #### COLOR 1 ####
-        labelColor1 = ctk.CTkLabel(frame01, text="COLOR 1 (RGB)", font=mFont)
+        labelColor1 = ctk.CTkLabel(frame01, text="COLOR 1 (RGB)", font=c.mFont)
         labelColor1.pack(pady=6, padx=16)
 
-        self.inputColor1 = ctk.CTkEntry(frame01, width=128, font=sFont)
+        self.inputColor1 = ctk.CTkEntry(frame01, width=128, font=c.sFont)
         self.inputColor1.pack(pady=6, padx=16)
         self.inputColor1.insert(0, "0,0,0")
 
         #### COLOR 2 ####
-        labelColor2 = ctk.CTkLabel(frame02, text="COLOR 2 (RGB)", font=mFont)
+        labelColor2 = ctk.CTkLabel(frame02, text="COLOR 2 (RGB)", font=c.mFont)
         labelColor2.pack(pady=6, padx=16)
 
-        self.inputColor2 = ctk.CTkEntry(frame02, width=128, font=sFont)
+        self.inputColor2 = ctk.CTkEntry(frame02, width=128, font=c.sFont)
         self.inputColor2.pack(pady=6, padx=16)
         self.inputColor2.insert(0, "1,1,1")
 
         #### FILENAME ####
-        labelFilename = ctk.CTkLabel(frame03, text="FILENAME", font=mFont)
+        labelFilename = ctk.CTkLabel(frame03, text="FILENAME", font=c.mFont)
         labelFilename.pack(pady=6, padx=16)
 
-        self.inputFilename = ctk.CTkEntry(frame03, width=128, font=sFont)
+        self.inputFilename = ctk.CTkEntry(frame03, width=128, font=c.sFont)
         self.inputFilename.pack(pady=6, padx=16)
         self.inputFilename.insert(0, "T_Gradient")
 
         #### SIZE ####
-        labelSize = ctk.CTkLabel(frame04, text="SIZE", font=mFont)
+        labelSize = ctk.CTkLabel(frame04, text="SIZE", font=c.mFont)
         labelSize.pack(pady=6, padx=16)
 
-        self.inputSize = ctk.CTkEntry(frame04, width=128, font=sFont)
+        self.inputSize = ctk.CTkEntry(frame04, width=128, font=c.sFont)
         self.inputSize.pack(pady=6, padx=16)
         self.inputSize.insert(0, "512x512")
 
         #### Orientation ####
-        labelOrient = ctk.CTkLabel(frame05, text="ORIENTATION", font=mFont)
+        labelOrient = ctk.CTkLabel(frame05, text="ORIENTATION", font=c.mFont)
         labelOrient.pack(pady=6, padx=16)
         
         orient = ["HORIZ","HORIZ FLIP","VERTI","VERTI FLIP"]
         
         self.var1 = ctk.IntVar()
-        self.inputFlip = ctk.CTkOptionMenu(frame05, variable=self.var1, values=orient, width=128, font=sFont)
+        self.inputFlip = ctk.CTkOptionMenu(frame05, variable=self.var1, values=orient, width=128, font=c.sFont)
         self.inputFlip.set(orient[0])
         self.inputFlip.pack(pady=6, padx=16)
 
         #### FILETYPE ####
-        labelFiletype = ctk.CTkLabel(frame06, text="FILETYPE", font=mFont)
+        labelFiletype = ctk.CTkLabel(frame06, text="FILETYPE", font=c.mFont)
         labelFiletype.pack(pady=6, padx=16)
 
         self.var2 = ctk.IntVar()
-        self.inputFiletype = ctk.CTkOptionMenu(frame06, variable=self.var2, values=exten, width=128, font=sFont)
-        self.inputFiletype.set(exten[0])
+        self.inputFiletype = ctk.CTkOptionMenu(frame06, variable=self.var2, values=c.Extensions, width=128, font=c.sFont)
+        self.inputFiletype.set(c.Extensions[0])
         self.inputFiletype.pack(pady=6, padx=16)
 
     def set_output_dir(self):
@@ -365,7 +348,7 @@ class Gradient:
 class Math:
     def __init__(self, master):
 
-        frameMaster = ctk.CTkFrame(master,fg_color=fgColor)
+        frameMaster = ctk.CTkFrame(master,fg_color=c.fgColor)
         frameMaster.pack(fill=Y,expand=TRUE)
 
         frameTop = ctk.CTkFrame(frameMaster,height=50)
@@ -387,27 +370,27 @@ class Math:
         frame3 = ctk.CTkFrame(frameScroll)
         frame3.pack()
 
-        frame01 = ctk.CTkFrame(frame1, width=cellW, height=cellH)
+        frame01 = ctk.CTkFrame(frame1, width=c.cellW, height=c.cellH)
         frame01.pack(padx=2, pady=2, side=LEFT)
         frame01.propagate(False)
 
-        frame02 = ctk.CTkFrame(frame1, width=cellW, height=cellH)
+        frame02 = ctk.CTkFrame(frame1, width=c.cellW, height=c.cellH)
         frame02.pack(padx=2, pady=2, side=LEFT)
         frame02.propagate(False)
 
-        frame03 = ctk.CTkFrame(frame2, width=cellW, height=cellH)
+        frame03 = ctk.CTkFrame(frame2, width=c.cellW, height=c.cellH)
         frame03.pack(padx=2, pady=2, side=LEFT)
         frame03.propagate(False)
 
-        frame04 = ctk.CTkFrame(frame2, width=cellW, height=cellH)
+        frame04 = ctk.CTkFrame(frame2, width=c.cellW, height=c.cellH)
         frame04.pack(padx=2, pady=2, side=LEFT)
         frame04.propagate(False)
 
-        frame05 = ctk.CTkFrame(frame3, width=cellW, height=cellH)
+        frame05 = ctk.CTkFrame(frame3, width=c.cellW, height=c.cellH)
         frame05.pack(padx=2, pady=2, side=LEFT)
         frame05.propagate(False)
 
-        frame06 = ctk.CTkFrame(frame3, width=cellW, height=cellH)
+        frame06 = ctk.CTkFrame(frame3, width=c.cellW, height=c.cellH)
         frame06.pack(padx=2, pady=2, side=LEFT)
         frame06.propagate(False)
 
@@ -422,82 +405,82 @@ class Math:
 
 
         #### INPUT FILE ####
-        buttonIn = ctk.CTkButton(frame08, text="Set Input",command=self.set_input_dir, width=100, font=sFont)
+        buttonIn = ctk.CTkButton(frame08, text="Set Input",command=self.set_input_dir, width=100, font=c.sFont)
         buttonIn.pack(pady=2, padx=2, side=RIGHT)
         
-        mainDirectoryIn = ctk.CTkLabel(frame08, text="Input:", font=sFont)
+        mainDirectoryIn = ctk.CTkLabel(frame08, text="Input:", font=c.sFont)
         mainDirectoryIn.pack(pady=2, padx=6, side=LEFT)
 
-        #self.mainDirectoryStatus = ctk.CTkLabel(frame09, text="Unset", font=sFont, text_color="red")
+        #self.mainDirectoryStatus = ctk.CTkLabel(frame09, text="Unset", font=c.sFont, text_color="red")
         #self.mainDirectoryStatus.pack(pady=2, padx=6, side=LEFT)
 
-        self.mainDirectoryPathIn = ctk.CTkLabel(frame08, text="Unset", text_color="red", font=sFont)
+        self.mainDirectoryPathIn = ctk.CTkLabel(frame08, text="Unset", text_color="red", font=c.sFont)
         self.mainDirectoryPathIn.pack(pady=2, padx=6,side=LEFT)   
 
 
         #### OUTPUT DIRECTORY ####
-        buttonOut = ctk.CTkButton(frame09, text="Set Output",command=self.set_output_dir, width=100, font=sFont)
+        buttonOut = ctk.CTkButton(frame09, text="Set Output",command=self.set_output_dir, width=100, font=c.sFont)
         buttonOut.pack(pady=2, padx=2, side=RIGHT)
 
-        mainDirectoryOut = ctk.CTkLabel(frame09, text="Output:",width=32, font=sFont)
+        mainDirectoryOut = ctk.CTkLabel(frame09, text="Output:",width=32, font=c.sFont)
         mainDirectoryOut.pack(pady=2, padx=6, side=LEFT)
 
-        #self.mainDirectoryStatus = ctk.CTkLabel(frame08, text="Unset", font=sFont, text_color="red")
+        #self.mainDirectoryStatus = ctk.CTkLabel(frame08, text="Unset", font=c.sFont, text_color="red")
         #self.mainDirectoryStatus.pack(pady=2, padx=6, side=LEFT)
 
-        self.mainDirectoryPathOut = ctk.CTkLabel(frame09,  text="Unset", text_color="red", font=sFont)
+        self.mainDirectoryPathOut = ctk.CTkLabel(frame09,  text="Unset", text_color="red", font=c.sFont)
         self.mainDirectoryPathOut.pack(pady=2, padx=6,side=LEFT)
 
-        GenerateButton = ctk.CTkButton(frameBottom, text="Export", width=appWidth, command=self.generate, height=40, font=bFont)
+        GenerateButton = ctk.CTkButton(frameBottom, text="Export", width=c.appWidth, command=self.generate, height=40, font=c.bFont)
         GenerateButton.pack(pady=2, padx=2, side=LEFT)
 
 
 
         #### Multiply #### 
-        labelMultiply = ctk.CTkLabel(frame01, text="MULTIPLY", font=mFont)
+        labelMultiply = ctk.CTkLabel(frame01, text="MULTIPLY", font=c.mFont)
         labelMultiply.pack(pady=6, padx=16)
-        self.inputMultiply = ctk.CTkEntry(frame01, width=128, font=sFont)
+        self.inputMultiply = ctk.CTkEntry(frame01, width=128, font=c.sFont)
         self.inputMultiply.pack(pady=6, padx=16)
         self.inputMultiply.insert(0, "1,1,1,1")
 
 
         #### Power #### 
-        labelPower = ctk.CTkLabel(frame02, text="POWER", font=mFont)
+        labelPower = ctk.CTkLabel(frame02, text="POWER", font=c.mFont)
         labelPower.pack(pady=6, padx=16)
-        self.inputPower = ctk.CTkEntry(frame02, width=128, font=sFont)
+        self.inputPower = ctk.CTkEntry(frame02, width=128, font=c.sFont)
         self.inputPower.pack(pady=6, padx=16)
         self.inputPower.insert(0, "1,1,1,1")
 
         #### Add #### 
-        labelAdd = ctk.CTkLabel(frame03, text="ADD", font=mFont)
+        labelAdd = ctk.CTkLabel(frame03, text="ADD", font=c.mFont)
         labelAdd.pack(pady=6, padx=16)
-        self.inputAdd = ctk.CTkEntry(frame03, width=128, font=sFont)
+        self.inputAdd = ctk.CTkEntry(frame03, width=128, font=c.sFont)
         self.inputAdd.pack(pady=6, padx=16)
         self.inputAdd.insert(0, "0,0,0,0")
 
 
 
         #### Subtract #### 
-        labelSubtract = ctk.CTkLabel(frame04, text="SUBTRACT", font=mFont)
+        labelSubtract = ctk.CTkLabel(frame04, text="SUBTRACT", font=c.mFont)
         labelSubtract.pack(pady=6, padx=16)
-        self.inputSubtract = ctk.CTkEntry(frame04, width=128, font=sFont)
+        self.inputSubtract = ctk.CTkEntry(frame04, width=128, font=c.sFont)
         self.inputSubtract.pack(pady=6, padx=16)
         self.inputSubtract.insert(0, "0,0,0,0")
 
 
 
         #### Max #### 
-        labelMax = ctk.CTkLabel(frame05, text="MAX", font=mFont)
+        labelMax = ctk.CTkLabel(frame05, text="MAX", font=c.mFont)
         labelMax.pack(pady=6, padx=16)
-        self.inputMax = ctk.CTkEntry(frame05, width=128, font=sFont)
+        self.inputMax = ctk.CTkEntry(frame05, width=128, font=c.sFont)
         self.inputMax.pack(pady=6, padx=16)
         self.inputMax.insert(0, "1,1,1,1")
 
 
         #### Min #### 
-        labelMin = ctk.CTkLabel(frame06, text="MIN", font=mFont)
+        labelMin = ctk.CTkLabel(frame06, text="MIN", font=c.mFont)
         labelMin.pack(pady=6, padx=16)
-        self.inputMin = ctk.CTkEntry(frame06, width=128, font=sFont)
+        self.inputMin = ctk.CTkEntry(frame06, width=128, font=c.sFont)
         self.inputMin.pack(pady=6, padx=16)
         self.inputMin.insert(0, "0,0,0,0")       
 
@@ -596,7 +579,7 @@ class Math:
 class Combine:
     def __init__(self, master):
 
-        frameMaster = ctk.CTkFrame(master,fg_color=fgColor)
+        frameMaster = ctk.CTkFrame(master,fg_color=c.fgColor)
         frameMaster.pack(fill=Y,expand=TRUE)
 
         frameTop = ctk.CTkFrame(frameMaster,height=50)
@@ -621,19 +604,19 @@ class Combine:
         frame4 = ctk.CTkFrame(frameScroll)
         frame4.pack()
 
-        frame01 = ctk.CTkFrame(frame1, width=cellW2, height=cellH)
+        frame01 = ctk.CTkFrame(frame1, width=c.cellW2, height=c.cellH)
         frame01.pack(padx=2, pady=2, side=LEFT)
         frame01.propagate(False)
 
-        frame02 = ctk.CTkFrame(frame2, width=cellW2, height=cellH)
+        frame02 = ctk.CTkFrame(frame2, width=c.cellW2, height=c.cellH)
         frame02.pack(padx=2, pady=2, side=LEFT)
         frame02.propagate(False)
 
-        frame03 = ctk.CTkFrame(frame3, width=cellW2, height=cellH)
+        frame03 = ctk.CTkFrame(frame3, width=c.cellW2, height=c.cellH)
         frame03.pack(padx=2, pady=2, side=LEFT)
         frame03.propagate(False)
 
-        frame04 = ctk.CTkFrame(frame4, width=cellW2, height=cellH)
+        frame04 = ctk.CTkFrame(frame4, width=c.cellW2, height=c.cellH)
         frame04.pack(padx=2, pady=2, side=LEFT)
         frame04.propagate(False)
 
@@ -645,16 +628,16 @@ class Combine:
 
 
         #### OUTPUT DIRECTORY ####
-        buttonOut = ctk.CTkButton(frame09, text="Set Output",command=self.set_output_dir, width=100, font=sFont)
+        buttonOut = ctk.CTkButton(frame09, text="Set Output",command=self.set_output_dir, width=100, font=c.sFont)
         buttonOut.pack(pady=2, padx=2, side=RIGHT)
 
-        mainDirectoryOut = ctk.CTkLabel(frame09, text="Output:",width=32, font=sFont)
+        mainDirectoryOut = ctk.CTkLabel(frame09, text="Output:",width=32, font=c.sFont)
         mainDirectoryOut.pack(pady=2, padx=6, side=LEFT)
 
-        self.mainDirectoryPathOut = ctk.CTkLabel(frame09,  text="Unset", text_color="red", font=sFont)
+        self.mainDirectoryPathOut = ctk.CTkLabel(frame09,  text="Unset", text_color="red", font=c.sFont)
         self.mainDirectoryPathOut.pack(pady=2, padx=6,side=LEFT)
 
-        GenerateButton = ctk.CTkButton(frameBottom, text="Combine", width=appWidth, command=self.generate, height=40, font=bFont)
+        GenerateButton = ctk.CTkButton(frameBottom, text="Combine", width=c.appWidth, command=self.generate, height=40, font=c.bFont)
         GenerateButton.pack(pady=2, padx=2, side=LEFT)
 
 
@@ -666,23 +649,23 @@ class Combine:
         frame012 = ctk.CTkFrame(frame01, width=400, height=40)
         frame012.pack(padx=2, pady=1,fill=X,expand=TRUE)
 
-        labelRed = ctk.CTkLabel(frame011, text="Red Channel", font=mFont)
+        labelRed = ctk.CTkLabel(frame011, text="Red Channel", font=c.mFont)
         labelRed.pack(pady=6, padx=12, side=LEFT)
 
             #### INPUT FILE ####
-        buttonInRed = ctk.CTkButton(frame011, text="Set Red",command=self.set_red_channel, width=100, font=sFont)
+        buttonInRed = ctk.CTkButton(frame011, text="Set Red",command=self.set_red_channel, width=100, font=c.sFont)
         buttonInRed.pack(pady=2, padx=2, side=RIGHT)
 
             #### EXTRACT ####
         self.var21 = ctk.IntVar()
-        self.inputExtractRed = ctk.CTkOptionMenu(frame011, variable=self.var21, values=extract, width=85, font=sFont)
-        self.inputExtractRed.set(extract[0])
+        self.inputExtractRed = ctk.CTkOptionMenu(frame011, variable=self.var21, values=c.ExtractColors, width=85, font=c.sFont)
+        self.inputExtractRed.set(c.ExtractColors[0])
         self.inputExtractRed.pack(pady=2, padx=1,side=RIGHT)
 
-        mainDirectoryInRed = ctk.CTkLabel(frame012, text="Input:", font=sFont)
+        mainDirectoryInRed = ctk.CTkLabel(frame012, text="Input:", font=c.sFont)
         mainDirectoryInRed.pack(pady=2, padx=6, side=LEFT)
 
-        self.mainDirectoryPathInRed = ctk.CTkLabel(frame012, text="Unset", text_color="red", font=sFont)
+        self.mainDirectoryPathInRed = ctk.CTkLabel(frame012, text="Unset", text_color="red", font=c.sFont)
         self.mainDirectoryPathInRed.pack(pady=2, padx=6,side=LEFT)   
 
         #### Green #### 
@@ -692,23 +675,23 @@ class Combine:
         frame022 = ctk.CTkFrame(frame02, width=400, height=40)
         frame022.pack(padx=2, pady=1,fill=X,expand=TRUE)
 
-        labelGreen = ctk.CTkLabel(frame021, text="Green Channel", font=mFont)
+        labelGreen = ctk.CTkLabel(frame021, text="Green Channel", font=c.mFont)
         labelGreen.pack(pady=6, padx=12, side=LEFT)
 
             #### INPUT FILE ####
-        buttonInGreen = ctk.CTkButton(frame021, text="Set Green",command=self.set_green_channel, width=100, font=sFont)
+        buttonInGreen = ctk.CTkButton(frame021, text="Set Green",command=self.set_green_channel, width=100, font=c.sFont)
         buttonInGreen.pack(pady=2, padx=2, side=RIGHT)
 
             #### EXTRACT ####
         self.var22 = ctk.IntVar()
-        self.inputExtractGreen = ctk.CTkOptionMenu(frame021, variable=self.var22, values=extract, width=85, font=sFont)
-        self.inputExtractGreen.set(extract[0])
+        self.inputExtractGreen = ctk.CTkOptionMenu(frame021, variable=self.var22, values=c.ExtractColors, width=85, font=c.sFont)
+        self.inputExtractGreen.set(c.ExtractColors[0])
         self.inputExtractGreen.pack(pady=2, padx=1,side=RIGHT)
         
-        mainDirectoryInGreen = ctk.CTkLabel(frame022, text="Input:", font=sFont)
+        mainDirectoryInGreen = ctk.CTkLabel(frame022, text="Input:", font=c.sFont)
         mainDirectoryInGreen.pack(pady=2, padx=6, side=LEFT)
 
-        self.mainDirectoryPathInGreen = ctk.CTkLabel(frame022, text="Unset", text_color="red", font=sFont)
+        self.mainDirectoryPathInGreen = ctk.CTkLabel(frame022, text="Unset", text_color="red", font=c.sFont)
         self.mainDirectoryPathInGreen.pack(pady=2, padx=6,side=LEFT)   
         
 
@@ -719,25 +702,25 @@ class Combine:
         frame032 = ctk.CTkFrame(frame03, width=400, height=40)
         frame032.pack(padx=2, pady=1,fill=X,expand=TRUE)
 
-        labelBlue = ctk.CTkLabel(frame031, text="Blue Channel", font=mFont)
+        labelBlue = ctk.CTkLabel(frame031, text="Blue Channel", font=c.mFont)
         labelBlue.pack(pady=6, padx=12, side=LEFT)
 
 
 
             #### INPUT FILE ####
-        buttonInBlue = ctk.CTkButton(frame031, text="Set Blue",command=self.set_blue_channel, width=100, font=sFont)
+        buttonInBlue = ctk.CTkButton(frame031, text="Set Blue",command=self.set_blue_channel, width=100, font=c.sFont)
         buttonInBlue.pack(pady=2, padx=2, side=RIGHT)
 
             #### EXTRACT ####
         self.var23 = ctk.IntVar()
-        self.inputExtractBlue= ctk.CTkOptionMenu(frame031, variable=self.var23, values=extract, width=85, font=sFont)
-        self.inputExtractBlue.set(extract[0])
+        self.inputExtractBlue= ctk.CTkOptionMenu(frame031, variable=self.var23, values=c.ExtractColors, width=85, font=c.sFont)
+        self.inputExtractBlue.set(c.ExtractColors[0])
         self.inputExtractBlue.pack(pady=2, padx=1,side=RIGHT)
         
-        mainDirectoryInBlue = ctk.CTkLabel(frame032, text="Input:", font=sFont)
+        mainDirectoryInBlue = ctk.CTkLabel(frame032, text="Input:", font=c.sFont)
         mainDirectoryInBlue.pack(pady=2, padx=6, side=LEFT)
         
-        self.mainDirectoryPathInBlue = ctk.CTkLabel(frame032, text="Unset", text_color="red", font=sFont)
+        self.mainDirectoryPathInBlue = ctk.CTkLabel(frame032, text="Unset", text_color="red", font=c.sFont)
         self.mainDirectoryPathInBlue.pack(pady=2, padx=6,side=LEFT)   
 
         #### Alpha #### 
@@ -747,24 +730,24 @@ class Combine:
         frame042 = ctk.CTkFrame(frame04, width=400, height=40)
         frame042.pack(padx=2, pady=1,fill=X,expand=TRUE)
 
-        labelAlpha = ctk.CTkLabel(frame041, text="Alpha Channel", font=mFont)
+        labelAlpha = ctk.CTkLabel(frame041, text="Alpha Channel", font=c.mFont)
         labelAlpha.pack(pady=6, padx=16, side=LEFT)
 
             #### INPUT FILE ####
-        buttonInAlpha = ctk.CTkButton(frame041, text="Set Alpha",command=self.set_alpha_channel, width=100, font=sFont)
+        buttonInAlpha = ctk.CTkButton(frame041, text="Set Alpha",command=self.set_alpha_channel, width=100, font=c.sFont)
         buttonInAlpha.pack(pady=2, padx=2, side=RIGHT)   
 
             #### EXTRACT ####
         self.var24 = ctk.IntVar()
-        self.inputExtractAlpha= ctk.CTkOptionMenu(frame041, variable=self.var24, values=extract, width=85, font=sFont)
-        self.inputExtractAlpha.set(extract[0])
+        self.inputExtractAlpha= ctk.CTkOptionMenu(frame041, variable=self.var24, values=c.ExtractColors, width=85, font=c.sFont)
+        self.inputExtractAlpha.set(c.ExtractColors[0])
         self.inputExtractAlpha.pack(pady=2, padx=1,side=RIGHT)
 
         
-        mainDirectoryInAlpha = ctk.CTkLabel(frame042, text="Input:", font=sFont)
+        mainDirectoryInAlpha = ctk.CTkLabel(frame042, text="Input:", font=c.sFont)
         mainDirectoryInAlpha.pack(pady=2, padx=6, side=LEFT)
 
-        self.mainDirectoryPathInAlpha = ctk.CTkLabel(frame042, text="Unset", text_color="red", font=sFont)
+        self.mainDirectoryPathInAlpha = ctk.CTkLabel(frame042, text="Unset", text_color="red", font=c.sFont)
         self.mainDirectoryPathInAlpha.pack(pady=2, padx=6,side=LEFT)   
 
 
@@ -798,7 +781,7 @@ class Combine:
         if (self.OutputFilePath != ""):
             #self.OutputStatus.configure(text="Ready", text_color="green")
             self.OutputFilePath1 = self.OutputFilePath.split("/")[-1]
-            self.mainDirectoryPathOut.configure(text=self.OutputFilePath1,text_color="white",font=sFont1)
+            self.mainDirectoryPathOut.configure(text=self.OutputFilePath1,text_color="white",font=c.sFont1)
 
     InputFilePathRed = ""
     InputFilePathGreen = ""
@@ -905,7 +888,7 @@ class Combine:
 class Separate:
     def __init__(self, master):
 
-        frameMaster = ctk.CTkFrame(master,fg_color=fgColor)
+        frameMaster = ctk.CTkFrame(master,fg_color=c.fgColor)
         frameMaster.pack(fill=Y,expand=TRUE)
 
         frameTop = ctk.CTkFrame(frameMaster,height=50)
@@ -930,19 +913,19 @@ class Separate:
         frame4 = ctk.CTkFrame(frameScroll)
         frame4.pack()
 
-        frame01 = ctk.CTkFrame(frame1, width=cellW2, height=cellH)
+        frame01 = ctk.CTkFrame(frame1, width=c.cellW2, height=c.cellH)
         frame01.pack(padx=2, pady=2, side=LEFT)
         frame01.propagate(False)
 
-        frame02 = ctk.CTkFrame(frame2, width=cellW2, height=cellH)
+        frame02 = ctk.CTkFrame(frame2, width=c.cellW2, height=c.cellH)
         frame02.pack(padx=2, pady=2, side=LEFT)
         frame02.propagate(False)
 
-        frame03 = ctk.CTkFrame(frame3, width=cellW2, height=cellH)
+        frame03 = ctk.CTkFrame(frame3, width=c.cellW2, height=c.cellH)
         frame03.pack(padx=2, pady=2, side=LEFT)
         frame03.propagate(False)
 
-        frame04 = ctk.CTkFrame(frame4, width=cellW2, height=cellH)
+        frame04 = ctk.CTkFrame(frame4, width=c.cellW2, height=c.cellH)
         frame04.pack(padx=2, pady=2, side=LEFT)
         frame04.propagate(False)
 
@@ -954,16 +937,16 @@ class Separate:
 
 
         #### Input DIRECTORY ####
-        buttonIn = ctk.CTkButton(frame09, text="Set Input",command=self.set_input_dir, width=100, font=sFont)
+        buttonIn = ctk.CTkButton(frame09, text="Set Input",command=self.set_input_dir, width=100, font=c.sFont)
         buttonIn.pack(pady=2, padx=2, side=RIGHT)
 
-        mainDirectoryIn = ctk.CTkLabel(frame09, text="Input:",width=32, font=sFont)
+        mainDirectoryIn = ctk.CTkLabel(frame09, text="Input:",width=32, font=c.sFont)
         mainDirectoryIn.pack(pady=2, padx=6, side=LEFT)
 
-        self.mainDirectoryPathIn = ctk.CTkLabel(frame09,  text="Unset", text_color="red", font=sFont)
+        self.mainDirectoryPathIn = ctk.CTkLabel(frame09,  text="Unset", text_color="red", font=c.sFont)
         self.mainDirectoryPathIn.pack(pady=2, padx=6,side=LEFT)
 
-        GenerateButton = ctk.CTkButton(frameBottom, text="Separate", width=appWidth, command=self.generate, height=40, font=bFont)
+        GenerateButton = ctk.CTkButton(frameBottom, text="Separate", width=c.appWidth, command=self.generate, height=40, font=c.bFont)
         GenerateButton.pack(pady=2, padx=2, side=LEFT)
 
 
@@ -975,17 +958,17 @@ class Separate:
         frame012 = ctk.CTkFrame(frame01, width=400, height=40)
         frame012.pack(padx=2, pady=1,fill=X,expand=TRUE)
 
-        labelRed = ctk.CTkLabel(frame011, text="Red Channel", font=mFont)
+        labelRed = ctk.CTkLabel(frame011, text="Red Channel", font=c.mFont)
         labelRed.pack(pady=6, padx=12, side=LEFT)
 
             #### OUTPUT FILE ####
-        buttonOutRed = ctk.CTkButton(frame011, text="Set Red",command=self.set_red_channel, width=100, font=sFont)
+        buttonOutRed = ctk.CTkButton(frame011, text="Set Red",command=self.set_red_channel, width=100, font=c.sFont)
         buttonOutRed.pack(pady=2, padx=2, side=RIGHT)
 
-        mainDirectoryOutRed = ctk.CTkLabel(frame012, text="Output:", font=sFont)
+        mainDirectoryOutRed = ctk.CTkLabel(frame012, text="Output:", font=c.sFont)
         mainDirectoryOutRed.pack(pady=2, padx=6, side=LEFT)
 
-        self.mainDirectoryPathOutRed = ctk.CTkLabel(frame012, text="Unset", text_color="red", font=sFont)
+        self.mainDirectoryPathOutRed = ctk.CTkLabel(frame012, text="Unset", text_color="red", font=c.sFont)
         self.mainDirectoryPathOutRed.pack(pady=2, padx=6,side=LEFT)   
 
         #### Green #### 
@@ -995,18 +978,18 @@ class Separate:
         frame022 = ctk.CTkFrame(frame02, width=400, height=40)
         frame022.pack(padx=2, pady=1,fill=X,expand=TRUE)
 
-        labelGreen = ctk.CTkLabel(frame021, text="Green Channel", font=mFont)
+        labelGreen = ctk.CTkLabel(frame021, text="Green Channel", font=c.mFont)
         labelGreen.pack(pady=6, padx=12, side=LEFT)
 
             #### OUTPUT FILE ####
-        buttonOutGreen = ctk.CTkButton(frame021, text="Set Green",command=self.set_green_channel, width=100, font=sFont)
+        buttonOutGreen = ctk.CTkButton(frame021, text="Set Green",command=self.set_green_channel, width=100, font=c.sFont)
         buttonOutGreen.pack(pady=2, padx=2, side=RIGHT)
 
         
-        mainDirectoryOutGreen = ctk.CTkLabel(frame022, text="Output:", font=sFont)
+        mainDirectoryOutGreen = ctk.CTkLabel(frame022, text="Output:", font=c.sFont)
         mainDirectoryOutGreen.pack(pady=2, padx=6, side=LEFT)
 
-        self.mainDirectoryPathOutGreen = ctk.CTkLabel(frame022, text="Unset", text_color="red", font=sFont)
+        self.mainDirectoryPathOutGreen = ctk.CTkLabel(frame022, text="Unset", text_color="red", font=c.sFont)
         self.mainDirectoryPathOutGreen.pack(pady=2, padx=6,side=LEFT)   
         
 
@@ -1017,19 +1000,19 @@ class Separate:
         frame032 = ctk.CTkFrame(frame03, width=400, height=40)
         frame032.pack(padx=2, pady=1,fill=X,expand=TRUE)
 
-        labelBlue = ctk.CTkLabel(frame031, text="Blue Channel", font=mFont)
+        labelBlue = ctk.CTkLabel(frame031, text="Blue Channel", font=c.mFont)
         labelBlue.pack(pady=6, padx=12, side=LEFT)
 
 
             #### OUTPUT FILE ####
-        buttonOutBlue = ctk.CTkButton(frame031, text="Set Blue",command=self.set_blue_channel, width=100, font=sFont)
+        buttonOutBlue = ctk.CTkButton(frame031, text="Set Blue",command=self.set_blue_channel, width=100, font=c.sFont)
         buttonOutBlue.pack(pady=2, padx=2, side=RIGHT)
 
         
-        mainDirectoryOutBlue = ctk.CTkLabel(frame032, text="Output:", font=sFont)
+        mainDirectoryOutBlue = ctk.CTkLabel(frame032, text="Output:", font=c.sFont)
         mainDirectoryOutBlue.pack(pady=2, padx=6, side=LEFT)
         
-        self.mainDirectoryPathOutBlue = ctk.CTkLabel(frame032, text="Unset", text_color="red", font=sFont)
+        self.mainDirectoryPathOutBlue = ctk.CTkLabel(frame032, text="Unset", text_color="red", font=c.sFont)
         self.mainDirectoryPathOutBlue.pack(pady=2, padx=6,side=LEFT)   
 
         #### Alpha #### 
@@ -1039,17 +1022,17 @@ class Separate:
         frame042 = ctk.CTkFrame(frame04, width=400, height=40)
         frame042.pack(padx=2, pady=1,fill=X,expand=TRUE)
 
-        labelAlpha = ctk.CTkLabel(frame041, text="Alpha Channel", font=mFont)
+        labelAlpha = ctk.CTkLabel(frame041, text="Alpha Channel", font=c.mFont)
         labelAlpha.pack(pady=6, padx=16, side=LEFT)
 
             #### OUTPUT FILE ####
-        buttonOutAlpha = ctk.CTkButton(frame041, text="Set Alpha",command=self.set_alpha_channel, width=100, font=sFont)
+        buttonOutAlpha = ctk.CTkButton(frame041, text="Set Alpha",command=self.set_alpha_channel, width=100, font=c.sFont)
         buttonOutAlpha.pack(pady=2, padx=2, side=RIGHT)   
         
-        mainDirectoryOutAlpha = ctk.CTkLabel(frame042, text="Output:", font=sFont)
+        mainDirectoryOutAlpha = ctk.CTkLabel(frame042, text="Output:", font=c.sFont)
         mainDirectoryOutAlpha.pack(pady=2, padx=6, side=LEFT)
 
-        self.mainDirectoryPathOutAlpha = ctk.CTkLabel(frame042, text="Unset", text_color="red", font=sFont)
+        self.mainDirectoryPathOutAlpha = ctk.CTkLabel(frame042, text="Unset", text_color="red", font=c.sFont)
         self.mainDirectoryPathOutAlpha.pack(pady=2, padx=6,side=LEFT)   
 
 
@@ -1083,7 +1066,7 @@ class Separate:
         if (self.InputFilePath != ""):
             #self.OutputStatus.configure(text="Ready", text_color="green")
             self.InputFilePath1 = self.InputFilePath.split("/")[-1]
-            self.mainDirectoryPathIn.configure(text=self.InputFilePath1,text_color="white",font=sFont1)
+            self.mainDirectoryPathIn.configure(text=self.InputFilePath1,text_color="white",font=c.sFont1)
 
     OutputFilePathRed = ""
     OutputFilePathGreen = ""
@@ -1154,7 +1137,7 @@ class Separate:
 class Mask:
     def __init__(self, master):
 
-        frameMaster = ctk.CTkFrame(master,fg_color=fgColor)
+        frameMaster = ctk.CTkFrame(master,fg_color=c.fgColor)
         frameMaster.pack(fill=Y,expand=TRUE)
 
         frameTop = ctk.CTkFrame(frameMaster,height=50)
@@ -1177,15 +1160,15 @@ class Mask:
         frame3.pack()
 
 
-        frame01 = ctk.CTkFrame(frame1, width=cellW2, height=cellH)
+        frame01 = ctk.CTkFrame(frame1, width=c.cellW2, height=c.cellH)
         frame01.pack(padx=2, pady=2, side=LEFT)
         frame01.propagate(False)
 
-        frame02 = ctk.CTkFrame(frame2, width=cellW2, height=cellH)
+        frame02 = ctk.CTkFrame(frame2, width=c.cellW2, height=c.cellH)
         frame02.pack(padx=2, pady=2, side=LEFT)
         frame02.propagate(False)
 
-        frame03 = ctk.CTkFrame(frame3, width=cellW2, height=cellH/2)
+        frame03 = ctk.CTkFrame(frame3, width=c.cellW2, height=c.cellH/2)
         frame03.pack(padx=2, pady=2, side=LEFT)
         frame03.propagate(False)
 
@@ -1198,16 +1181,16 @@ class Mask:
 
 
         #### OUTPUT DIRECTORY ####
-        buttonOut = ctk.CTkButton(frame09, text="Set Output",command=self.set_output_dir, width=100, font=sFont)
+        buttonOut = ctk.CTkButton(frame09, text="Set Output",command=self.set_output_dir, width=100, font=c.sFont)
         buttonOut.pack(pady=2, padx=2, side=RIGHT)
 
-        mainDirectoryOut = ctk.CTkLabel(frame09, text="Output:",width=32, font=sFont)
+        mainDirectoryOut = ctk.CTkLabel(frame09, text="Output:",width=32, font=c.sFont)
         mainDirectoryOut.pack(pady=2, padx=6, side=LEFT)
 
-        self.mainDirectoryPathOut = ctk.CTkLabel(frame09,  text="Unset", text_color="red", font=sFont)
+        self.mainDirectoryPathOut = ctk.CTkLabel(frame09,  text="Unset", text_color="red", font=c.sFont)
         self.mainDirectoryPathOut.pack(pady=2, padx=6,side=LEFT)
 
-        GenerateButton = ctk.CTkButton(frameBottom, text="Mask", width=appWidth, command=self.generate, height=40, font=bFont)
+        GenerateButton = ctk.CTkButton(frameBottom, text="Mask", width=c.appWidth, command=self.generate, height=40, font=c.bFont)
         GenerateButton.pack(pady=2, padx=2, side=LEFT)
 
 
@@ -1219,23 +1202,23 @@ class Mask:
         frame012 = ctk.CTkFrame(frame01, width=400, height=40)
         frame012.pack(padx=2, pady=1,fill=X,expand=TRUE)
 
-        labelA = ctk.CTkLabel(frame011, text="Image A", font=mFont)
+        labelA = ctk.CTkLabel(frame011, text="Image A", font=c.mFont)
         labelA.pack(pady=6, padx=12, side=LEFT)
 
             #### INPUT FILE ####
-        buttonInA = ctk.CTkButton(frame011, text="Set A",command=self.set_a_img, width=100, font=sFont)
+        buttonInA = ctk.CTkButton(frame011, text="Set A",command=self.set_a_img, width=100, font=c.sFont)
         buttonInA.pack(pady=2, padx=2, side=RIGHT)
 
             #### EXTRACT ####
         self.var21 = ctk.IntVar()
-        self.inputExtractA = ctk.CTkOptionMenu(frame011, variable=self.var21, values=extract, width=85, font=sFont)
-        self.inputExtractA.set(extract[0])
+        self.inputExtractA = ctk.CTkOptionMenu(frame011, variable=self.var21, values=c.ExtractColors, width=85, font=c.sFont)
+        self.inputExtractA.set(c.ExtractColors[0])
         self.inputExtractA.pack(pady=2, padx=1,side=RIGHT)
 
-        mainDirectoryInA = ctk.CTkLabel(frame012, text="Input:", font=sFont)
+        mainDirectoryInA = ctk.CTkLabel(frame012, text="Input:", font=c.sFont)
         mainDirectoryInA.pack(pady=2, padx=6, side=LEFT)
 
-        self.mainDirectoryPathInA = ctk.CTkLabel(frame012, text="Unset", text_color="red", font=sFont)
+        self.mainDirectoryPathInA = ctk.CTkLabel(frame012, text="Unset", text_color="red", font=c.sFont)
         self.mainDirectoryPathInA.pack(pady=2, padx=6,side=LEFT)   
 
         #### B #### 
@@ -1245,23 +1228,23 @@ class Mask:
         frame022 = ctk.CTkFrame(frame02, width=400, height=40)
         frame022.pack(padx=2, pady=1,fill=X,expand=TRUE)
 
-        labelB = ctk.CTkLabel(frame021, text="Image B", font=mFont)
+        labelB = ctk.CTkLabel(frame021, text="Image B", font=c.mFont)
         labelB.pack(pady=6, padx=12, side=LEFT)
 
             #### INPUT FILE ####
-        buttonInB = ctk.CTkButton(frame021, text="Set B",command=self.set_b_img, width=100, font=sFont)
+        buttonInB = ctk.CTkButton(frame021, text="Set B",command=self.set_b_img, width=100, font=c.sFont)
         buttonInB.pack(pady=2, padx=2, side=RIGHT)
 
             #### EXTRACT ####
         self.var22 = ctk.IntVar()
-        self.inputExtractB = ctk.CTkOptionMenu(frame021, variable=self.var22, values=extract, width=85, font=sFont)
-        self.inputExtractB.set(extract[0])
+        self.inputExtractB = ctk.CTkOptionMenu(frame021, variable=self.var22, values=c.ExtractColors, width=85, font=c.sFont)
+        self.inputExtractB.set(c.ExtractColors[0])
         self.inputExtractB.pack(pady=2, padx=1,side=RIGHT)
         
-        mainDirectoryInB = ctk.CTkLabel(frame022, text="Input:", font=sFont)
+        mainDirectoryInB = ctk.CTkLabel(frame022, text="Input:", font=c.sFont)
         mainDirectoryInB.pack(pady=2, padx=6, side=LEFT)
 
-        self.mainDirectoryPathInB = ctk.CTkLabel(frame022, text="Unset", text_color="red", font=sFont)
+        self.mainDirectoryPathInB = ctk.CTkLabel(frame022, text="Unset", text_color="red", font=c.sFont)
         self.mainDirectoryPathInB.pack(pady=2, padx=6,side=LEFT)   
         
 
@@ -1273,7 +1256,7 @@ class Mask:
         extractMethod = ["A * B","A + B","A - B","B - A"]
             #### EXTRACT ####
         self.var23 = ctk.IntVar()
-        self.inputExtractMethod = ctk.CTkSegmentedButton(frame031, variable=self.var23, values=extractMethod, width=100, font=bFont)
+        self.inputExtractMethod = ctk.CTkSegmentedButton(frame031, variable=self.var23, values=extractMethod, width=100, font=c.bFont)
         self.inputExtractMethod.set(extractMethod[0])
         self.inputExtractMethod.pack(pady=2, padx=1)
 
@@ -1298,7 +1281,7 @@ class Mask:
         if (self.OutputFilePath != ""):
             #self.OutputStatus.configure(text="Ready", text_color="green")
             self.OutputFilePath1 = self.OutputFilePath.split("/")[-1]
-            self.mainDirectoryPathOut.configure(text=self.OutputFilePath1,text_color="white",font=sFont1)
+            self.mainDirectoryPathOut.configure(text=self.OutputFilePath1,text_color="white",font=c.sFont1)
 
     InputFilePathRed = ""
     InputFilePathGreen = ""
