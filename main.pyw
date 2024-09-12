@@ -4,14 +4,15 @@ from tkinter import filedialog
 from PIL import Image
 import customtkinter as ctk
 import constants as c 
-
+import utils as u 
 
 #### Initialize Window ####
 root = ctk.CTk()
+ctk.set_default_color_theme(c.theme) 
 root.configure(bg=c.bgColor)
 root.title("Pixel Procesor " + str(c.toolVersion))
-root.iconbitmap("img\AA_icon.ico")
-root.resizable(FALSE, TRUE)
+root.iconbitmap(c.iconPath)
+root.resizable(TRUE, TRUE)
 screenWidth = root.winfo_screenwidth()
 screenHeight = root.winfo_screenheight()
 appXpos = int((screenWidth / 2) - (c.appWidth / 2))
@@ -23,34 +24,27 @@ tab_view = ctk.CTkTabview(root)
 tab_view.pack(expand=True, fill="both")
 
 # Add tabs to the tab view
-tab1 = tab_view.add("Solid")
+tab1 = tab_view.add("Solid Color")
 tab2 = tab_view.add("Gradient")
 tab3 = tab_view.add("Math")
 tab4 = tab_view.add("Combine")
 tab5 = tab_view.add("Separate")
 tab6 = tab_view.add("Mask")
-tab7 = tab_view.add("Misc")
+tab7 = tab_view.add("Resize")
+tab8 = tab_view.add("Color Picker")
+tab8 = tab_view.add("Filter")
 
-my_font = ctk.CTkFont(size=15)  # Font object
+my_font = ctk.CTkFont(size=18)  # Font object
 for button in tab_view._segmented_button._buttons_dict.values():
     button.configure(height=32, font=my_font)  # Change font using font object
 
+current_location = os.getcwd()
 
 class Solid:
     def __init__(self, master):
-        self.Path = ""
+        self.Path = current_location+"\\export"
 
-        frameMaster = ctk.CTkFrame(master,fg_color=c.fgColor)
-        frameMaster.pack(fill=Y,expand=TRUE)
-
-        frameTop = ctk.CTkFrame(frameMaster,height=50)
-        frameTop.pack(padx=1,pady=1,side=TOP)
-
-        frameScroll = ctk.CTkScrollableFrame(frameMaster,width=400)
-        frameScroll.pack(padx=1,pady=1,fill=Y,expand=TRUE)  
-
-        frameBottom = ctk.CTkFrame(frameMaster,height=50)
-        frameBottom.pack(padx=1,pady=1,side=BOTTOM)
+        leftTabFrame, frameTop, frameScroll, frameBottom = u.tabFrame(master)
 
         #### Input ####
         frame1 = ctk.CTkFrame(frameScroll)
@@ -78,31 +72,34 @@ class Solid:
         frame06 = ctk.CTkFrame(frameTop, width=400, height=30)
         frame06.pack(padx=2, pady=2)
         frame06.propagate(False)
+       
         
-
-        #### OUTPUT DIRECTORY ####
-        button = ctk.CTkButton(frame06, text="Set Output", width=100, command=self.set_directory, font=c.sFont)
-        button.pack(pady=2, padx=2,side=RIGHT)
+        self = u.outputDir(self,frame06)
         
-        mainDirectory = ctk.CTkLabel(frame06, text="Output:", font=c.sFont)
-        mainDirectory.pack(pady=2, padx=6, side=LEFT)
+        previewImage = ctk.CTkImage(light_image=Image.open(c.previewPath), size=(480, 480))
+        self.previewLabel = ctk.CTkLabel(leftTabFrame, image=previewImage, text='')
+        self.previewLabel.pack(pady=c.previewBorderWidth,padx=c.previewBorderWidth)
 
-        #self.mainDirectoryStatus = ctk.CTkLabel(frame06, text="Unset", text_color="red", font=c.sFont)
-        #self.mainDirectoryStatus.pack(pady=2, padx=6, side=LEFT)
+        labelPreview = ctk.CTkLabel(frameBottom, text="Preview:", font=c.bFont)
+        labelPreview.pack(pady=2, padx=6,side=LEFT)
 
-        self.mainDirectoryPath = ctk.CTkLabel(frame06, text="Unset", text_color="red", font=c.sFont)
-        self.mainDirectoryPath.pack(pady=2, padx=6, side=LEFT)
+        extractMethod = ["Input","Output"]
+        self.varA = ctk.IntVar()
+        self.preview = ctk.CTkSegmentedButton(frameBottom, state=DISABLED,variable=self.varA,width=250, values=extractMethod,  font=c.bFont)
+        self.preview.set(extractMethod[1])
+        self.preview.pack(pady=2, padx=2, side=LEFT)
 
+        self.exportButton = ctk.CTkButton(frameBottom, text="Export",width=198, height=40,state=DISABLED,command=lambda: [self.export(),self.update_preview()], font=c.bFont)
+        self.exportButton.pack(pady=2, padx=2, side=RIGHT)
 
-        generateButton = ctk.CTkButton(frameBottom, text="Export Solid", width=c.appWidth, height=40, command=self.generate, font=c.bFont)
-        generateButton.pack(pady=2, padx=2, side=LEFT)
+        generateButton = ctk.CTkButton(frameBottom, text="Generate",width=198, height=40,command=lambda: [self.generate(),self.update_preview()], font=c.bFont)
+        generateButton.pack(pady=2, padx=2, side=RIGHT)
 
 
         #### HEX ####
-        self.inputHex = StringVar()
         labelHex = ctk.CTkLabel(frame01, text="COLOR (RGBA)", font=c.mFont)
         labelHex.pack(pady=6, padx=16)
-
+        self.inputHex = StringVar()
         self.inputHexEntry = ctk.CTkEntry(frame01, width=128, textvariable=self.inputHex, font=c.sFont)
         self.inputHexEntry.pack(pady=6, padx=16)
         self.inputHexEntry.insert(0, "1, 0.5, 1, 1")
@@ -127,33 +124,28 @@ class Solid:
         labelFiletype = ctk.CTkLabel(frame04, text="FILETYPE", font=c.mFont)
         labelFiletype.pack(pady=6, padx=16)
 
-
         self.var2 = ctk.IntVar()
         self.inputFiletype = ctk.CTkOptionMenu(frame04, variable=self.var2, values=c.Extensions, width=128, font=c.sFont)
         self.inputFiletype.set(c.Extensions[0])
         self.inputFiletype.pack(pady=6, padx=16)
 
-
     def set_directory(self):
         self.Path = filedialog.askdirectory(title="Directory")
         if self.Path:
-            #self.mainDirectoryStatus.configure(text="Ready", text_color="green")
             self.mainDirectoryPath.configure(text=self.Path,text_color="white")
 
     def generate(self):
+        self.exportButton.configure(state=NORMAL)
         Color = self.inputHexEntry.get()
         Size = self.inputSize.get()
         OutputDir = self.Path
         Filename = self.inputFilename.get()
         Filetype = self.inputFiletype.get()
 
-        if not OutputDir:
-            print("No output directory selected!")
-            return
         Filetype = Filetype.lower()
         Width, Height = map(int, Size.split('x'))
         Color.replace(" ","")
-        img = Image.new(mode="RGBA", size=(Width, Height))
+        self.img = Image.new(mode="RGBA", size=(Width, Height))
         R1, G1, B1, A1 = map(float, Color.split(","))
 
         for w in range(Width):
@@ -162,28 +154,28 @@ class Solid:
                 G = int(G1 * 255 )
                 B = int(B1 * 255 )
                 A = int(A1 * 255)
-                img.putpixel((w, h), (R, G, B))
-        img.putalpha(A)
+                self.img.putpixel((w, h), (R, G, B))
+        self.img.putalpha(A)
                 
-        full_path = os.path.join(OutputDir, Filename + "."+Filetype)
+        self.full_path = os.path.join(OutputDir, Filename + "."+Filetype)
 
-        img.save(full_path)
+    def export(self):
+        self.img.save(self.full_path)
+
+    def update_preview(self):
+        img_preview = ctk.CTkImage(light_image=self.img, size=(480, 480))
+        self.previewLabel.configure(image=img_preview)
+        self.previewLabel.image = img_preview
 
 class Gradient:
     def __init__(self, master):
-        self.Path = ""
+
         
-        frameMaster = ctk.CTkFrame(master,fg_color=c.fgColor)
-        frameMaster.pack(fill=Y,expand=TRUE)
+        leftTabFrame, frameTop, frameScroll, frameBottom = u.tabFrame(master)
 
-        frameTop = ctk.CTkFrame(frameMaster,height=50)
-        frameTop.pack(padx=1,pady=1,side=TOP)
-
-        frameScroll = ctk.CTkScrollableFrame(frameMaster,width=400)
-        frameScroll.pack(padx=1,pady=1,fill=Y,expand=TRUE)  
-
-        frameBottom = ctk.CTkFrame(frameMaster,height=50)
-        frameBottom.pack(padx=1,pady=1,side=BOTTOM)
+        previewImage = ctk.CTkImage(light_image=Image.open(os.path.join('B:\Foldery\Pobrane\default_Base_color_1001.png')), size=(480 , 480))
+        label = ctk.CTkLabel(leftTabFrame, image=previewImage, text='')
+        label.pack(pady=3,padx=3)
 
         #### Input ####
         frame1 = ctk.CTkFrame(frameScroll)
@@ -295,6 +287,7 @@ class Gradient:
         self.inputFiletype.set(c.Extensions[0])
         self.inputFiletype.pack(pady=6, padx=16)
 
+        self.Path = ""
     def set_output_dir(self):
         self.Path = filedialog.askdirectory(title="Directory")
         if self.Path:
