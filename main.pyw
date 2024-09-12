@@ -81,7 +81,7 @@ class Solid:
         self.previewLabel.pack(pady=c.previewBorderWidth,padx=c.previewBorderWidth)
 
         labelPreview = ctk.CTkLabel(frameBottom, text="Preview:", font=c.bFont)
-        labelPreview.pack(pady=2, padx=6,side=LEFT)
+        labelPreview.pack(pady=2, padx=10,side=LEFT)
 
         extractMethod = ["Input","Output"]
         self.varA = ctk.IntVar()
