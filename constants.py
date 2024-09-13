@@ -1,8 +1,11 @@
-toolVersion = "(BETA-10.0)"
+toolVersion = "(BETA-11.0)"
 
 cellH = 85
+cellH2 = 175
 cellW = 180
-cellW2 = 360
+cellW2 = 364
+
+entryWidth = 140
 
 appWidth = 910
 appHeight = 603
@@ -18,7 +21,7 @@ sFont = ("roboto", 16)
 mFont = ("roboto", 20)
 bFont = ("roboto", 22)
 
-Extensions = ["PNG", "JPEG", "GIF", "TIFF", "BMP"]
+Extensions = ["PNG", "JPG","TIFF"]
 ExtractColors = ["Red", "Green", "Blue", "Alpha"]
 
 iconPath = "img\AA_icon.ico"

@@ -47,3 +47,20 @@ if __name__ != "__main__" :
         return self
     
 
+    def slider(master, label, isAlpha):
+        frame = ctk.CTkFrame(master)
+        frame.pack(padx=2, pady=1, fill=X)
+
+        labelColor = ctk.CTkLabel(frame, text=label, font=c.mFont)
+        labelColor.pack(padx=8, side=LEFT)
+
+        sliderVar = ctk.DoubleVar()
+        sliderVar.set(1 if isAlpha else 0.5)
+
+        slider = ctk.CTkSlider(frame, variable=sliderVar, from_=0, to=1, width=200)
+        slider.pack(padx=4, side=RIGHT)
+        
+        sliderEntry = ctk.CTkEntry(frame, textvariable=sliderVar, width=60,font=c.mFont)
+        sliderEntry.pack(padx=4, side=RIGHT)
+
+        return slider
