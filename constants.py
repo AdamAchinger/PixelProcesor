@@ -1,4 +1,4 @@
-toolVersion = "(BETA-11.0)"
+toolVersion = "(BETA-10.0)"
 
 cellH = 85
 cellH2 = 175
@@ -25,4 +25,4 @@ Extensions = ["PNG", "JPG","TIFF"]
 ExtractColors = ["Red", "Green", "Blue", "Alpha"]
 
 iconPath = "img\AA_icon.ico"
-previewPath = "img\Preview.png"
+previewPath = "img\Preview_1.png"

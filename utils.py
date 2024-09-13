@@ -64,3 +64,16 @@ if __name__ != "__main__" :
         sliderEntry.pack(padx=4, side=RIGHT)
 
         return slider
+    """
+    def previewColorChannel(self,root,color,text):
+        self.butVar = ctk.IntVar()
+        self.butVar.set(TRUE)
+        self.Button = ctk.CTkCheckBox(root,text=text,
+                                        width=1,font=c.bFont,
+                                        checkbox_height=32,checkbox_width=32, 
+                                        variable=self.butVar,
+                                        hover_color=color)
+        self.Button.pack(pady=1, padx=1, side=LEFT)
+
+        return self.butVar.get()
+    """

@@ -39,10 +39,10 @@ my_font = ctk.CTkFont(size=18)  # Font object
 for button in tab_view._segmented_button._buttons_dict.values():
     button.configure(height=32, font=my_font)  # Change font using font object
 
-path = os.getcwd()
+
 
 # Initialize classes within the appropriate tabs
-solid_tab = solid.Solid(tab1, path)
+solid_tab = solid.Solid(tab1)
 gradient_tab = gradient.Gradient(tab2)
 math_tab = math.Math(tab3)
 combine_tab = combine.Combine(tab4)
