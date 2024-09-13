@@ -13,7 +13,7 @@ if __name__ != "__main__" :
             
             leftTabFrame, frameTop, frameScroll, frameBottom = u.tabFrame(master)
 
-            previewImage = ctk.CTkImage(light_image=Image.open(os.path.join('B:\Foldery\Pobrane\default_Base_color_1001.png')), size=(480 , 480))
+            previewImage = ctk.CTkImage(light_image=Image.open(c.previewPath), size=(480 , 480))
             label = ctk.CTkLabel(leftTabFrame, image=previewImage, text='')
             label.pack(pady=3,padx=3)
 
