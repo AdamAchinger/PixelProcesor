@@ -52,13 +52,11 @@ if __name__ != "__main__" :
             self.previewLabel.pack(pady=c.previewBorderWidth,padx=c.previewBorderWidth)
 
 
-            extractMethod = ["Input","Output"]
+
             self.varA = ctk.IntVar()
-            self.preview = ctk.CTkSegmentedButton(frameBottom, state=DISABLED,variable=self.varA,width=250, values=extractMethod,  font=c.bFont)
-            self.preview.set(extractMethod[1])
-            self.preview.pack(pady=2, padx=4, side=LEFT)
-
-
+            self.previewMethod = ctk.CTkSegmentedButton(frameBottom, state=DISABLED,variable=self.varA,width=250, values=c.extractMethod,  font=c.bFont)
+            self.previewMethod.set(c.extractMethod[1])
+            self.previewMethod.pack(pady=2, padx=4, side=LEFT)
 
             self.exportButton = ctk.CTkButton(frameBottom, text="Export",width=198, height=40,state=DISABLED,command=lambda: [self.export(),self.update_preview()], font=c.bFont)
             self.exportButton.pack(pady=2, padx=2, side=RIGHT)
@@ -66,58 +64,9 @@ if __name__ != "__main__" :
             generateButton = ctk.CTkButton(frameBottom, text="Generate",width=198, height=40,command=lambda: [self.generate(),self.update_preview()], font=c.bFont)
             generateButton.pack(pady=2, padx=2, side=RIGHT)
 
-            self.refreshButton = ctk.CTkButton(frameBottom, text="Refresh",width=20, height=40, command=self.update_preview, font=c.bFont)
-            self.refreshButton.pack(pady=2, padx=2, side=RIGHT)
-
-            self.openButton = ctk.CTkButton(frameBottom, text="Open",width=20, height=40, font=c.bFont)
-            self.openButton.pack(pady=2, padx=2, side=RIGHT)
-
             previewFrame = ctk.CTkFrame(frameBottom, width=50,fg_color="#2b2b2b")
             previewFrame.pack(padx=8, pady=2, side=RIGHT)
 
-            """
-            self.redBut = u.previewColorChannel(self,previewFrame,"red","")
-            self.greenBut = u.previewColorChannel(self,previewFrame,"green","")
-            self.blueBut = u.previewColorChannel(self,previewFrame,"blue","")
-            self.alphaBut = u.previewColorChannel(self,previewFrame,"white","")
-            """
-
-
-            self.butVarRed = ctk.IntVar()
-            self.butVarRed.set(TRUE)
-            self.Button = ctk.CTkCheckBox(previewFrame,text="",
-                                            width=1,font=c.bFont,
-                                            checkbox_height=32,checkbox_width=32,
-                                            variable=self.butVarRed,
-                                            hover_color="red")
-            self.Button.pack(pady=1, padx=1, side=LEFT)
-
-            self.butVarGreen = ctk.IntVar()
-            self.butVarGreen.set(TRUE)
-            self.Button = ctk.CTkCheckBox(previewFrame,text="",
-                                            width=1,font=c.bFont,
-                                            checkbox_height=32,checkbox_width=32,
-                                            variable=self.butVarGreen,
-                                            hover_color="green")
-            self.Button.pack(pady=1, padx=1, side=LEFT)
-
-            self.butVarBlue = ctk.IntVar()
-            self.butVarBlue.set(TRUE)
-            self.Button = ctk.CTkCheckBox(previewFrame,text="",
-                                            width=1,font=c.bFont,
-                                            checkbox_height=32,checkbox_width=32,
-                                            variable=self.butVarBlue,
-                                            hover_color="blue")
-            self.Button.pack(pady=1, padx=1, side=LEFT)
-
-            self.butVarAlpha = ctk.IntVar()
-            self.butVarAlpha.set(TRUE)
-            self.Button = ctk.CTkCheckBox(previewFrame,text="",
-                                            width=1,font=c.bFont,
-                                            checkbox_height=32,checkbox_width=32,
-                                            variable=self.butVarAlpha,
-                                            hover_color="white")
-            self.Button.pack(pady=1, padx=1, side=LEFT)
 
             #### Color ####
             labelColor = ctk.CTkLabel(frame01, text="Color (RGBA)", font=c.mFont)
@@ -198,52 +147,13 @@ if __name__ != "__main__" :
                 self.img.putalpha(A)
                 
             self.full_path = os.path.join(OutputDir, Filename + "."+Filetype)
-
+        
         def export(self):
             self.exportButton.configure(state=DISABLED)
             self.img.save(self.full_path)
 
         def update_preview(self):
-            """
-            r = self.butVarRed.get()
-            g = self.butVarGreen.get()
-            b = self.butVarBlue.get()
-            a = self.butVarAlpha.get()
-
-            print(r)
-            print(g)
-            print(b)
-            print(a)
-            print("------------")
-
             
-
-            R1, G1, B1, A1 = 0,0,0,0
-
-            while (r == 1):
-                R1 = 1
-            while (g == 1): 
-                G1 = 1
-            while (b == 1):
-                B1 = 1
-            while (a == 1): 
-                A1 = 1
-
-            self.img = self.img.resize((480,480),resample=Image.LANCZOS)
-
-            Width, Height = self.img.size
-
-            print(self.img.size)
-            for w in range(Width):
-                for h in range(Height):
-                    R,G,B = self.img.getpixel((w,h))
-
-                    R2 = R * R1
-                    G2 = G * G1
-                    B2 = B * B1
-
-                    self.img.putpixel((w, h), (R2, G2, B2))
-            """
             img_preview = ctk.CTkImage(light_image=self.img, size=(480, 480))
 
             self.previewLabel.configure(image=img_preview)

@@ -49,4 +49,7 @@ combine_tab = combine.Combine(tab4)
 separate_tab = separate.Separate(tab5)
 mask_tab = mask.Mask(tab6)
 
+
+
+
 root.mainloop()
