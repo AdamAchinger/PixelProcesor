@@ -31,9 +31,9 @@ tab3 = tab_view.add("Math")
 tab4 = tab_view.add("Combine")
 tab5 = tab_view.add("Separate")
 tab6 = tab_view.add("Mask")
-tab7 = tab_view.add("Resize")
-tab8 = tab_view.add("Color Picker")
-tab8 = tab_view.add("Filter")
+#tab7 = tab_view.add("Resize")
+#tab8 = tab_view.add("Color Picker")
+#tab8 = tab_view.add("Filter")
 
 my_font = ctk.CTkFont(size=18)  # Font object
 for button in tab_view._segmented_button._buttons_dict.values():
