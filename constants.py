@@ -26,5 +26,5 @@ ExtractColors = ["Red", "Green", "Blue", "Alpha"]
 extractMethod = ["Input","Output"]
 orient = ["H","H.F","V","V.F"]
 
-iconPath = "img\AA_icon.ico"
+iconPath = "img\AA_icon_1.ico"
 previewPath = "img\Preview_1.png"
