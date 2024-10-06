@@ -1,4 +1,4 @@
-toolVersion = "(BETA-10.0)"
+toolVersion = "11.1"
 
 cellH = 85
 cellH2 = 175
@@ -26,5 +26,5 @@ ExtractColors = ["Red", "Green", "Blue", "Alpha"]
 extractMethod = ["Input","Output"]
 orient = ["H","H.F","V","V.F"]
 
-iconPath = "img\AA_icon_1.ico"
+iconPath = "img\AA_icon.ico"
 previewPath = "img\Preview_1.png"
