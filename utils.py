@@ -31,21 +31,7 @@ if __name__ != "__main__" :
         frameBottom.pack(padx=1,pady=1,side=TOP,fill=X)
 
         return leftTabFrame,  frameTop, frameScroll, frameBottom
-    
 
-    def outputDir(self,master):
-            #### OUTPUT DIRECTORY ####
-        button = ctk.CTkButton(master, text="Set Output", width=100, command=self.set_directory, font=c.sFont)
-        button.pack(pady=2, padx=2,side=RIGHT)
-        
-        mainDirectory = ctk.CTkLabel(master, text="Output:", font=c.sFont)
-        mainDirectory.pack(pady=2, padx=6, side=LEFT)
-
-        self.mainDirectoryPath = ctk.CTkLabel(master, text="Unset", text_color="red", font=c.sFont)
-        self.mainDirectoryPath.pack(pady=2, padx=6, side=LEFT)
-
-        return self
-    
 
     def slider(master, label, isAlpha):
         frame = ctk.CTkFrame(master)
@@ -64,16 +50,34 @@ if __name__ != "__main__" :
         sliderEntry.pack(padx=4, side=RIGHT)
 
         return slider
-    """
-    def previewColorChannel(self,root,color,text):
-        self.butVar = ctk.IntVar()
-        self.butVar.set(TRUE)
-        self.Button = ctk.CTkCheckBox(root,text=text,
-                                        width=1,font=c.bFont,
-                                        checkbox_height=32,checkbox_width=32, 
-                                        variable=self.butVar,
-                                        hover_color=color)
-        self.Button.pack(pady=1, padx=1, side=LEFT)
 
-        return self.butVar.get()
-    """
+
+    def export(self):
+        self.exportButton.configure(state=DISABLED)
+        self.img.save(self.full_path)
+
+
+    def update_preview(self):        
+        img_preview = ctk.CTkImage(light_image=self.img, size=(480, 480))
+        self.previewLabel.configure(image=img_preview)
+        self.previewLabel.image = img_preview
+
+    
+    def get_directory(self):
+        self.Path = filedialog.askdirectory(title="Directory")
+        if self.Path:
+            self.mainDirectoryPath.configure(text=self.Path,text_color="white")
+        return self
+
+    def outputDir(self,master):
+        button = ctk.CTkButton(master, text="Set Output", width=100, command=lambda:[get_directory(self)], font=c.sFont)
+        button.pack(pady=2, padx=2,side=RIGHT)
+
+
+        mainDirectory = ctk.CTkLabel(master, text="Output:", font=c.sFont)
+        mainDirectory.pack(pady=2, padx=6, side=LEFT)
+        
+        self.mainDirectoryPath = ctk.CTkLabel(master, text=c.basePath, font=c.sFont)
+        self.mainDirectoryPath.pack(pady=2, padx=6, side=LEFT)
+
+        return self

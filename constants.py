@@ -1,4 +1,6 @@
-toolVersion = "11.1"
+import os 
+
+toolVersion = "11.2"
 
 cellH = 85
 cellH2 = 175
@@ -26,5 +28,7 @@ ExtractColors = ["Red", "Green", "Blue", "Alpha"]
 extractMethod = ["Input","Output"]
 orient = ["H","H.F","V","V.F"]
 
+
+basePath = "E:/.Temp"   #os.getcwd()+"/export"
 iconPath = "img\AA_icon.ico"
 previewPath = "img\Preview_1.png"

@@ -26,11 +26,11 @@ tab_view.pack(expand=True, fill="both")
 
 # Add tabs to the tab view
 tab1 = tab_view.add("Solid Color")
-tab2 = tab_view.add("Gradient")
-tab3 = tab_view.add("Math")
-tab4 = tab_view.add("Combine")
-tab5 = tab_view.add("Separate")
-tab6 = tab_view.add("Mask")
+#tab2 = tab_view.add("Gradient")
+#tab3 = tab_view.add("Math")
+#tab4 = tab_view.add("Combine")
+#tab5 = tab_view.add("Separate")
+#tab6 = tab_view.add("Mask")
 #tab7 = tab_view.add("Resize")
 #tab8 = tab_view.add("Color Picker")
 #tab8 = tab_view.add("Filter")
@@ -43,11 +43,11 @@ for button in tab_view._segmented_button._buttons_dict.values():
 
 # Initialize classes within the appropriate tabs
 solid_tab = solid.Solid(tab1)
-gradient_tab = gradient.Gradient(tab2)
-math_tab = math.Math(tab3)
-combine_tab = combine.Combine(tab4)
-separate_tab = separate.Separate(tab5)
-mask_tab = mask.Mask(tab6)
+#gradient_tab = gradient.Gradient(tab2)
+#math_tab = math.Math(tab3)
+#combine_tab = combine.Combine(tab4)
+#separate_tab = separate.Separate(tab5)
+#mask_tab = mask.Mask(tab6)
 
 
 

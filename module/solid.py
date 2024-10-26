@@ -10,7 +10,7 @@ if __name__ != "__main__" :
     class Solid:
         def __init__(self, master):
             self.img = Image.open(c.previewPath)     
-            self.Path = os.getcwd()+"\\export"
+            self.Path = c.basePath
 
             leftTabFrame, frameTop, frameScroll, frameBottom = u.tabFrame(master)
 
@@ -43,8 +43,9 @@ if __name__ != "__main__" :
             frame06 = ctk.CTkFrame(frameTop, width=400, height=30)
             frame06.pack(padx=2, pady=2)
             frame06.propagate(False)
-        
-            
+
+
+                ### Output ###
             self = u.outputDir(self,frame06)
             
             previewImage = ctk.CTkImage(light_image=self.img, size=(480, 480))
@@ -58,15 +59,14 @@ if __name__ != "__main__" :
             self.previewMethod.set(c.extractMethod[1])
             self.previewMethod.pack(pady=2, padx=4, side=LEFT)
 
-            self.exportButton = ctk.CTkButton(frameBottom, text="Export",width=198, height=40,state=DISABLED,command=lambda: [self.export(),self.update_preview()], font=c.bFont)
+            self.exportButton = ctk.CTkButton(frameBottom, text="Export",width=198, height=40,state=DISABLED,command=lambda: [u.export(self),u.update_preview(self)], font=c.bFont)
             self.exportButton.pack(pady=2, padx=2, side=RIGHT)
             
-            generateButton = ctk.CTkButton(frameBottom, text="Generate",width=198, height=40,command=lambda: [self.generate(),self.update_preview()], font=c.bFont)
+            generateButton = ctk.CTkButton(frameBottom, text="Generate",width=198, height=40,command=lambda: [self.generate(),u.update_preview(self)], font=c.bFont)
             generateButton.pack(pady=2, padx=2, side=RIGHT)
 
             previewFrame = ctk.CTkFrame(frameBottom, width=50,fg_color="#2b2b2b")
             previewFrame.pack(padx=8, pady=2, side=RIGHT)
-
 
             #### Color ####
             labelColor = ctk.CTkLabel(frame01, text="Color (RGBA)", font=c.mFont)
@@ -110,11 +110,8 @@ if __name__ != "__main__" :
             self.inputFiletype = ctk.CTkSegmentedButton(frame04,width=250,variable=self.Filetype, values=c.Extensions,  font=c.sFont)
             self.inputFiletype.pack(pady=6, padx=16)
 
-        def set_directory(self):
-            self.Path = filedialog.askdirectory(title="Directory")
-            if self.Path:
-                self.mainDirectoryPath.configure(text=self.Path,text_color="white")
 
+    
         def generate(self):
             self.exportButton.configure(state=NORMAL)
 
@@ -148,13 +145,4 @@ if __name__ != "__main__" :
                 
             self.full_path = os.path.join(OutputDir, Filename + "."+Filetype)
         
-        def export(self):
-            self.exportButton.configure(state=DISABLED)
-            self.img.save(self.full_path)
 
-        def update_preview(self):
-            
-            img_preview = ctk.CTkImage(light_image=self.img, size=(480, 480))
-
-            self.previewLabel.configure(image=img_preview)
-            self.previewLabel.image = img_preview
