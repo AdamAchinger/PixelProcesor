@@ -59,11 +59,25 @@ if __name__ != "__main__" :
             self.previewMethod.set(c.extractMethod[1])
             self.previewMethod.pack(pady=2, padx=4, side=LEFT)
 
+          
+
             self.exportButton = ctk.CTkButton(frameBottom, text="Export",width=198, height=40,state=DISABLED,command=lambda: [u.export(self),u.update_preview(self)], font=c.bFont)
             self.exportButton.pack(pady=2, padx=2, side=RIGHT)
+
             
+            def on_enter(event):
+                print("sfabfis")
+
+
+            bind = ctk.CTkEntry(master)
+            bind.pack()
+            bind.focus_set()
+            bind.bind("<Return>", on_enter)
+
+
             generateButton = ctk.CTkButton(frameBottom, text="Generate",width=198, height=40,command=lambda: [self.generate(),u.update_preview(self)], font=c.bFont)
             generateButton.pack(pady=2, padx=2, side=RIGHT)
+
 
             previewFrame = ctk.CTkFrame(frameBottom, width=50,fg_color="#2b2b2b")
             previewFrame.pack(padx=8, pady=2, side=RIGHT)
