@@ -10,7 +10,6 @@ if __name__ != "__main__" :
     class Solid:
         def __init__(self, master):
             self.img = Image.open(c.previewPath)     
-            self.Path = c.basePath
 
             leftTabFrame, frameTop, frameScroll, frameBottom = u.tabFrame(master)
 
@@ -45,12 +44,13 @@ if __name__ != "__main__" :
             frame06.propagate(False)
 
 
-                ### Output ###
-            self = u.outputDir(self,frame06)
-            
             previewImage = ctk.CTkImage(light_image=self.img, size=(480, 480))
             self.previewLabel = ctk.CTkLabel(leftTabFrame, image=previewImage, text='')
             self.previewLabel.pack(pady=c.previewBorderWidth,padx=c.previewBorderWidth)
+
+
+                ### Output ###
+            self = u.outputDir(self,frame06)
 
 
 

@@ -10,7 +10,6 @@ if __name__ != "__main__" :
     class Gradient:
         def __init__(self, master):
             self.img = Image.open(c.previewPath)     
-            self.Path = c.basePath
 
             leftTabFrame, frameTop, frameScroll, frameBottom = u.tabFrame(master)
 
@@ -56,13 +55,14 @@ if __name__ != "__main__" :
             frame06.pack(padx=2, pady=2)
             frame06.propagate(False)
         
-            
-            self = u.outputDir(self,frame06)
-            
             previewImage = ctk.CTkImage(light_image=self.img, size=(480, 480))
             self.previewLabel = ctk.CTkLabel(leftTabFrame, image=previewImage, text='')
             self.previewLabel.pack(pady=c.previewBorderWidth,padx=c.previewBorderWidth)
 
+
+
+            self = u.outputDir(self,frame06)
+            
 
 
             self.varA = ctk.IntVar()

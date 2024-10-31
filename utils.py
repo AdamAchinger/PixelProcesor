@@ -70,14 +70,27 @@ if __name__ != "__main__" :
         return self
 
     def outputDir(self,master):
+        self.Path = c.basePath
+        mainDirectoryOut = ctk.CTkLabel(master, text="Output:", font=c.sFont).pack(pady=2, padx=6, side=LEFT)
+        mainDirectoryPath = ctk.CTkLabel(master, text=self.Path, font=c.sFont).pack(pady=2, padx=6, side=LEFT)
+
         button = ctk.CTkButton(master, text="Set Output", width=100, command=lambda:[get_directory(self)], font=c.sFont)
         button.pack(pady=2, padx=2,side=RIGHT)
+        return self
 
 
-        mainDirectory = ctk.CTkLabel(master, text="Output:", font=c.sFont)
-        mainDirectory.pack(pady=2, padx=6, side=LEFT)
-        
-        self.mainDirectoryPath = ctk.CTkLabel(master, text=c.basePath, font=c.sFont)
-        self.mainDirectoryPath.pack(pady=2, padx=6, side=LEFT)
+    def get_file(self):
+        self.InputFilePath = filedialog.askopenfilename(title="Input File")
+        if self.InputFilePath:
+            self.InputFilePath1 = self.InputFilePath.split("/")[-1]
+            self.mainDirectoryPathIn.configure(text=self.InputFilePath1,text_color="white")
+        return self
+    
+    def inputFile(self,master):
+        self.FilePath = c.baseFile
+        mainFileIn = ctk.CTkLabel(master, text="Input:", font=c.sFont).pack(pady=2, padx=6, side=LEFT)
+        mainFile = ctk.CTkLabel(master, text=self.FilePath.split("\\")[-1], font=c.sFont).pack(pady=2, padx=6, side=LEFT)
 
+        button = ctk.CTkButton(master, text="Set Input", width=100, command=lambda:[get_file(self)], font=c.sFont)
+        button.pack(pady=2, padx=2,side=RIGHT)
         return self
