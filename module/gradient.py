@@ -55,15 +55,12 @@ if __name__ != "__main__" :
             frame06.pack(padx=2, pady=2)
             frame06.propagate(False)
         
-            previewImage = ctk.CTkImage(light_image=self.img, size=(480, 480))
-            self.previewLabel = ctk.CTkLabel(leftTabFrame, image=previewImage, text='')
-            self.previewLabel.pack(pady=c.previewBorderWidth,padx=c.previewBorderWidth)
 
+            u.previewImage(self,leftTabFrame)
 
-
-            self = u.outputDir(self,frame06)
+            u.outputDir(self,frame06)
             
-            self.previewMethod = u.previewMethod(self,frameBottom,DISABLED)
+            u.previewMethod(self,frameBottom,DISABLED)
 
 
             self.exportButton = ctk.CTkButton(frameBottom, text="Export",width=198, height=40,state=DISABLED,command=lambda: [u.export(self),u.update_preview(self)], font=c.bFont)

@@ -102,3 +102,10 @@ if __name__ != "__main__" :
         self.previewMethod.set(c.extractMethod[1])
         self.previewMethod.pack(pady=2, padx=4, side=LEFT)
         return self
+    
+    
+    def previewImage(self,master):
+        previewImage = ctk.CTkImage(light_image=self.img, size=(480, 480))
+        self.previewLabel = ctk.CTkLabel(master, image=previewImage, text='')
+        self.previewLabel.pack(pady=c.previewBorderWidth,padx=c.previewBorderWidth)
+        return self
