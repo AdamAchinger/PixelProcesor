@@ -63,12 +63,8 @@ if __name__ != "__main__" :
 
             self = u.outputDir(self,frame06)
             
+            self.previewMethod = u.previewMethod(self,frameBottom,DISABLED)
 
-
-            self.varA = ctk.IntVar()
-            self.previewMethod = ctk.CTkSegmentedButton(frameBottom, state=DISABLED,variable=self.varA,width=250, values=c.extractMethod,  font=c.bFont)
-            self.previewMethod.set(c.extractMethod[1])
-            self.previewMethod.pack(pady=2, padx=4, side=LEFT)
 
             self.exportButton = ctk.CTkButton(frameBottom, text="Export",width=198, height=40,state=DISABLED,command=lambda: [u.export(self),u.update_preview(self)], font=c.bFont)
             self.exportButton.pack(pady=2, padx=2, side=RIGHT)

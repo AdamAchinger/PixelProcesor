@@ -94,3 +94,11 @@ if __name__ != "__main__" :
         button = ctk.CTkButton(master, text="Set Input", width=100, command=lambda:[get_file(self)], font=c.sFont)
         button.pack(pady=2, padx=2,side=RIGHT)
         return self
+    
+
+    def previewMethod(self,master,state):
+        self.varA = ctk.IntVar()
+        self.previewMethod = ctk.CTkSegmentedButton(master, state=state,variable=self.varA,width=250, values=c.extractMethod,  font=c.bFont)
+        self.previewMethod.set(c.extractMethod[1])
+        self.previewMethod.pack(pady=2, padx=4, side=LEFT)
+        return self
