@@ -9,19 +9,10 @@ import utils as u
 if __name__ != "__main__" : 
     class Math:
         def __init__(self, master):
+            self.img = Image.open(c.previewPath)     
 
-            frameMaster = ctk.CTkFrame(master,fg_color=c.fgColor)
-            frameMaster.pack(fill=Y,expand=TRUE)
+            leftTabFrame, frameTop, frameScroll, frameBottom = u.tabFrame(master)
 
-            frameTop = ctk.CTkFrame(frameMaster,height=50)
-            frameTop.pack(padx=1,pady=1,side=TOP)
-
-            frameScroll = ctk.CTkScrollableFrame(frameMaster,width=400)
-            frameScroll.pack(padx=1,pady=1,fill=Y,expand=TRUE)  
-
-            frameBottom = ctk.CTkFrame(frameMaster,height=50)
-            frameBottom.pack(padx=1,pady=1,side=BOTTOM)
-        
             #### Input ####
             frame1 = ctk.CTkFrame(frameScroll)
             frame1.pack()
@@ -30,7 +21,7 @@ if __name__ != "__main__" :
             frame2.pack()
 
             frame3 = ctk.CTkFrame(frameScroll)
-            frame3.pack()
+            frame3.pack(padx=1,side=LEFT)
 
             frame01 = ctk.CTkFrame(frame1, width=c.cellW, height=c.cellH)
             frame01.pack(padx=2, pady=2, side=LEFT)
@@ -64,37 +55,20 @@ if __name__ != "__main__" :
             frame09.pack(padx=2, pady=1)
             frame09.propagate(False)
 
+            u.previewImage(self,leftTabFrame)
+
+            u.inputFile(self,frame08)
+
+            u.outputDir(self,frame09)
+
+            u.previewMethod(self,frameBottom,ACTIVE)
 
 
-            #### INPUT FILE ####
-            buttonIn = ctk.CTkButton(frame08, text="Set Input",command=self.set_input_dir, width=100, font=c.sFont)
-            buttonIn.pack(pady=2, padx=2, side=RIGHT)
-            
-            mainDirectoryIn = ctk.CTkLabel(frame08, text="Input:", font=c.sFont)
-            mainDirectoryIn.pack(pady=2, padx=6, side=LEFT)
+            self.exportButton = ctk.CTkButton(frameBottom, text="Export",width=198, height=40,state=DISABLED,command=lambda: [u.export(self),u.update_preview(self)], font=c.bFont)
+            self.exportButton.pack(pady=2, padx=2, side=RIGHT)
 
-            #self.mainDirectoryStatus = ctk.CTkLabel(frame09, text="Unset", font=c.sFont, text_color="red")
-            #self.mainDirectoryStatus.pack(pady=2, padx=6, side=LEFT)
-
-            self.mainDirectoryPathIn = ctk.CTkLabel(frame08, text="Unset", text_color="red", font=c.sFont)
-            self.mainDirectoryPathIn.pack(pady=2, padx=6,side=LEFT)   
-
-
-            #### OUTPUT DIRECTORY ####
-            buttonOut = ctk.CTkButton(frame09, text="Set Output",command=self.set_output_dir, width=100, font=c.sFont)
-            buttonOut.pack(pady=2, padx=2, side=RIGHT)
-
-            mainDirectoryOut = ctk.CTkLabel(frame09, text="Output:",width=32, font=c.sFont)
-            mainDirectoryOut.pack(pady=2, padx=6, side=LEFT)
-
-            #self.mainDirectoryStatus = ctk.CTkLabel(frame08, text="Unset", font=c.sFont, text_color="red")
-            #self.mainDirectoryStatus.pack(pady=2, padx=6, side=LEFT)
-
-            self.mainDirectoryPathOut = ctk.CTkLabel(frame09,  text="Unset", text_color="red", font=c.sFont)
-            self.mainDirectoryPathOut.pack(pady=2, padx=6,side=LEFT)
-
-            GenerateButton = ctk.CTkButton(frameBottom, text="Export", width=c.appWidth, command=self.generate, height=40, font=c.bFont)
-            GenerateButton.pack(pady=2, padx=2, side=LEFT)
+            generateButton = ctk.CTkButton(frameBottom, text="Generate",width=198, height=40,command=lambda: [self.generate(),u.update_preview(self)], font=c.bFont)
+            generateButton.pack(pady=2, padx=2, side=RIGHT)
 
 
 
@@ -104,7 +78,6 @@ if __name__ != "__main__" :
             self.inputMultiply = ctk.CTkEntry(frame01, width=128, font=c.sFont)
             self.inputMultiply.pack(pady=6, padx=16)
             self.inputMultiply.insert(0, "1,1,1,1")
-
 
             #### Power #### 
             labelPower = ctk.CTkLabel(frame02, text="POWER", font=c.mFont)
@@ -120,16 +93,12 @@ if __name__ != "__main__" :
             self.inputAdd.pack(pady=6, padx=16)
             self.inputAdd.insert(0, "0,0,0,0")
 
-
-
             #### Subtract #### 
             labelSubtract = ctk.CTkLabel(frame04, text="SUBTRACT", font=c.mFont)
             labelSubtract.pack(pady=6, padx=16)
             self.inputSubtract = ctk.CTkEntry(frame04, width=128, font=c.sFont)
             self.inputSubtract.pack(pady=6, padx=16)
             self.inputSubtract.insert(0, "0,0,0,0")
-
-
 
             #### Max #### 
             labelMax = ctk.CTkLabel(frame05, text="MAX", font=c.mFont)
@@ -138,29 +107,12 @@ if __name__ != "__main__" :
             self.inputMax.pack(pady=6, padx=16)
             self.inputMax.insert(0, "1,1,1,1")
 
-
             #### Min #### 
             labelMin = ctk.CTkLabel(frame06, text="MIN", font=c.mFont)
             labelMin.pack(pady=6, padx=16)
             self.inputMin = ctk.CTkEntry(frame06, width=128, font=c.sFont)
             self.inputMin.pack(pady=6, padx=16)
             self.inputMin.insert(0, "0,0,0,0")       
-
-
-        def set_input_dir(self):
-            self.InputFilePath = filedialog.askopenfilename(title="Input File")
-            if (self.InputFilePath != ""):
-                #self.InputStatus.configure(text="Ready", text_color="green")
-                self.InputFilePath1 = self.InputFilePath.split("/")[-1]
-                self.mainDirectoryPathIn.configure(text=self.InputFilePath1,text_color="white")
-
-        def set_output_dir(self):
-            self.OutputFilePath = filedialog.asksaveasfilename(title="Output File")
-            if (self.OutputFilePath != ""):
-                #self.OutputStatus.configure(text="Ready", text_color="green")
-                self.OutputFilePath1 = self.OutputFilePath.split("/")[-1]
-                self.mainDirectoryPathOut.configure(text=self.OutputFilePath1,text_color="white")
-
 
 
         def generate(self):
