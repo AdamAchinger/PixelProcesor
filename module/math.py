@@ -59,7 +59,7 @@ if __name__ != "__main__" :
 
             u.inputFile(self,frame08)
 
-            u.outputDir(self,frame09)
+            u.outputFile(self,frame09)
 
             u.previewMethod(self,frameBottom,ACTIVE)
 
@@ -116,56 +116,58 @@ if __name__ != "__main__" :
 
 
         def generate(self):
+            self.exportButton.configure(state=NORMAL)
+
             Multiply4 = self.inputMultiply.get()
             Power4 = self.inputPower.get()
             Add4 = self.inputAdd.get()
             Subtract4 = self.inputSubtract.get()
             Min4 = self.inputMin.get()
             Max4 = self.inputMax.get()
-            InputFile = self.InputFilePath
-            Output = self.OutputFilePath
+            InputFile = self.FilePathIn
+            Output = self.FilePathOut
 
             # Open image in RGBA mode
-            img = Image.open(InputFile).convert("RGBA")
-            Width, Height = img.size
+            self.imgGen = Image.open(InputFile).convert("RGBA")
+            Width, Height = self.imgGen.size
 
             for w in range(Width):
                 for h in range(Height):
                     ### Multiply ###
                     if (Multiply4 != "1,1,1,1"):
-                        R1, G1, B1, A1 = img.getpixel((w, h))
+                        R1, G1, B1, A1 = self.imgGen.getpixel((w, h))
                         R = int(R1 * float(Multiply4.split(",")[0]))
                         G = int(G1 * float(Multiply4.split(",")[1]))
                         B = int(B1 * float(Multiply4.split(",")[2]))
                         A = int(A1 * float(Multiply4.split(",")[3]))  # Alpha channel
-                        img.putpixel((w, h), (R, G, B, A))
+                        self.imgGen.putpixel((w, h), (R, G, B, A))
 
                     ### Power ###
                     if (Power4 != "1,1,1,1"):
-                        R1, G1, B1, A1 = img.getpixel((w, h))
+                        R1, G1, B1, A1 = self.imgGen.getpixel((w, h))
                         R = int(pow(R1, float(Power4.split(",")[0])))
                         G = int(pow(G1, float(Power4.split(",")[1])))
                         B = int(pow(B1, float(Power4.split(",")[2])))
                         A = int(pow(A1, float(Power4.split(",")[3])))  # Alpha channel
-                        img.putpixel((w, h), (R, G, B, A))
+                        self.imgGen.putpixel((w, h), (R, G, B, A))
 
                     ### Add ###
                     if (Add4 != "0,0,0,0"):
-                        R1, G1, B1, A1 = img.getpixel((w, h))
+                        R1, G1, B1, A1 = self.imgGen.getpixel((w, h))
                         R = int(R1 + (float(Add4.split(",")[0]) * 255))
                         G = int(G1 + (float(Add4.split(",")[1]) * 255))
                         B = int(B1 + (float(Add4.split(",")[2]) * 255))
                         A = int(A1 + (float(Add4.split(",")[3]) * 255))  # Alpha channel
-                        img.putpixel((w, h), (R, G, B, A))
+                        self.imgGen.putpixel((w, h), (R, G, B, A))
 
                     ### Subtract ###
                     if (Subtract4 != "0,0,0,0"):
-                        R1, G1, B1, A1 = img.getpixel((w, h))
+                        R1, G1, B1, A1 = self.imgGen.getpixel((w, h))
                         R = int(R1 - (float(Subtract4.split(",")[0]) * 255))
                         G = int(G1 - (float(Subtract4.split(",")[1]) * 255))
                         B = int(B1 - (float(Subtract4.split(",")[2]) * 255))
                         A = int(A1 - (float(Subtract4.split(",")[3]) * 255))  # Alpha channel
-                        img.putpixel((w, h), (R, G, B, A))
+                        self.imgGen.putpixel((w, h), (R, G, B, A))
 
                     ### Clamp ###
                     rMin = float(Min4.split(",")[0]) * 255
@@ -178,14 +180,18 @@ if __name__ != "__main__" :
                     bMax = float(Max4.split(",")[2]) * 255
                     aMax = float(Max4.split(",")[3]) * 255  # Alpha channel max
 
-                    R1, G1, B1, A1 = img.getpixel((w, h))
+                    R1, G1, B1, A1 = self.imgGen.getpixel((w, h))
 
                     R = int(min(max(R1, rMin), rMax))
                     G = int(min(max(G1, gMin), gMax))
                     B = int(min(max(B1, bMin), bMax))
                     A = int(min(max(A1, aMin), aMax))  # Alpha channel
 
-                    img.putpixel((w, h), (R, G, B, A))
+                    self.imgGen.putpixel((w, h), (R, G, B, A))
+                    
 
-            # Save image with RGBA
-            img.save(Output)
+                    self.img = self.imgGen
+
+
+            self.full_path = Output
+

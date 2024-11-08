@@ -170,5 +170,8 @@ if __name__ != "__main__" :
 
                     self.img.putpixel((w, h), (R, G, B))
 
+                    
+
+
             self.full_path = os.path.join(OutputDir, Filename + "."+Filetype)
         

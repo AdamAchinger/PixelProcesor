@@ -62,50 +62,74 @@ if __name__ != "__main__" :
         self.previewLabel.configure(image=img_preview)
         self.previewLabel.image = img_preview
 
-    
-    def get_directory(self):
-        self.Path = filedialog.askdirectory(title="Directory")
-        if self.Path:
-            self.mainDirectoryPath.configure(text=self.Path,text_color="white")
-        return self
-
-    def outputDir(self,master):
-        self.Path = c.basePath
-        mainDirectoryOut = ctk.CTkLabel(master, text="Output:", font=c.sFont).pack(pady=2, padx=6, side=LEFT)
-        mainDirectoryPath = ctk.CTkLabel(master, text=self.Path, font=c.sFont).pack(pady=2, padx=6, side=LEFT)
-
-        button = ctk.CTkButton(master, text="Set Output", width=100, command=lambda:[get_directory(self)], font=c.sFont)
-        button.pack(pady=2, padx=2,side=RIGHT)
-        return self
-
-
-    def get_file(self):
-        self.InputFilePath = filedialog.askopenfilename(title="Input File")
-        if self.InputFilePath:
-            self.InputFilePath1 = self.InputFilePath.split("/")[-1]
-            self.mainDirectoryPathIn.configure(text=self.InputFilePath1,text_color="white")
-        return self
-    
-    def inputFile(self,master):
-        self.FilePath = c.baseFile
-        mainFileIn = ctk.CTkLabel(master, text="Input:", font=c.sFont).pack(pady=2, padx=6, side=LEFT)
-        mainFile = ctk.CTkLabel(master, text=self.FilePath.split("\\")[-1], font=c.sFont).pack(pady=2, padx=6, side=LEFT)
-
-        button = ctk.CTkButton(master, text="Set Input", width=100, command=lambda:[get_file(self)], font=c.sFont)
-        button.pack(pady=2, padx=2,side=RIGHT)
-        return self
-    
-
     def previewMethod(self,master,state):
-        self.varA = ctk.IntVar()
-        self.previewMethod = ctk.CTkSegmentedButton(master, state=state,variable=self.varA,width=250, values=c.extractMethod,  font=c.bFont)
-        self.previewMethod.set(c.extractMethod[1])
-        self.previewMethod.pack(pady=2, padx=4, side=LEFT)
+        #self.varA = ctk.IntVar()
+        #self.previewMethod = ctk.CTkSegmentedButton(master, state=state,variable=self.varA,width=250, values=c.extractMethod,  font=c.bFont)
+        #self.previewMethod.set(c.extractMethod[1])
+        #self.previewMethod.pack(pady=2, padx=4, side=LEFT)
         return self
-    
     
     def previewImage(self,master):
         previewImage = ctk.CTkImage(light_image=self.img, size=(480, 480))
         self.previewLabel = ctk.CTkLabel(master, image=previewImage, text='')
         self.previewLabel.pack(pady=c.previewBorderWidth,padx=c.previewBorderWidth)
         return self
+    
+
+
+
+
+    def outputDir(self,master):
+        self.Path = c.basePath
+        self.mainDirectoryOut = ctk.CTkLabel(master, text="Output:", font=c.sFont).pack(pady=2, padx=6, side=LEFT)
+        self.mainDirectoryPath = ctk.CTkLabel(master, text=self.Path, font=c.sFont)
+        self.mainDirectoryPath.pack(pady=2, padx=6, side=LEFT)
+
+        def get_directory(self):
+            self.Path = filedialog.askdirectory(title="Directory")
+            self.mainDirectoryPath.configure(text=self.Path)
+            return self
+            
+        button = ctk.CTkButton(master, text="Set Output", width=100, command=lambda:[get_directory(self)], font=c.sFont)
+        button.pack(pady=2, padx=2,side=RIGHT)
+        return self
+    
+    
+    def inputFile(self,master):
+        self.FilePathIn = c.baseFileIn
+        self.mainFileIn = ctk.CTkLabel(master, text="Input:", font=c.sFont).pack(pady=2, padx=6, side=LEFT)
+        self.mainFileI = ctk.CTkLabel(master, text=self.FilePathIn.split("\\")[-1], font=c.sFont)
+        self.mainFileI.pack(pady=2, padx=6, side=LEFT)
+
+        def get_file(self):
+            self.FilePathIn = filedialog.askopenfilename(title="Input File")
+            self.InputFilePath1 = self.FilePathIn.split("/")[-1]
+            self.mainFileI.configure(text=self.InputFilePath1)
+            return self
+
+        button = ctk.CTkButton(master, text="Set Input", width=100, command=lambda:[get_file(self)], font=c.sFont)
+        button.pack(pady=2, padx=2,side=RIGHT)
+        return self
+    
+    
+    def outputFile(self,master):
+        self.FilePathOut = c.baseFileOut
+        self.mainFileOut = ctk.CTkLabel(master, text="Output:", font=c.sFont).pack(pady=2, padx=6, side=LEFT)
+        self.mainFileO = ctk.CTkLabel(master, text=self.FilePathOut.split("\\")[-1], font=c.sFont)
+        self.mainFileO.pack(pady=2, padx=6, side=LEFT)
+
+        def set_file(self):
+            self.FilePathOut = filedialog.asksaveasfilename(title="Output File")
+            self.OutputFilePath1 = self.FilePathOut.split("/")[-1]
+            self.mainFileO.configure(text=self.OutputFilePath1)
+            return self
+        
+        button = ctk.CTkButton(master, text="Set Output", width=100, command=lambda:[set_file(self)], font=c.sFont)
+        button.pack(pady=2, padx=2,side=RIGHT)
+        return self
+    
+
+
+    
+    
+

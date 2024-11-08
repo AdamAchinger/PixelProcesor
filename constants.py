@@ -30,7 +30,10 @@ orient = ["H","H.F","V","V.F"]
 
 
 basePath = "E:/.Temp"   #os.getcwd()+"/export"
-baseFile = "img\Preview_1.png"   
+baseFileIn = "img\Preview_1.png"   
+baseFileOut = "E:\\.Temp\\Preview_1_New.png"   
+
+
 
 iconPath = "img\AA_icon.ico"
 previewPath = "img\Preview_1.png"

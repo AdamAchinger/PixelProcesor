@@ -1,11 +1,7 @@
-import os
 from tkinter import *
-from tkinter import filedialog
-from PIL import Image
 import customtkinter as ctk
 from module import solid, gradient, math, combine, separate, mask 
 import constants as c 
-import utils as u 
 
 #### Initialize Window ####
 root = ctk.CTk()
@@ -48,8 +44,5 @@ math_tab = math.Math(tab3)
 #combine_tab = combine.Combine(tab4)
 #separate_tab = separate.Separate(tab5)
 #mask_tab = mask.Mask(tab6)
-
-
-
 
 root.mainloop()
