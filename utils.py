@@ -33,7 +33,7 @@ if __name__ != "__main__" :
         return leftTabFrame,  frameTop, frameScroll, frameBottom
 
 
-    def slider(master, label, isAlpha):
+    def slider(master, label, isAlpha,default=0.5):
         frame = ctk.CTkFrame(master)
         frame.pack(padx=2, pady=1, fill=X)
 
@@ -41,7 +41,7 @@ if __name__ != "__main__" :
         labelColor.pack(padx=8, side=LEFT)
 
         sliderVar = ctk.DoubleVar()
-        sliderVar.set(1 if isAlpha else 0.5)
+        sliderVar.set(1 if isAlpha else default)
 
         slider = ctk.CTkSlider(frame, variable=sliderVar, from_=0, to=1, width=200)
         slider.pack(padx=4, side=RIGHT)
@@ -53,7 +53,7 @@ if __name__ != "__main__" :
 
 
     def export(self):
-        self.exportButton.configure(state=DISABLED)
+        #self.exportButton.configure(state=DISABLED)
         self.img.save(self.full_path)
 
 
@@ -87,6 +87,8 @@ if __name__ != "__main__" :
 
         def get_directory(self):
             self.Path = filedialog.askdirectory(title="Directory")
+            if self.Path == "":
+               self.Path = c.basePath
             self.mainDirectoryPath.configure(text=self.Path)
             return self
             
@@ -103,7 +105,9 @@ if __name__ != "__main__" :
 
         def get_file(self):
             self.FilePathIn = filedialog.askopenfilename(title="Input File")
-            self.InputFilePath1 = self.FilePathIn.split("/")[-1]
+            if self.FilePathIn == "":
+               self.FilePathIn = c.baseFileIn
+            self.InputFilePath1 = self.FilePathIn.split("\\")[-1]
             self.mainFileI.configure(text=self.InputFilePath1)
             return self
 
@@ -120,7 +124,9 @@ if __name__ != "__main__" :
 
         def set_file(self):
             self.FilePathOut = filedialog.asksaveasfilename(title="Output File")
-            self.OutputFilePath1 = self.FilePathOut.split("/")[-1]
+            if self.FilePathOut == "":
+               self.FilePathOut = c.baseFileOut
+            self.OutputFilePath1 = self.FilePathOut.split("\\")[-1]
             self.mainFileO.configure(text=self.OutputFilePath1)
             return self
         
