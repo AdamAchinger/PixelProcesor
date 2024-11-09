@@ -77,18 +77,18 @@ if __name__ != "__main__" :
             labelColor = ctk.CTkLabel(frame01, text="Color A (RGB)", font=c.mFont)
             labelColor.pack(pady=6, padx=16)
             
-            self.AsliderRed = u.slider(frame01,"Red",FALSE)
-            self.AsliderGreen = u.slider(frame01,"Green",FALSE)
-            self.AsliderBlue = u.slider(frame01,"Blue",FALSE)
+            self.AsliderRed = u.slider(frame01,"Red",FALSE,1.0)
+            self.AsliderGreen = u.slider(frame01,"Green",FALSE,1.0)
+            self.AsliderBlue = u.slider(frame01,"Blue",FALSE,1.0)
             #self.AsliderAlpha = u.slider(frame01,"Alpha",TRUE)
 
             #### Color B ####
             labelColor = ctk.CTkLabel(frame011, text="Color B (RGB)", font=c.mFont)
             labelColor.pack(pady=6, padx=16)
             
-            self.BsliderRed = u.slider(frame011,"Red",FALSE)
-            self.BsliderGreen = u.slider(frame011,"Green",FALSE)
-            self.BsliderBlue = u.slider(frame011,"Blue",FALSE)
+            self.BsliderRed = u.slider(frame011,"Red",FALSE,0.0)
+            self.BsliderGreen = u.slider(frame011,"Green",FALSE,0.0)
+            self.BsliderBlue = u.slider(frame011,"Blue",FALSE,0.0)
             #self.BsliderAlpha = u.slider(frame01,"Alpha",TRUE)
             
             #### FILENAME ####
