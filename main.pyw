@@ -24,8 +24,8 @@ tab_view.pack(expand=True, fill="both")
 tab1 = tab_view.add("Solid Color")
 tab2 = tab_view.add("Gradient")
 tab3 = tab_view.add("Math")
-#tab4 = tab_view.add("Combine")
-#tab5 = tab_view.add("Separate")
+#tab4 = tab_view.add("Separate")
+#tab5 = tab_view.add("Combine")
 #tab6 = tab_view.add("Mask")
 #tab7 = tab_view.add("Resize")
 #tab8 = tab_view.add("Color Picker")
@@ -41,8 +41,10 @@ for button in tab_view._segmented_button._buttons_dict.values():
 solid_tab = solid.Solid(tab1)
 gradient_tab = gradient.Gradient(tab2)
 math_tab = math.Math(tab3)
-#combine_tab = combine.Combine(tab4)
-#separate_tab = separate.Separate(tab5)
+#separate_tab = separate.Separate(tab4)
+#combine_tab = combine.Combine(tab5)
+
 #mask_tab = mask.Mask(tab6)
+
 
 root.mainloop()

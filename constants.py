@@ -1,6 +1,6 @@
 import os 
 
-toolVersion = "3.1"
+toolVersion = "3.2 Stable"
 
 cellH = 85
 cellH2 = 175
