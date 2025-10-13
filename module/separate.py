@@ -57,7 +57,7 @@ if __name__ != "__main__" :
             self.mainDirectoryPathIn = ctk.CTkLabel(frame08,  text="Unset", text_color="red", font=c.sFont)
             self.mainDirectoryPathIn.pack(pady=2, padx=6,side=LEFT)
 
-            GenerateButton = ctk.CTkButton(frameBottom, text="Separate", width=400, command=lambda: [self.generate(),u.update_preview(self)], height=40, font=c.bFont)
+            GenerateButton = ctk.CTkButton(frameBottom, text="Separate", width=400, command=lambda: [self.generate(), u.update_preview(self)], height=40, font=c.bFont)
             GenerateButton.pack(pady=2, padx=2, side=RIGHT)
 
 
@@ -188,62 +188,24 @@ if __name__ != "__main__" :
 
 
         def generate(self):
-
-            imgOutputRed = self.OutputFilePathRed  
-            imgOutputGreen = self.OutputFilePathGreen
-            imgOutputBlue = self.OutputFilePathBlue
-            imgOutputAlpha = self.OutputFilePathAlpha
-
+            if not self.InputFilePath:
+                return
             
-            Input = self.InputFilePath
+            imgInput = Image.open(self.InputFilePath)
+            Width, Height = imgInput.size
+
+            if imgInput.mode != 'RGBA':
+                imgInput = imgInput.convert('RGBA')
+            r_channel, g_channel, b_channel, a_channel = imgInput.split()
             
-            if ( Input != "" ):
-                imgInput = Image.open(Input)
-                
-                maxsize = imgInput.size
-                Width, Height = maxsize
-
-                if(imgOutputRed != ""):
-                    imgRed = Image.new(mode="L", size=(Width, Height))
-                    
-                if(imgOutputGreen != ""):
-                    imgGreen = Image.new(mode="L", size=(Width, Height))
-
-                if(imgOutputBlue != ""):
-                    imgBlue = Image.new(mode="L", size=(Width, Height))
-
-                if(imgOutputAlpha != ""):
-                    imgAlpha = Image.new(mode="L",size=(Width, Height))
-
-                R, G, B, A = 0,0,0,255
-                
-                for w in range(Width):
-                    for h in range(Height):
-
-                        Pixel = imgInput.getpixel((w,h))
-                        R,G,B,A = Pixel
-
-                        if(imgOutputRed != ""):
-                            imgRed.putpixel((w, h), (R))
-
-                        if(imgOutputGreen != ""):
-                            imgGreen.putpixel((w, h), (G))
-
-                        if(imgOutputBlue != ""):
-                            imgBlue.putpixel((w, h), (B))
-
-                        if(imgOutputAlpha != ""):
-                            imgAlpha.putpixel((w, h), (A))
-
-
-                if(imgOutputRed != ""):
-                    imgRed.save(imgOutputRed)
-
-                if(imgOutputGreen != ""):
-                    imgGreen.save(imgOutputGreen)
-
-                if(imgOutputBlue != ""):
-                    imgBlue.save(imgOutputBlue)  
-
-                if(imgOutputAlpha != ""):
-                    imgAlpha.save(imgOutputAlpha)             
+            if self.OutputFilePathRed:
+                r_channel.save(self.OutputFilePathRed)
+            
+            if self.OutputFilePathGreen:
+                g_channel.save(self.OutputFilePathGreen)
+            
+            if self.OutputFilePathBlue:
+                b_channel.save(self.OutputFilePathBlue)
+            
+            if self.OutputFilePathAlpha:
+                a_channel.save(self.OutputFilePathAlpha)        

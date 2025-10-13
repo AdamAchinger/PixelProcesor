@@ -93,11 +93,13 @@ if __name__ != "__main__" :
 
     def previewImage4(self, master):
         """Tworzy podgląd 4 kanałów"""
-        channels = self.img.split()
+        channels = list(self.img.split())
         size = (236, 236)
-        # Uzupełnij do 4 kanałów, jeśli mniej
+        
+        # Uzupełnij brakujące kanały pustymi obrazami
+        original_channel_count = len(channels)
         while len(channels) < 4:
-            channels += (Image.new("L", self.img.size, 0))
+            channels.append(Image.new("L", self.img.size, 0))
         
         # Główna ramka
         frame = ctk.CTkFrame(master)
@@ -123,13 +125,19 @@ if __name__ != "__main__" :
         row2.pack(side="top")
         
         for i in range(2, 4):
-            img = ctk.CTkImage(light_image=channels[i], size=size)
+            # Jeśli kanał nie istniał w oryginalnym obrazie, nie aktualizuj go
+            if i < original_channel_count:
+                img = ctk.CTkImage(light_image=channels[i], size=size)
+            else:
+                # Pozostaw czarny/pusty dla nieistniejących kanałów
+                img = ctk.CTkImage(light_image=channels[i], size=size)
             lbl = ctk.CTkLabel(row2, image=img, text='')
             lbl.image = img
             lbl.pack(side="left", padx=2, pady=2)
             self.preview_labels.append(lbl)
         
-        return self
+        # Zapisz liczbę oryginalnych kanałów
+        self.original_channel_count = original_channel_count
 
 
     
