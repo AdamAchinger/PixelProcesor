@@ -256,7 +256,7 @@ class SolidColorTab:
             master,
             text="(Not set)",
             font=S_FONT,
-            text_color="red"
+             text_color=NOTSET_COLOR
         )
         self.label_path.pack(pady=2, padx=6, side=LEFT)
 
@@ -270,7 +270,7 @@ class SolidColorTab:
             Logger().log(f"Output directory set: {directory}", "INFO")
         else:
             self.output_path = None
-            self.label_path.configure(text="(Not set)", text_color="red")
+            self.label_path.configure(text="(Not set)",  text_color=NOTSET_COLOR)
             Logger().log("Output directory not selected.", "WARN")
 
     def refresh_path(self):
@@ -485,7 +485,7 @@ class GradientTab:
             master,
             text="(Not set)",
             font=S_FONT,
-            text_color="red"
+             text_color=NOTSET_COLOR
         )
         self.label_path.pack(pady=2, padx=6, side=LEFT)
 
@@ -497,7 +497,7 @@ class GradientTab:
             Logger().log(f"Output directory set: {directory}", "INFO")
         else:
             self.output_path = None
-            self.label_path.configure(text="(Not set)", text_color="red")
+            self.label_path.configure(text="(Not set)",  text_color=NOTSET_COLOR)
             Logger().log("Output directory not selected.", "WARN")
 
     def refresh_path(self):
@@ -666,7 +666,7 @@ class MathTab:
         button.pack(padx=6, pady=2, side=RIGHT)
         button.pack_propagate(False)
 
-        self.label_input = ctk.CTkLabel(master, text="(Not set)", font=S_FONT, text_color="red")
+        self.label_input = ctk.CTkLabel(master, text="(Not set)", font=S_FONT,  text_color=NOTSET_COLOR)
         self.label_input.pack(pady=2, padx=6, side=LEFT)
 
     def create_output_file(self, master):
@@ -678,7 +678,7 @@ class MathTab:
         button.pack(padx=6, pady=2, side=RIGHT)
         button.pack_propagate(False)
 
-        self.label_output = ctk.CTkLabel(master, text="(Not set)", font=S_FONT, text_color="red")
+        self.label_output = ctk.CTkLabel(master, text="(Not set)", font=S_FONT,  text_color=NOTSET_COLOR)
         self.label_output.pack(pady=2, padx=6, side=LEFT)
 
     # Funkcja pomocnicza do tworzenia pól wejściowych dla operacji matematycznych
@@ -750,7 +750,7 @@ class MathTab:
                 Logger().log(f"Failed to open image: {str(e)}", "ERROR")
         else:
             self.input_path = None
-            self.label_input.configure(text="(Not set)", text_color="red")
+            self.label_input.configure(text="(Not set)",  text_color=NOTSET_COLOR)
             Logger().log("Input file not selected.", "WARN")
 
     def set_output_file(self):
@@ -767,7 +767,7 @@ class MathTab:
             Logger().log(f"Output file set: {filename}", "INFO")
         else:
             self.output_path = None
-            self.label_output.configure(text="(Not set)", text_color="red")
+            self.label_output.configure(text="(Not set)",  text_color=NOTSET_COLOR)
             Logger().log("Output file not selected.", "WARN")
 
     # ------------------ IMAGE PROCESSING ------------------
@@ -915,7 +915,7 @@ class SeparateTab:
                                  command=self.set_input_file, font=S_FONT)
         button_in.pack(pady=2, padx=2, side=RIGHT)
 
-        self.label_input = ctk.CTkLabel(frame08, text="(Not set)", text_color="red", font=S_FONT)
+        self.label_input = ctk.CTkLabel(frame08, text="(Not set)",  text_color=NOTSET_COLOR, font=S_FONT)
         self.label_input.pack(pady=2, padx=6, side=LEFT)
 
 
@@ -941,7 +941,7 @@ class SeparateTab:
         label_out_red = ctk.CTkLabel(frame012, text="Output:", font=S_FONT)
         label_out_red.pack(pady=2, padx=6, side=LEFT)
 
-        self.label_red = ctk.CTkLabel(frame012, text="(Not set)", text_color="red", font=S_FONT)
+        self.label_red = ctk.CTkLabel(frame012, text="(Not set)",  text_color=NOTSET_COLOR, font=S_FONT)
         self.label_red.pack(pady=2, padx=6, side=LEFT)
 
         # Green channel
@@ -960,7 +960,7 @@ class SeparateTab:
         label_out_green = ctk.CTkLabel(frame022, text="Output:", font=S_FONT)
         label_out_green.pack(pady=2, padx=6, side=LEFT)
 
-        self.label_green = ctk.CTkLabel(frame022, text="(Not set)", text_color="red", font=S_FONT)
+        self.label_green = ctk.CTkLabel(frame022, text="(Not set)",  text_color=NOTSET_COLOR, font=S_FONT)
         self.label_green.pack(pady=2, padx=6, side=LEFT)
 
         # Blue channel
@@ -979,7 +979,7 @@ class SeparateTab:
         label_out_blue = ctk.CTkLabel(frame032, text="Output:", font=S_FONT)
         label_out_blue.pack(pady=2, padx=6, side=LEFT)
 
-        self.label_blue = ctk.CTkLabel(frame032, text="(Not set)", text_color="red", font=S_FONT)
+        self.label_blue = ctk.CTkLabel(frame032, text="(Not set)",  text_color=NOTSET_COLOR, font=S_FONT)
         self.label_blue.pack(pady=2, padx=6, side=LEFT)
 
         # Alpha channel
@@ -998,7 +998,7 @@ class SeparateTab:
         label_out_alpha = ctk.CTkLabel(frame042, text="Output:", font=S_FONT)
         label_out_alpha.pack(pady=2, padx=6, side=LEFT)
 
-        self.label_alpha = ctk.CTkLabel(frame042, text="(Not set)", text_color="red", font=S_FONT)
+        self.label_alpha = ctk.CTkLabel(frame042, text="(Not set)",  text_color=NOTSET_COLOR, font=S_FONT)
         self.label_alpha.pack(pady=2, padx=6, side=LEFT)
 
     def create_preview_4(self, master):
@@ -1145,7 +1145,103 @@ class SeparateTab:
         except Exception as e:
             Logger().log(f"Failed to separate: {str(e)}", "ERROR")
 
+# ============================================================================
+# Options CLASS
+# ============================================================================
 
+import webbrowser
+
+class OptionsTab:
+    def __init__(self, master, log_text_widget=None):
+        self.master = master
+        self.log_text_widget = log_text_widget  # Referencja do log textbox
+        self.log_color = "#222222"  # Domyślny kolor dla dark mode
+        
+        self.main_frame = ctk.CTkFrame(
+            master, 
+            corner_radius=10, 
+            border_width=2,
+            fg_color=("white", "gray20")
+        )
+        self.main_frame.pack(padx=20, pady=20, fill="both")
+
+        self.left_frame = ctk.CTkFrame(self.main_frame)
+        self.left_frame.pack(side="left",padx=20, pady=20, fill="both",expand=True)
+
+        self.right_frame = ctk.CTkFrame(self.main_frame)
+        self.right_frame.pack(side="right",padx=20, pady=20, fill="both",expand=True)
+        
+        text = (
+            f"PixelProcessor - Version: {TOOL_VERSION}\n" 
+        )
+
+        self.label = ctk.CTkLabel(
+            self.left_frame, 
+            text=text,
+            font=S_FONT, 
+            text_color=("gray10", "white"),
+            justify="left"
+        )
+        self.label.pack(side="top", padx=20, pady=(30, 10), anchor="w")
+
+        # Klikalny link
+        self.link = ctk.CTkLabel(
+            self.left_frame,
+            text=(
+                "Created by Adam Achinger\n"
+                "https://github.com/AdamAchinger\n"
+                "¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯"    
+            ),
+            font=S_FONT,
+            text_color="#3D6DD5",
+            justify="left"
+        )
+        self.link.pack(side="top", padx=20, pady=(10, 30), anchor="w") 
+        self.link.bind("<Button-1>", lambda e: webbrowser.open_new("https://github.com/AdamAchinger"))
+        
+        self.theme_frame = ctk.CTkFrame(self.right_frame, fg_color="transparent")
+        self.theme_frame.pack(padx=30, pady=(10, 20))
+
+        self.theme_label = ctk.CTkLabel(
+            self.theme_frame,
+            text="APPEARANCE MODE",
+            font=M_FONT,
+            text_color=("gray10", "white")
+        )
+        self.theme_label.pack(padx=0, pady=(0, 10)) 
+
+        self.mode_buttons_frame = ctk.CTkFrame(self.theme_frame, fg_color="transparent")
+        self.mode_buttons_frame.pack(padx=0, pady=0)
+
+        self.light_mode_button = ctk.CTkButton(
+            self.mode_buttons_frame,
+            text="Light",
+            command=self.set_light_mode,
+            font=S_FONT,
+            width=100
+        )
+        self.light_mode_button.pack(side="left", padx=(0, 4)) 
+
+        self.dark_mode_button = ctk.CTkButton(
+            self.mode_buttons_frame,
+            text="Dark",
+            command=self.set_dark_mode,
+            font=S_FONT,
+            width=100
+        )
+        self.dark_mode_button.pack(side="left", padx=4)
+
+    def set_light_mode(self):
+        ctk.set_appearance_mode("Light")
+        self.log_color = "#4C4C4C"
+        if self.log_text_widget:
+            self.log_text_widget.configure(fg_color=self.log_color)
+    
+    def set_dark_mode(self):
+        ctk.set_appearance_mode("Dark")          
+        self.log_color = "#222222"
+        if self.log_text_widget:
+            self.log_text_widget.configure(fg_color=self.log_color)
 
 
 # ============================================================================
@@ -1155,11 +1251,12 @@ class SeparateTab:
 def main():
     # Initialize window
     root = ctk.CTk()
-    ctk.set_default_color_theme(THEME)
+    ctk.set_appearance_mode("Dark")
+    ctk.set_default_color_theme(THEME) 
+
     root.configure(bg=BG_COLOR)
     root.title(f"Pixel Processor {TOOL_VERSION}")
     
-    # Try to set icon, but don't fail if it doesn't exist
     try:
         if os.path.exists(ICON_PATH):
             root.iconbitmap(ICON_PATH)
@@ -1188,31 +1285,33 @@ def main():
     tab2 = tab_view.add("Gradient")
     tab3 = tab_view.add("Math")
     tab4 = tab_view.add("Separate")
+    tab9 = tab_view.add("Options")
 
     # Style tabs
     my_font = ctk.CTkFont(size=18)
     for button in tab_view._segmented_button._buttons_dict.values():
         button.configure(height=32, font=my_font)
 
+    # Log section at the bottom (tworzymy PRZED inicjalizacją OptionsTab)
+    log_frame = ctk.CTkFrame(main_frame, height=100)
+    log_frame.pack(fill="x", padx=5, pady=5, side="bottom")
+    log_frame.pack_propagate(False)
+    
+    log_text = ctk.CTkTextbox(
+        log_frame,
+        height=70,
+        font=LOG_FONT,
+        fg_color="#222222",
+        state="disabled"
+    )
+    log_text.pack(fill="both", expand=True, padx=10, pady=5)
+
     # Initialize tabs
     solid_tab = SolidColorTab(tab1)
     gradient_tab = GradientTab(tab2)
     math_tab = MathTab(tab3)
     separate_tab = SeparateTab(tab4)
-
-    # Log section at the bottom
-    log_frame = ctk.CTkFrame(main_frame, height=100)
-    log_frame.pack(fill="x", padx=5, pady=5, side="bottom")
-    log_frame.pack_propagate(False)
-
-    log_text = ctk.CTkTextbox(
-        log_frame,
-        height=70,
-        font=("Consolas", 12),
-        fg_color="#2b2b2b",
-        state="disabled"
-    )
-    log_text.pack(fill="both", expand=True, padx=10, pady=5)
+    options_tab = OptionsTab(tab9, log_text)  # Przekazujemy referencję do log_text
 
     # Initialize logger
     logger = Logger()

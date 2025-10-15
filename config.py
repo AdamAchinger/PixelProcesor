@@ -1,6 +1,8 @@
 import os
+import sys
 
-TOOL_VERSION = "6.6"
+
+TOOL_VERSION = "7.1"
 
 CELL_H = 85
 CELL_H2 = 175
@@ -9,12 +11,16 @@ CELL_W2 = 364
 
 ENTRY_WIDTH = 140
 
+
+THEME = "dark-blue"
+NOTSET_COLOR = "#FF7878"
+
 APP_WIDTH = 910
 APP_HEIGHT = 703
 
 BG_COLOR = "#353535"
 FG_COLOR = "#696969"
-THEME = "blue"
+
 PREVIEW_BORDER_COLOR = "black"
 PREVIEW_BORDER_WIDTH = 5
 
@@ -24,10 +30,24 @@ S_FONT1 = ("Roboto", 14)
 S_FONT = ("Roboto", 16)
 M_FONT = ("Roboto", 20)
 B_FONT = ("Roboto", 22)
+LOG_FONT = ("Consolas", 16)
+
 
 EXTENSIONS = ["PNG", "JPG", "TIFF"]
 ORIENT = ["H", "H.F", "V", "V.F"]
 
 BASE_PATH = os.getcwd()
-PREVIEW_PATH = "img/Preview_2.png"
-ICON_PATH = "img/AA_icon.ico"
+
+
+
+def resource_path(relative_path):
+    try:
+        base_path = sys._MEIPASS
+    except Exception:
+        base_path = os.environ.get("_MEIPASS2", os.path.abspath("."))
+
+    return os.path.join(base_path, relative_path)
+
+
+PREVIEW_PATH = resource_path("img/Preview_2.png")
+ICON_PATH = resource_path("img/AA_icon.ico")
