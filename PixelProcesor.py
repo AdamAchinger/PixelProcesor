@@ -1293,7 +1293,7 @@ def main():
         button.configure(height=32, font=my_font)
 
     # Log section at the bottom (tworzymy PRZED inicjalizacją OptionsTab)
-    log_frame = ctk.CTkFrame(main_frame, height=100)
+    log_frame = ctk.CTkFrame(main_frame, height=80)
     log_frame.pack(fill="x", padx=5, pady=5, side="bottom")
     log_frame.pack_propagate(False)
     

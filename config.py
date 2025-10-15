@@ -2,7 +2,7 @@ import os
 import sys
 
 
-TOOL_VERSION = "7.2"
+TOOL_VERSION = "7.4"
 
 CELL_H = 85
 CELL_H2 = 175
@@ -44,7 +44,7 @@ def resource_path(relative_path):
     try:
         base_path = sys._MEIPASS
     except Exception:
-        base_path = os.environ.get("_MEIPASS2", os.path.abspath("."))
+        base_path = os.path.abspath(".")
 
     return os.path.join(base_path, relative_path)
 
