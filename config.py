@@ -2,7 +2,7 @@ import os
 import sys
 
 
-TOOL_VERSION = "7.4"
+TOOL_VERSION = "8.6"
 
 CELL_H = 85
 CELL_H2 = 175
@@ -51,3 +51,10 @@ def resource_path(relative_path):
 
 PREVIEW_PATH = resource_path("img/Preview_2.png")
 ICON_PATH = resource_path("img/AA_icon.ico")
+
+FUNCTIONS = (
+f"Color • Gradient • Multiply • Exponentiation\n"
+f"Addition • Subtraction • Min • Max • Invert\n"
+f"Posterize • Separate • Combine\n"
+            )
+
