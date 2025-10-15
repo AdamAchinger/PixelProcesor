@@ -2,7 +2,7 @@ import os
 import sys
 
 
-TOOL_VERSION = "7.1"
+TOOL_VERSION = "7.2"
 
 CELL_H = 85
 CELL_H2 = 175

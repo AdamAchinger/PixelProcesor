@@ -1008,11 +1008,11 @@ class SeparateTab:
                 preview_img = Image.open(PREVIEW_PATH).convert("RGBA")
                 channels = list(preview_img.split())
             else:
-                channels = [Image.new("L", (240, 240), 128) for _ in range(4)]
+                channels = [Image.new("L", (238, 238), 128) for _ in range(4)]
         except:
-            channels = [Image.new("L", (240, 240), 128) for _ in range(4)]
+            channels = [Image.new("L", (238, 238), 128) for _ in range(4)]
         
-        size = (236, 236)
+        size = (238, 238)
 
         frame = ctk.CTkFrame(master)
         frame.pack(pady=PREVIEW_BORDER_WIDTH, padx=PREVIEW_BORDER_WIDTH)
@@ -1027,7 +1027,7 @@ class SeparateTab:
             img = ctk.CTkImage(light_image=channels[i], size=size)
             lbl = ctk.CTkLabel(row1, image=img, text='')
             lbl.image = img
-            lbl.pack(side="left", padx=2, pady=2)
+            lbl.pack(side="left", padx=1, pady=1)
             self.preview_labels.append(lbl)
 
         # Row 2
@@ -1038,13 +1038,13 @@ class SeparateTab:
             img = ctk.CTkImage(light_image=channels[i], size=size)
             lbl = ctk.CTkLabel(row2, image=img, text='')
             lbl.image = img
-            lbl.pack(side="left", padx=2, pady=2)
+            lbl.pack(side="left", padx=1, pady=1)
             self.preview_labels.append(lbl)
 
     def update_preview(self):
         if hasattr(self, 'img') and self.img:
             channels = list(self.img.split())
-            size = (236, 236)
+            size = (238, 238)
 
             # Fill missing channels with black
             while len(channels) < 4:
