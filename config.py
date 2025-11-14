@@ -2,7 +2,7 @@ import os
 import sys
 
 
-TOOL_VERSION = "8.6"
+TOOL_VERSION = "8.8.1"
 
 CELL_H = 85
 CELL_H2 = 175
@@ -12,7 +12,17 @@ CELL_W2 = 364
 ENTRY_WIDTH = 140
 
 
-THEME = "dark-blue"
+BASE_PATH = os.getcwd()
+
+nazwa_pliku = "theme.json"
+if os.path.exists(nazwa_pliku):
+    THEME = "theme.json"
+else:
+    THEME = "dark-blue"
+
+
+
+
 NOTSET_COLOR = "#FF7878"
 
 APP_WIDTH = 910
