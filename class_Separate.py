@@ -73,7 +73,7 @@ class SeparateTab:
                                  command=self.set_input_file, font=S_FONT)
         button_in.pack(pady=2, padx=2, side=RIGHT)
 
-        self.label_input = ctk.CTkLabel(frame08, text="(Not set)",  text_color=NOTSET_COLOR, font=S_FONT)
+        self.label_input = ctk.CTkLabel(frame08, text="[Not set]",  text_color=NOTSET_COLOR, font=S_FONT)
         self.label_input.pack(pady=2, padx=6, side=LEFT)
 
 
@@ -99,7 +99,7 @@ class SeparateTab:
         label_out_red = ctk.CTkLabel(frame012, text="Output:", font=S_FONT)
         label_out_red.pack(pady=2, padx=6, side=LEFT)
 
-        self.label_red = ctk.CTkLabel(frame012, text="(Not set)",  text_color=NOTSET_COLOR, font=S_FONT)
+        self.label_red = ctk.CTkLabel(frame012, text="[Not set]",  text_color=NOTSET_COLOR, font=S_FONT)
         self.label_red.pack(pady=2, padx=6, side=LEFT)
 
         # Green channel
@@ -118,7 +118,7 @@ class SeparateTab:
         label_out_green = ctk.CTkLabel(frame022, text="Output:", font=S_FONT)
         label_out_green.pack(pady=2, padx=6, side=LEFT)
 
-        self.label_green = ctk.CTkLabel(frame022, text="(Not set)",  text_color=NOTSET_COLOR, font=S_FONT)
+        self.label_green = ctk.CTkLabel(frame022, text="[Not set]",  text_color=NOTSET_COLOR, font=S_FONT)
         self.label_green.pack(pady=2, padx=6, side=LEFT)
 
         # Blue channel
@@ -137,7 +137,7 @@ class SeparateTab:
         label_out_blue = ctk.CTkLabel(frame032, text="Output:", font=S_FONT)
         label_out_blue.pack(pady=2, padx=6, side=LEFT)
 
-        self.label_blue = ctk.CTkLabel(frame032, text="(Not set)",  text_color=NOTSET_COLOR, font=S_FONT)
+        self.label_blue = ctk.CTkLabel(frame032, text="[Not set]",  text_color=NOTSET_COLOR, font=S_FONT)
         self.label_blue.pack(pady=2, padx=6, side=LEFT)
 
         # Alpha channel
@@ -156,7 +156,7 @@ class SeparateTab:
         label_out_alpha = ctk.CTkLabel(frame042, text="Output:", font=S_FONT)
         label_out_alpha.pack(pady=2, padx=6, side=LEFT)
 
-        self.label_alpha = ctk.CTkLabel(frame042, text="(Not set)",  text_color=NOTSET_COLOR, font=S_FONT)
+        self.label_alpha = ctk.CTkLabel(frame042, text="[Not set]",  text_color=NOTSET_COLOR, font=S_FONT)
         self.label_alpha.pack(pady=2, padx=6, side=LEFT)
 
     def create_preview_4(self, master):

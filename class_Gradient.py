@@ -177,7 +177,7 @@ class GradientTab:
 
         self.label_path = ctk.CTkLabel(
             master,
-            text="(Not set)",
+            text="[Not set]",
             font=S_FONT,
              text_color=NOTSET_COLOR
         )
@@ -191,7 +191,7 @@ class GradientTab:
             L.Logger().log(f"Output directory set: {directory}", "INFO")
         else:
             self.output_path = None
-            self.label_path.configure(text="(Not set)",  text_color=NOTSET_COLOR)
+            self.label_path.configure(text="[Not set]",  text_color=NOTSET_COLOR)
             L.Logger().log("Output directory not selected.", "WARN")
 
     def refresh_path(self):

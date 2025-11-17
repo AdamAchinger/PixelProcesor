@@ -107,7 +107,7 @@ class MathTab:
         button.pack(padx=6, pady=2, side=RIGHT)
         button.pack_propagate(False)
 
-        self.label_input = ctk.CTkLabel(master, text="(Not set)", font=S_FONT,  text_color=NOTSET_COLOR)
+        self.label_input = ctk.CTkLabel(master, text="[Not set]", font=S_FONT,  text_color=NOTSET_COLOR)
         self.label_input.pack(pady=2, padx=6, side=LEFT)
 
     def create_output_file(self, master):
@@ -119,7 +119,7 @@ class MathTab:
         button.pack(padx=6, pady=2, side=RIGHT)
         button.pack_propagate(False)
 
-        self.label_output = ctk.CTkLabel(master, text="(Not set)", font=S_FONT,  text_color=NOTSET_COLOR)
+        self.label_output = ctk.CTkLabel(master, text="[Not set]", font=S_FONT,  text_color=NOTSET_COLOR)
         self.label_output.pack(pady=2, padx=6, side=LEFT)
 
     # Funkcja pomocnicza do tworzenia pól wejściowych dla operacji matematycznych
@@ -191,7 +191,7 @@ class MathTab:
                 L.Logger().log(f"Failed to open image: {str(e)}", "ERROR")
         else:
             self.input_path = None
-            self.label_input.configure(text="(Not set)",  text_color=NOTSET_COLOR)
+            self.label_input.configure(text="[Not set]",  text_color=NOTSET_COLOR)
             L.Logger().log("Input file not selected.", "WARN")
 
     def set_output_file(self):
@@ -208,7 +208,7 @@ class MathTab:
             L.Logger().log(f"Output file set: {filename}", "INFO")
         else:
             self.output_path = None
-            self.label_output.configure(text="(Not set)",  text_color=NOTSET_COLOR)
+            self.label_output.configure(text="[Not set]",  text_color=NOTSET_COLOR)
             L.Logger().log("Output file not selected.", "WARN")
 
     # ------------------ IMAGE PROCESSING ------------------

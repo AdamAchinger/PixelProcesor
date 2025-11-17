@@ -79,7 +79,7 @@ class CombineTab:
                                   command=self.set_output_file, font=S_FONT)
         button_out.pack(pady=2, padx=2, side=RIGHT)
 
-        self.label_output = ctk.CTkLabel(frame08, text="(Not set)", text_color=NOTSET_COLOR, font=S_FONT)
+        self.label_output = ctk.CTkLabel(frame08, text="[Not set]", text_color=NOTSET_COLOR, font=S_FONT)
         self.label_output.pack(pady=2, padx=6, side=LEFT)
 
         # Generate button
@@ -105,7 +105,7 @@ class CombineTab:
         label_in_red = ctk.CTkLabel(frame013, text="Input:", font=S_FONT)
         label_in_red.pack(pady=2, padx=6, side=LEFT)
 
-        self.label_red = ctk.CTkLabel(frame013, text="(Not set)", text_color=NOTSET_COLOR, font=S_FONT)
+        self.label_red = ctk.CTkLabel(frame013, text="[Not set]", text_color=NOTSET_COLOR, font=S_FONT)
         self.label_red.pack(pady=2, padx=6, side=LEFT)
 
         self.red_r = ctk.CTkCheckBox(frame012, text="R", width=30, font=M_FONT, checkbox_width=16, checkbox_height=16,
@@ -145,7 +145,7 @@ class CombineTab:
         label_in_green = ctk.CTkLabel(frame023, text="Input:", font=S_FONT)
         label_in_green.pack(pady=2, padx=6, side=LEFT)
 
-        self.label_green = ctk.CTkLabel(frame023, text="(Not set)", text_color=NOTSET_COLOR, font=S_FONT)
+        self.label_green = ctk.CTkLabel(frame023, text="[Not set]", text_color=NOTSET_COLOR, font=S_FONT)
         self.label_green.pack(pady=2, padx=6, side=LEFT)
 
         self.green_r = ctk.CTkCheckBox(frame022, text="R", width=30, font=M_FONT, checkbox_width=16, checkbox_height=16,
@@ -185,7 +185,7 @@ class CombineTab:
         label_in_blue = ctk.CTkLabel(frame033, text="Input:", font=S_FONT)
         label_in_blue.pack(pady=2, padx=6, side=LEFT)
 
-        self.label_blue = ctk.CTkLabel(frame033, text="(Not set)", text_color=NOTSET_COLOR, font=S_FONT)
+        self.label_blue = ctk.CTkLabel(frame033, text="[Not set]", text_color=NOTSET_COLOR, font=S_FONT)
         self.label_blue.pack(pady=2, padx=6, side=LEFT)
 
         self.blue_r = ctk.CTkCheckBox(frame032, text="R", width=30, font=M_FONT, checkbox_width=16, checkbox_height=16,
@@ -225,7 +225,7 @@ class CombineTab:
         label_in_alpha = ctk.CTkLabel(frame043, text="Input:", font=S_FONT)
         label_in_alpha.pack(pady=2, padx=6, side=LEFT)
 
-        self.label_alpha = ctk.CTkLabel(frame043, text="(Not set)", text_color=NOTSET_COLOR, font=S_FONT)
+        self.label_alpha = ctk.CTkLabel(frame043, text="[Not set]", text_color=NOTSET_COLOR, font=S_FONT)
         self.label_alpha.pack(pady=2, padx=6, side=LEFT)
 
         self.alpha_r = ctk.CTkCheckBox(frame042, text="R", width=30, font=M_FONT, checkbox_width=16, checkbox_height=16,
