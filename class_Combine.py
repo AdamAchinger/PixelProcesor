@@ -417,7 +417,7 @@ class CombineTab:
             self.label_output.configure(text=os.path.basename(file), text_color="white")
     
     def generate(self):
-        def generate_thr(self):
+        def generate_thr():
             try:
                 if not self.output_file:
                     L.Logger().log("Please select an output file", "WARNING")
