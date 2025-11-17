@@ -879,21 +879,6 @@ class MathTab:
         except Exception as e:
             Logger().log(f"Failed to save: {str(e)}", "ERROR")
 
-# ============================================================================
-# BELND CLASS
-# ============================================================================
-
-class BlendTab:
-    def __init__(self, master):
-        self.main_frame = ctk.CTkFrame(master)
-        self.main_frame.pack(padx=20, pady=20, fill="both", expand=True)
-    
-        self.label = ctk.CTkLabel(
-            self.main_frame, 
-            text="SOON",
-            font=B_FONT
-        )
-        self.label.pack(expand=True)
 
 # ============================================================================
 # SEPARATE CHANNELS CLASS
@@ -1642,10 +1627,10 @@ class CombineTab:
 
 
 # ============================================================================
-# TRANSFORM CHANNELS CLASS
+# SOON CLASS
 # ============================================================================
 
-class TransformTab:
+class SoonTab:
     def __init__(self, master):
         self.main_frame = ctk.CTkFrame(master)
         self.main_frame.pack(padx=20, pady=20, fill="both", expand=True)
@@ -1986,6 +1971,41 @@ class OptionsTab:
 # ============================================================================
 
 def main():
+    import json
+    from pathlib import Path
+
+    def load_theme_from_config():
+        """Wczytuje zapisany motyw z config.json"""
+        try:
+            if getattr(sys, 'frozen', False):
+                config_dir = Path(os.path.expanduser("~")) / ".pixelprocessor"
+                config_file = config_dir / "config.json"
+            else:
+                config_file = Path("config.json")
+            
+            if config_file.exists():
+                with open(config_file, 'r', encoding='utf-8') as f:
+                    config = json.load(f)
+                
+                theme = config.get('theme', 'blue')
+                
+                if getattr(sys, 'frozen', False):
+                    theme_path = Path(sys._MEIPASS) / "themes" / f"{theme}.json"
+                else:
+                    theme_path = Path("themes") / f"{theme}.json"
+                
+                if theme_path.exists():
+                    ctk.set_default_color_theme(str(theme_path))
+                    return theme
+            
+            ctk.set_default_color_theme("blue")
+            return "blue"
+                
+        except Exception as e:
+            print(f"Błąd wczytywania motywu: {e}")
+            ctk.set_default_color_theme("blue")
+            return "blue"
+    
     # Initialize window
     root = ctk.CTk()
     ctk.set_appearance_mode("Dark")
@@ -2025,6 +2045,7 @@ def main():
     tab5 = tab_view.add("Separate")
     tab6 = tab_view.add("Combine")
     tab7 = tab_view.add("Transform")
+    tab8 = tab_view.add("Atlas")
     tab9 = tab_view.add("Options")
 
     # Style tabs
@@ -2050,10 +2071,11 @@ def main():
     solid_tab = SolidColorTab(tab1)
     gradient_tab = GradientTab(tab2)
     math_tab = MathTab(tab3)
-    blend_tab = BlendTab(tab4)
+    blend_tab = SoonTab(tab4)
     separate_tab = SeparateTab(tab5)
     combine_tab = CombineTab(tab6)
-    transform_tab = TransformTab(tab7)
+    transform_tab = SoonTab(tab7)
+    atlas_tab = SoonTab(tab8)
 
     options_tab = OptionsTab(tab9, log_text)  # Przekazujemy referencję do log_text
 

@@ -2,3 +2,4 @@
 *.pyc
 export/
 /export
+builds/stable_exe/unzip*
