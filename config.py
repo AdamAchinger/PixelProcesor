@@ -2,11 +2,11 @@ import os
 import sys
 
 
-TOOL_VERSION = "8.8.1"
+TOOL_VERSION = "9.0"
 
 CELL_H = 85
 CELL_H2 = 175
-CELL_W = 180
+CELL_W = 17
 CELL_W2 = 364
 
 ENTRY_WIDTH = 140
@@ -21,8 +21,6 @@ else:
     THEME = "dark-blue"
 
 
-
-
 NOTSET_COLOR = "#FF7878"
 
 APP_WIDTH = 910
@@ -33,7 +31,7 @@ FG_COLOR = "#696969"
 
 PREVIEW_BORDER_COLOR = "black"
 PREVIEW_BORDER_WIDTH = 5
-
+PARAMETER_COLOR = "black"
 
 # Consolas , Roboto
 S_FONT1 = ("Roboto", 14)
