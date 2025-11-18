@@ -2,7 +2,7 @@ import os
 import sys
 
 
-TOOL_VERSION = "9.0"
+TOOL_VERSION = "10.3.1"
 
 CELL_H = 85
 CELL_H2 = 175
@@ -24,7 +24,7 @@ else:
 NOTSET_COLOR = "#FF7878"
 
 APP_WIDTH = 910
-APP_HEIGHT = 703
+APP_HEIGHT = 702
 
 BG_COLOR = "#353535"
 FG_COLOR = "#696969"
@@ -39,6 +39,7 @@ S_FONT = ("Roboto", 16)
 M_FONT = ("Roboto", 20)
 B_FONT = ("Roboto", 22)
 LOG_FONT = ("Consolas", 16)
+
 
 
 EXTENSIONS = ["PNG", "JPG", "TIFF"]
@@ -61,8 +62,17 @@ PREVIEW_PATH = resource_path("img/Preview_2.png")
 ICON_PATH = resource_path("img/AA_icon.ico")
 
 FUNCTIONS = (
-f"Color • Gradient • Multiply • Exponentiation\n"
-f"Addition • Subtraction • Min • Max • Invert\n"
-f"Posterize • Separate • Combine\n"
+f"Color • Gradient • Math\n"
+f"Blend • Separate • Combine"
             )
 
+FUNCTIONS_PBS = (
+f"Multiply • Exponentiation\n"
+f"Addition • Subtraction • Min • Max\n"
+f"Invert • Posterize"
+            )
+
+FUNCTIONS_PBP = (
+f"Multiply • Exponentiation\n"
+f"Addition • Subtraction • Min • Max"
+            )

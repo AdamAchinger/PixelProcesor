@@ -117,7 +117,8 @@ def main():
     from class_Math import MathTab
     math_tab = MathTab(tab3)
 
-    blend_tab = SoonTab(tab4)
+    from class_Blend import BlendTab
+    blend_tab = BlendTab(tab4)
 
     from class_Separate import SeparateTab
     separate_tab = SeparateTab(tab5)
